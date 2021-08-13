@@ -1,5 +1,19 @@
 import React from "react";
 import ReactDOM from "react-dom";
-const App = () => <div>app!!!</div>;
+import App from "./routes";
+import { ChakraProvider } from "@chakra-ui/react";
+import store from "./store";
+import { Provider } from "react-redux";
 
-ReactDOM.render(<App />, document.querySelector("#root"));
+chrome.storage.sync.set({ name: "aaron" }, () => {
+  console.log("success");
+});
+
+ReactDOM.render(
+  <ChakraProvider>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ChakraProvider>,
+  document.querySelector("#root")
+);
