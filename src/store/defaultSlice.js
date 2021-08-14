@@ -3,16 +3,17 @@ import { createSlice } from "@reduxjs/toolkit";
 export const defaultSlice = createSlice({
   name: "default",
   initialState: {
-    img: "https://images.pexels.com/photos/2559941/pexels-photo-2559941.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+    img: "",
     type: "image",
     video: "",
   },
   reducers: {
     setImg: (state, action) => {
-      console.log(action);
+      console.log(action, "is action");
       state.img = action.payload;
     },
     setType: (state, action) => {
+      console.log("set type");
       state.type = action.payload;
     },
     setVideo: (state, action) => {

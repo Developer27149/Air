@@ -4,16 +4,15 @@ import App from "./routes";
 import { ChakraProvider } from "@chakra-ui/react";
 import store from "./store";
 import { Provider } from "react-redux";
+import init from "./init.js";
 
-chrome.storage.sync.set({ name: "aaron" }, () => {
-  console.log("success");
-});
-
-ReactDOM.render(
-  <ChakraProvider>
+init().then(() => {
+  ReactDOM.render(
     <Provider store={store}>
-      <App />
-    </Provider>
-  </ChakraProvider>,
-  document.querySelector("#root")
-);
+      <ChakraProvider>
+        <App />
+      </ChakraProvider>
+    </Provider>,
+    document.querySelector("#root")
+  );
+});
