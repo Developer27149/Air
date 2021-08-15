@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 export const defaultSlice = createSlice({
   name: "default",
   initialState: {
+    newImg: "",
     img: "",
     type: "image",
     video: "",
@@ -11,6 +12,10 @@ export const defaultSlice = createSlice({
     setImg: (state, action) => {
       console.log(action, "is action");
       state.img = action.payload;
+    },
+    setNewImg: (state, action) => {
+      console.log(action, "is action");
+      state.newImg = action.payload;
     },
     setType: (state, action) => {
       console.log("set type");
@@ -23,5 +28,5 @@ export const defaultSlice = createSlice({
 });
 
 // 每一个 reducer 函数都会生成一个对应的 action
-export const { setImg, setType, setVideo } = defaultSlice.actions;
+export const { setImg, setNewImg, setType, setVideo } = defaultSlice.actions;
 export default defaultSlice.reducer;

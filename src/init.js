@@ -1,28 +1,47 @@
-import { getStorageData, setStorageData, clearStorage, isEmptyObj } from "./utils";
+import { getStorage, setStorage } from "./utils";
 import { configSchema } from "./schema";
-import { getRandomWallpaper } from "./utils";
+import { getAllWallpaper } from "./utils";
 
 export default async function init() {
-  const updateTime = new Date().getTime();
-  let conf = await getStorageData("config");
-  const isValid = await configSchema.isValid(conf);
-  if (!isValid) {
-    conf = {
-      updateTime,
-      imgUrl: "https://cdn.pixabay.com/photo/2018/09/19/23/03/sunset-3689760_1280.jpg",
-      backImgUrl: "https://cdn.pixabay.com/photo/2017/06/04/23/17/lighthouse-2372461_1280.jpg",
-      videoUrl: "",
-      backupVideoUrl: "",
-    };
-    setStorageData("config", conf);
-  } else if (conf.updateTime && conf.updateTime + 1000 * 60 * 60 * 24 > updateTime) {
-    // update data
-    conf.updateTime = updateTime;
-    // update all data by server
-    await setStorageData("config", conf);
+  try {
+    // chrome.storage.local.clear();
+    if (navigator.onLine) {
+      const updateTime = new Date().getTime();
+      let storage = await getStorage("config");
+      let imgData = [];
+      let config = storage?.config;
+      const isValid = await configSchema.isValid(config);
+      if (!isValid) {
+        console.log(1);
+        imgData = await getAllWallpaper();
+        // init config
+        config = {
+          updateTime,
+          imgArr: imgData,
+          unlikeImgArr: [],
+          historyIdArr: [],
+          videoArr: [],
+          searchEngine: "g", // support google bing and others
+        };
+        await setStorage({
+          config: JSON.stringify(config),
+        });
+      } else if (config.updateTime && config.updateTime + 1000 * 60 * 60 * 24 > updateTime) {
+        console.log("2");
+        // update datetime
+        config.updateTime = updateTime;
+        // update all data by server
+        const lastImgArr = await getAllWallpaper();
+        config.imgArr = lastImgArr.filter((i) => !config.unlikeImgArr.includes(i));
+        if (config.unlikeImgArr.length > 100) config.unlikeImgArr = [];
+        if (config.historyIdArr.length > 365) config.historyIdArr = [];
+        await setStorage({
+          config: JSON.stringify(config),
+        });
+      }
+      globalThis.config = config;
+    }
+  } catch (error) {
+    console.log(error, "is init error");
   }
-  globalThis.conf = conf;
-  getRandomWallpaper().then((res) => {
-    console.log("res is ", res);
-  });
 }

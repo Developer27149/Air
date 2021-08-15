@@ -4,6 +4,7 @@ const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -41,6 +42,7 @@ const config = {
         },
       ],
     }),
+    new CompressionPlugin(),
   ],
   module: {
     rules: [
@@ -64,6 +66,11 @@ const config = {
       // Add your rules for custom modules here
       // Learn more about loaders from https://webpack.js.org/loaders/
     ],
+  },
+  optimization: {
+    splitChunks: {
+      chunks: "all",
+    },
   },
 };
 

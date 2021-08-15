@@ -1,25 +1,25 @@
 import axios from "axios";
 
-export function getStorageData(key) {
+export function getStorage(key) {
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.get([key], (res) => {
-      if (chrome.runtime.lastError) return reject(chrome.runtime.lastError);
-      resolve(res[key]);
+    chrome.storage.local.get(key, (items) => {
+      if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
+      if (isEmptyObj(items)) {
+        resolve(undefined);
+      } else {
+        items[key] = JSON.parse(items[key]);
+        resolve(items);
+      }
     });
   });
 }
 
-export function setStorageData(key, value) {
+export function setStorage(obj) {
   return new Promise((resolve, reject) => {
-    chrome.storage.sync.set(
-      {
-        [key]: value,
-      },
-      (res) => {
-        if (chrome.runtime.lastError) return reject(chrome.runtime.lastError);
-        resolve(res);
-      }
-    );
+    chrome.storage.local.set(obj, () => {
+      if (chrome.runtime.lastError) reject(chrome.runtime.lastError);
+      resolve(true);
+    });
   });
 }
 
@@ -29,12 +29,22 @@ export const isObject = (v) => v !== null && typeof v === "object";
 
 export const isEmptyObj = (obj) => isObject(obj) && Object.keys(obj).length === 0;
 
-export const getRandomWallpaper = async () => {
-  const domain = process.env.HOST;
-  const secret = process.env.UNSPLASH_ACCESS_KEY;
-  const url = `${domain}/search/photos?client_id=${secret}&query=4k+wallpaper+desktop+hd`;
-  console.log(url);
-  const res = await axios.get(url);
-  console.log(res);
-  return res?.data;
+export const getAllWallpaper = async () => {
+  try {
+    const res = await axios.get("http://localhost:3000/wallpapers?name=aaron");
+    return res.data;
+  } catch (error) {
+    console.log("网络问题，无法获取 Aaron 服务");
+    return Promise.reject({
+      message: "网络异常",
+    });
+  }
+};
+
+export const replaceCurrentWallpaper = () => {
+  const { imgArr } = globalThis.config;
+  console.log(globalThis.config.imgArr.length);
+  globalThis.config.historyIdArr.push(imgArr.shift());
+  console.log(globalThis.config.imgArr.length);
+  return imgArr[0].url;
 };

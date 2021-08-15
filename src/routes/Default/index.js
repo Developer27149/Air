@@ -1,39 +1,61 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { Box, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-import Search from "../../components/Search";
-import { setImg, setType } from "../../store/defaultSlice";
-import { getStorageData, setStorageData } from "../../utils";
+import { setImg } from "../../store/defaultSlice";
+import Loading from "../../components/loading";
+
+const Search = React.lazy(() => import("../../components/Search.js"));
+const Bars = React.lazy(() => import("../../components/Bars.js"));
 
 export default function Default() {
   const img = useSelector((state) => state.default.img);
+  const newImg = useSelector((state) => state.default.newImg);
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    const conf = await getStorageData("config");
-    if (conf.imgUrl) {
-      dispatch(setImg(conf.imgUrl));
-    }
+    const { imgArr, unlikeImgArr, historyIdArr } = globalThis.config;
+    imgArr.some((item) => {
+      const id = item.id;
+      if (unlikeImgArr.includes((i) => i === id) || historyIdArr.includes((i) => i === id)) {
+        return false;
+      }
+      // set new img
+      dispatch(setImg(item.url));
+      return true;
+    });
   }, []);
 
+  const handleLoadedNewImg = () => {
+    console.log("loaded new img");
+    dispatch(setImg(newImg));
+  };
+
   return (
-    <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="flex-start"
-      w="100vw"
-      h="100vh"
-      position="relative"
-    >
+    <Suspense fallback={Loading}>
       <Image
-        src={img}
-        objectFit="cover"
         w="100vw"
         h="100vh"
-        position="absolute"
-        background="linear-gradient(to right, #59c173, #a17fe0, #5d26c1)"
+        position="fixed"
+        left="0"
+        top="0"
+        m="0"
+        p="0"
+        src={newImg}
+        onLoad={handleLoadedNewImg}
       />
-      <Search />
-    </Box>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="flex-start"
+        w="100vw"
+        h="100vh"
+        position="relative"
+        background={`url(${img})`}
+        backgroundSize="cover"
+      >
+        <Bars />
+        <Search />
+      </Box>
+    </Suspense>
   );
 }
