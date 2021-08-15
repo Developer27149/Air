@@ -7,6 +7,7 @@ export const defaultSlice = createSlice({
     img: "",
     type: "image",
     video: "",
+    searchEngine: "g",
   },
   reducers: {
     setImg: (state, action) => {
@@ -24,9 +25,13 @@ export const defaultSlice = createSlice({
     setVideo: (state, action) => {
       state.video = action.payload;
     },
+    setSearchEngine(state, action) {
+      state.searchEngine = action.payload;
+      globalThis.config.name = "aaron";
+    },
   },
 });
 
 // 每一个 reducer 函数都会生成一个对应的 action
-export const { setImg, setNewImg, setType, setVideo } = defaultSlice.actions;
+export const { setImg, setNewImg, setType, setVideo, setSearchEngine } = defaultSlice.actions;
 export default defaultSlice.reducer;

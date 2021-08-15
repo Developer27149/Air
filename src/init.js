@@ -39,7 +39,14 @@ export default async function init() {
           config: JSON.stringify(config),
         });
       }
-      globalThis.config = config;
+      globalThis.config = new Proxy(config, {
+        set: function (target, prop, receiver) {
+          console.log("change global config object");
+          console.log(target, prop, receiver);
+          target[prop] = receiver;
+          return true;
+        },
+      });
     }
   } catch (error) {
     console.log(error, "is init error");

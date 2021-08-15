@@ -1,7 +1,7 @@
 import React, { useEffect, Suspense } from "react";
 import { Box, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
-import { setImg } from "../../store/defaultSlice";
+import { setImg, setSearchEngine } from "../../store/defaultSlice";
 import Loading from "../../components/loading";
 
 const Search = React.lazy(() => import("../../components/Search.js"));
@@ -13,7 +13,8 @@ export default function Default() {
   const dispatch = useDispatch();
 
   useEffect(async () => {
-    const { imgArr, unlikeImgArr, historyIdArr } = globalThis.config;
+    const { imgArr, unlikeImgArr, historyIdArr, searchEngine } = globalThis.config;
+    // set img
     imgArr.some((item) => {
       const id = item.id;
       if (unlikeImgArr.includes((i) => i === id) || historyIdArr.includes((i) => i === id)) {
@@ -23,6 +24,8 @@ export default function Default() {
       dispatch(setImg(item.url));
       return true;
     });
+    // set engine
+    dispatch(setSearchEngine(searchEngine));
   }, []);
 
   const handleLoadedNewImg = () => {
