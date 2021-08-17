@@ -42,6 +42,7 @@ export default async function init() {
           config: JSON.stringify(config),
         });
       }
+      console.table(imgData);
       globalThis.config = new Proxy(config, {
         set: function (target, prop, receiver) {
           // 更新的同时，修改本地存储

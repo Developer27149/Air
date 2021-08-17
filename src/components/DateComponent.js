@@ -26,8 +26,8 @@ export default function DateComponent() {
       left="50%"
       transform="translate(-50%,-50%)"
       zIndex="9"
-      backgroundColor="white"
-      opacity=".7"
+      backgroundColor="grey.50"
+      opacity=".3"
       borderRadius=".4rem"
       transition="al .4s ease-in-out"
       p="1rem"
@@ -36,8 +36,10 @@ export default function DateComponent() {
       }}
       textAlign="center"
     >
-      <Heading as="h5">哪怕抛掉出身的因素，我觉得你也未必干得过别人。</Heading>
-      <Text fontSize="xs" color="grey.400">
+      <Heading as="h6" color="grey.500">
+        哪怕抛掉出身的因素，我觉得你也未必干得过别人。
+      </Heading>
+      <Text fontSize="xs" color="orange.300" textAlign="right" p="4rem">
         {generateDateStr()}
       </Text>
     </Box>
