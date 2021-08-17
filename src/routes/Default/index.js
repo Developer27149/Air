@@ -7,6 +7,7 @@ import { Loading } from "../../components";
 const Search = React.lazy(() => import("../../components/Search.js"));
 const Bars = React.lazy(() => import("../../components/Bars.js"));
 const Time = React.lazy(() => import("../../components/Time.js"));
+const DateComponent = React.lazy(() => import("../../components/DateComponent.js"));
 
 export default function Default() {
   const img = useSelector((state) => state.default.img);
@@ -38,6 +39,7 @@ export default function Default() {
   return (
     <Suspense fallback={Loading}>
       <Time />
+      <DateComponent />
       <Image
         w="100vw"
         h="100vh"

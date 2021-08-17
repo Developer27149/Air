@@ -29,16 +29,16 @@ export default function Time() {
       left="1rem"
       zIndex="9"
       backgroundColor="white"
-      opacity=".3"
+      opacity=".2"
       borderRadius=".4rem"
       transition="al .4s ease-in-out"
       _hover={{
-        opacity: 1,
+        opacity: 0.7,
       }}
       textAlign="center"
       p="4px"
     >
-      <Text fontSize="sm" color="purple.400" w="72px">
+      <Text fontSize="sm" color="red.400" w="72px">
         {generateTimeStr()}
       </Text>
     </Box>
