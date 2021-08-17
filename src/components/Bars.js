@@ -1,6 +1,7 @@
 import React from "react";
 import { Box, Icon } from "@chakra-ui/react";
 import { IoRefreshCircleSharp } from "react-icons/io5";
+import { TiAttachmentOutline } from "react-icons/ti";
 import { VscSettings } from "react-icons/vsc";
 import { MdWallpaper } from "react-icons/md";
 import styles from "../styles/bars.module.sass";
@@ -12,9 +13,11 @@ export default function Bars() {
   const dispatch = useDispatch();
   const handleChangeWallpaper = () => {
     const newImg = replaceCurrentWallpaper();
-    console.log(newImg);
     dispatch(setNewImg(newImg));
   };
+  const handleFixedWallpaper = () => {
+    dispatch()
+  }
   return (
     <Box
       w="100%"
@@ -41,6 +44,15 @@ export default function Bars() {
           margin="8px"
           as={IoRefreshCircleSharp}
           onClick={handleChangeWallpaper}
+          title="换换口味"
+        />
+        <Icon
+          as={TiAttachmentOutline}
+          className={styles.icon}
+          fontSize="24px"
+          margin="8px"
+          title="保持壁纸"
+          onClick={handleFixedWallpaper}
         />
       </Box>
     </Box>

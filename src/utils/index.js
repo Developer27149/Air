@@ -42,9 +42,12 @@ export const getAllWallpaper = async () => {
 };
 
 export const replaceCurrentWallpaper = () => {
-  const { imgArr } = globalThis.config;
-  console.log(globalThis.config.imgArr.length);
-  globalThis.config.historyIdArr.push(imgArr.shift());
-  console.log(globalThis.config.imgArr.length);
+  const { historyIdArr, imgArr } = globalThis.config;
+  const _ = imgArr.shift();
+  if (!historyIdArr.includes(_.id)) {
+    historyIdArr.push(_.id);
+  }
+  globalThis.config.imgArr = imgArr;
+  globalThis.config.historyIdArr = historyIdArr;
   return imgArr[0].url;
 };

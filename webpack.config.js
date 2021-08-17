@@ -23,6 +23,9 @@ const config = {
     host: "localhost",
     port: 8088,
   },
+  resolve: {
+    extensions: [".js"],
+  },
   devtool: "cheap-module-source-map",
   plugins: [
     new HtmlWebpackPlugin({

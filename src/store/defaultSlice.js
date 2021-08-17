@@ -8,6 +8,8 @@ export const defaultSlice = createSlice({
     type: "image",
     video: "",
     searchEngine: "g",
+    fixedImg: "",
+    showTime: true,
   },
   reducers: {
     setImg: (state, action) => {
@@ -27,7 +29,15 @@ export const defaultSlice = createSlice({
     },
     setSearchEngine(state, action) {
       state.searchEngine = action.payload;
-      globalThis.config.name = "aaron";
+      globalThis.config.searchEngine = action.payload;
+    },
+    setFixedImg(state, action) {
+      state.fixedImg = action.payload === state.fixedImg ? "" : action.payload;
+      globalThis.config.fixedImg = action.payload;
+    },
+    setShowTime(state, action) {
+      state.showTime = action.payload;
+      globalThis.config.showTime = action.payload;
     },
   },
 });

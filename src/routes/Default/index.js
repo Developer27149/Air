@@ -2,13 +2,15 @@ import React, { useEffect, Suspense } from "react";
 import { Box, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { setImg, setSearchEngine } from "../../store/defaultSlice";
-import Loading from "../../components/loading";
+import { Loading } from "../../components";
 
 const Search = React.lazy(() => import("../../components/Search.js"));
 const Bars = React.lazy(() => import("../../components/Bars.js"));
+const Time = React.lazy(() => import("../../components/Time.js"));
 
 export default function Default() {
   const img = useSelector((state) => state.default.img);
+  const fixedImg = useSelector((state) => state.default.fixedImg);
   const newImg = useSelector((state) => state.default.newImg);
   const dispatch = useDispatch();
 
@@ -17,7 +19,7 @@ export default function Default() {
     // set img
     imgArr.some((item) => {
       const id = item.id;
-      if (unlikeImgArr.includes((i) => i === id) || historyIdArr.includes((i) => i === id)) {
+      if (unlikeImgArr.some((i) => i === id) || historyIdArr.some((i) => i === id)) {
         return false;
       }
       // set new img
@@ -35,6 +37,7 @@ export default function Default() {
 
   return (
     <Suspense fallback={Loading}>
+      <Time />
       <Image
         w="100vw"
         h="100vh"
@@ -53,7 +56,7 @@ export default function Default() {
         w="100vw"
         h="100vh"
         position="relative"
-        background={`url(${img})`}
+        background={`url(${fixedImg !== "" ? fixedImg : img})`}
         backgroundSize="cover"
       >
         <Bars />
