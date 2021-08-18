@@ -14,12 +14,18 @@ export default function Search() {
   const handleInput = (e) => {
     if (boxOpacity === 0) setBoxOpacity(1);
     const v = e.target.value;
-    if (v.startsWith("b ") && searchEngineIcon === "g") {
+    if (v.startsWith("bi") && searchEngineIcon !== "bing") {
       setKeyword("");
-      dispatch(setSearchEngine("b"));
-    } else if (v.startsWith("g ") && searchEngineIcon === "b") {
+      dispatch(setSearchEngine("bing"));
+    } else if (v.startsWith("gg") && searchEngineIcon !== "google") {
       setKeyword("");
-      dispatch(setSearchEngine("g"));
+      dispatch(setSearchEngine("google"));
+    } else if (v.startsWith("gh") && searchEngineIcon !== "github") {
+      setKeyword("");
+      dispatch(setSearchEngine("github"));
+    }  else if (v.startsWith("zh") && searchEngineIcon !== "zhihu") {
+      setKeyword("");
+      dispatch(setSearchEngine("zhihu"));
     } else {
       setKeyword(v);
     }

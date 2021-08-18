@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text, Heading } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
+import { ganzhijinian } from "../utils";
 
 export default function DateComponent() {
   const [time, setTime] = useState(new Date());
@@ -16,30 +17,26 @@ export default function DateComponent() {
     let year = time.getFullYear();
     let month = time.getMonth();
     let day = time.getDay();
-    return `${year}年${month}月${day}日`;
+    return `${ganzhijinian(year)} ${year}.${month}.${day}`;
   };
 
   return (
     <Box
       position="fixed"
-      top="70%"
-      left="50%"
-      transform="translate(-50%,-50%)"
+      bottom="1rem"
+      right="1rem"
       zIndex="9"
-      backgroundColor="grey.50"
-      opacity=".3"
-      borderRadius=".4rem"
+      opacity=".6"
       transition="al .4s ease-in-out"
-      p="1rem"
       _hover={{
         opacity: 1,
       }}
-      textAlign="center"
+      textAlign="right"
     >
-      <Heading as="h6" color="grey.500">
-        哪怕抛掉出身的因素，我觉得你也未必干得过别人。
-      </Heading>
-      <Text fontSize="xs" color="orange.300" textAlign="right" p="4rem">
+      <Text fontSize="lg" color="white" textAlign="right" p="1rem">
+        照顾好自己。
+      </Text>
+      <Text fontSize="xs" color="white" textAlign="right">
         {generateDateStr()}
       </Text>
     </Box>

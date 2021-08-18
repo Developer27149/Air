@@ -28,7 +28,7 @@ export default function Time() {
       top="1rem"
       left="1rem"
       zIndex="9"
-      backgroundColor="white"
+      backgroundColor="black"
       opacity=".2"
       borderRadius=".4rem"
       transition="al .4s ease-in-out"
@@ -38,7 +38,7 @@ export default function Time() {
       textAlign="center"
       p="4px"
     >
-      <Text fontSize="sm" color="red.400" w="72px">
+      <Text fontSize="sm" color="white" fontWeight="bold" w="72px">
         {generateTimeStr()}
       </Text>
     </Box>

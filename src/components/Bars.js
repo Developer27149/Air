@@ -13,6 +13,7 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
+  useToast,
 } from "@chakra-ui/react";
 import { IoRefreshCircleSharp } from "react-icons/io5";
 import { TiAttachmentOutline } from "react-icons/ti";
@@ -41,19 +42,33 @@ export default function Bars() {
     console.log(keyword, imgArr);
   }, [keyword]);
 
+  const toast = useToast();
+
   const handleSelectNewWallpaper = (id) => {
     console.log(id);
-    historyIdArr.push(imgArr.shift().id);
+    historyIdArr.push(id);
     let newImg;
+    const tempArr = [];
     imgArr.map((i) => {
-      console.log(i.id, id);
       if (i.id === id) {
         newImg = i;
+      } else {
+        tempArr.push(i);
       }
     });
-    globalThis.config.imgArr = imgArr.filter((i) => i.id !== id).unshift(newImg);
-    globalThis.config.historyIdArr = historyIdArr.push(id);
-    dispatch(setNewImg(newImg));
+    tempArr.shift();
+    dispatch(setNewImg(newImg.url));
+    toast({
+      title: "设置新壁纸",
+      description: "网络加载中，等等",
+      status: "info",
+      duration: 2000,
+      isClosable: true,
+    });
+    setTimeout(() => {
+      globalThis.config.imgArr = tempArr;
+      globalThis.config.historyIdArr = historyIdArr;
+    }, 2000);
   };
 
   return (
@@ -81,8 +96,9 @@ export default function Bars() {
           margin="8px"
           as={MdWallpaper}
           onClick={onOpen}
+          title="壁纸"
         />
-        <Icon className={styles.icon} fontSize="24px" margin="8px" as={VscSettings} />
+        <Icon className={styles.icon} fontSize="24px" margin="8px" as={VscSettings} title="设置" />
         <Icon
           className={styles.icon}
           fontSize="24px"

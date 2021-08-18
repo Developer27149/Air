@@ -1,4 +1,4 @@
-import React, { useEffect, Suspense } from "react";
+import React, { useEffect, Suspense, useState } from "react";
 import { Box, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { setImg, setSearchEngine } from "../../store/defaultSlice";
@@ -10,12 +10,17 @@ const Time = React.lazy(() => import("../../components/Time.js"));
 const DateComponent = React.lazy(() => import("../../components/DateComponent.js"));
 
 export default function Default() {
+  const [showDateAndTime, setShowDateAndTime] = useState(false);
   const img = useSelector((state) => state.default.img);
   const fixedImg = useSelector((state) => state.default.fixedImg);
   const newImg = useSelector((state) => state.default.newImg);
   const dispatch = useDispatch();
 
   useEffect(async () => {
+    // setTimeout show date and time component
+    setTimeout(() => {
+      setShowDateAndTime(true);
+    }, 2000);
     const { imgArr, unlikeImgArr, historyIdArr, searchEngine } = globalThis.config;
     // set img
     imgArr.some((item) => {
@@ -38,8 +43,12 @@ export default function Default() {
 
   return (
     <Suspense fallback={Loading}>
-      <Time />
-      <DateComponent />
+      {showDateAndTime && (
+        <>
+          <Time />
+          <DateComponent />
+        </>
+      )}
       <Image
         w="100vw"
         h="100vh"

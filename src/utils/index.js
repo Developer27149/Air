@@ -51,3 +51,23 @@ export const replaceCurrentWallpaper = () => {
   globalThis.config.historyIdArr = historyIdArr;
   return imgArr[0].url;
 };
+
+export const ganzhijinian = (year) => {
+  let _ = "";
+  year === 2021 && (_ = "辛丑");
+  year === 2022 && (_ = "壬寅");
+  return _;
+};
+
+export const keyword2SearchEngine = keyword => {
+  const _ = {
+    'gh': 'github.com',
+    'bi': 'bing.com',
+    'ba': 'baidu.com',
+    'gg': 'google.com',
+    'zh': 'zhihu.com',
+    'jj': 'juejin.cn',
+    'dev': 'dev.to'
+  }
+  return _[keyword]
+}
