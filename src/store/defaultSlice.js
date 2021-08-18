@@ -7,7 +7,7 @@ export const defaultSlice = createSlice({
     img: "",
     type: "image",
     video: "",
-    searchEngine: "g",
+    searchEngine: "google.com",
     fixedImg: "",
     showTime: true,
   },

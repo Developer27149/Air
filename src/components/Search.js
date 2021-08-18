@@ -1,47 +1,49 @@
 import React, { useState } from "react";
 import { Input, Box, Icon } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
-import { DiBingSmall } from "react-icons/di";
+import { DiBingSmall, DiCode } from "react-icons/di";
+import { SiZhihu } from "react-icons/si";
+import { RiBaiduFill } from "react-icons/ri";
+import { GiGoldNuggets } from "react-icons/gi";
+import { VscGithubAlt } from "react-icons/vsc";
 import { setSearchEngine } from "../store/defaultSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { keyword2SearchEngine } from "../utils";
 
 export default function Search() {
   const dispatch = useDispatch();
   const [boxOpacity, setBoxOpacity] = useState(0);
   const [keyword, setKeyword] = useState("");
-  const searchEngineIcon = useSelector((state) => state.default.searchEngine);
-  // const [searchEngineIcon, setSearchEngineIcon] = useState()
+  const searchEngineDomain = useSelector((state) => state.default.searchEngine);
   const handleInput = (e) => {
     if (boxOpacity === 0) setBoxOpacity(1);
     const v = e.target.value;
-    if (v.startsWith("bi") && searchEngineIcon !== "bing") {
-      setKeyword("");
-      dispatch(setSearchEngine("bing"));
-    } else if (v.startsWith("gg") && searchEngineIcon !== "google") {
-      setKeyword("");
-      dispatch(setSearchEngine("google"));
-    } else if (v.startsWith("gh") && searchEngineIcon !== "github") {
-      setKeyword("");
-      dispatch(setSearchEngine("github"));
-    }  else if (v.startsWith("zh") && searchEngineIcon !== "zhihu") {
-      setKeyword("");
-      dispatch(setSearchEngine("zhihu"));
+    console.log("v is:", v);
+    const searchEngine = keyword2SearchEngine(v);
+    if (searchEngine) {
+      if (searchEngineDomain !== searchEngine) {
+        setKeyword("");
+        dispatch(setSearchEngine(searchEngine));
+      }
     } else {
-      setKeyword(v);
+      setKeyword(v.replace(/^-/, ""));
     }
   };
+
   const selectIcon = () => {
-    if (searchEngineIcon === "b") return DiBingSmall;
+    if (searchEngineDomain === "bing.com") return DiBingSmall;
+    if (searchEngineDomain === "zhihu.com") return SiZhihu;
+    if (searchEngineDomain === "dev.to") return DiCode;
+    if (searchEngineDomain === "github.com") return VscGithubAlt;
+    if (searchEngineDomain === "baidu.com") return RiBaiduFill;
+    if (searchEngineDomain === "juejin.cn") return GiGoldNuggets;
     return FcGoogle;
   };
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       console.log("start search");
-      let url = `https://www.google.com/search?q=${keyword}`;
-      if (searchEngineIcon === "b") {
-        url = `https://www.bing.com/search?mkt=en&q=${keyword}`;
-      }
+      let url = `https://www.${searchEngineDomain}/search?q=${keyword}`;
       globalThis.location = url;
     }
   };

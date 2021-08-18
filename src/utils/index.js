@@ -59,15 +59,15 @@ export const ganzhijinian = (year) => {
   return _;
 };
 
-export const keyword2SearchEngine = keyword => {
+export const keyword2SearchEngine = (keyword) => {
   const _ = {
-    'gh': 'github.com',
-    'bi': 'bing.com',
-    'ba': 'baidu.com',
-    'gg': 'google.com',
-    'zh': 'zhihu.com',
-    'jj': 'juejin.cn',
-    'dev': 'dev.to'
-  }
-  return _[keyword]
-}
+    gh: "github.com",
+    bi: "bing.com",
+    bd: "baidu.com",
+    gg: "google.com",
+    zh: "zhihu.com",
+    jj: "juejin.cn",
+    dev: "dev.to",
+  };
+  return _[keyword];
+};
