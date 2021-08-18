@@ -15,11 +15,10 @@ import {
   DrawerFooter,
   useToast,
 } from "@chakra-ui/react";
-import { IoRefreshCircleSharp } from "react-icons/io5";
 import { TiAttachmentOutline } from "react-icons/ti";
-import { VscSettings } from "react-icons/vsc";
-import { MdWallpaper } from "react-icons/md";
-import { FcEmptyTrash } from "react-icons/fc";
+import { RiNeteaseCloudMusicFill } from "react-icons/ri";
+import { VscDesktopDownload } from "react-icons/vsc";
+import { FcEmptyTrash, FcSettings, FcAddImage, FcTodoList, FcWorkflow } from "react-icons/fc";
 import styles from "../styles/bars.module.sass";
 import { setNewImg } from "../store/defaultSlice";
 import { useDispatch } from "react-redux";
@@ -71,6 +70,19 @@ export default function Bars() {
     }, 2000);
   };
 
+  const handleDownloadWallpaper = () => {
+    console.log(chrome.downloads, chrome);
+    chrome.downloads.download(
+      {
+        method: "GET",
+        url: globalThis.config.imgArr[0].url,
+      },
+      (id) => {
+        console.log(id, "download event");
+      }
+    );
+  };
+
   return (
     <Box
       w="100%"
@@ -85,7 +97,7 @@ export default function Bars() {
         display="flex"
         justifyContent="center"
         borderRadius="6px"
-        bg="green.50"
+        bg="teal.50"
         padding=".2rem 1.4rem"
         margin=".2rem auto"
       >
@@ -94,16 +106,25 @@ export default function Bars() {
           className={styles.icon}
           fontSize="24px"
           margin="8px"
-          as={MdWallpaper}
+          as={RiNeteaseCloudMusicFill}
+          title="Music - Jay"
+          color="pink.400"
+        />
+        <Icon
+          ref={setRef}
+          className={styles.icon}
+          fontSize="24px"
+          margin="8px"
+          as={FcAddImage}
           onClick={onOpen}
           title="壁纸"
         />
-        <Icon className={styles.icon} fontSize="24px" margin="8px" as={VscSettings} title="设置" />
+        <Icon className={styles.icon} fontSize="24px" margin="8px" as={FcSettings} title="设置" />
         <Icon
           className={styles.icon}
           fontSize="24px"
           margin="8px"
-          as={IoRefreshCircleSharp}
+          as={FcWorkflow}
           onClick={handleChangeWallpaper}
           title="换换口味"
         />
@@ -113,7 +134,25 @@ export default function Bars() {
           fontSize="24px"
           margin="8px"
           title="保持壁纸"
+          color="blue.200"
           onClick={handleFixedWallpaper}
+        />
+        <Icon
+          as={FcTodoList}
+          className={styles.icon}
+          fontSize="24px"
+          margin="8px"
+          title="搬砖事宜"
+          onClick={handleFixedWallpaper}
+        />
+        <Icon
+          as={VscDesktopDownload}
+          className={styles.icon}
+          fontSize="24px"
+          margin="8px"
+          title="下载当前壁纸"
+          onClick={handleDownloadWallpaper}
+          color="purple.200"
         />
       </Box>
       <Drawer placement="left" isOpen={isOpen} onClose={onClose}>

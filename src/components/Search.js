@@ -42,7 +42,7 @@ export default function Search() {
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
-      console.log("start search");
+      console.log("start search", searchEngineDomain);
       let url = `https://www.${searchEngineDomain}/search?q=${keyword}`;
       globalThis.location = url;
     }
@@ -66,7 +66,7 @@ export default function Search() {
         paddingLeft="2rem"
         maxW="400px"
         bg="white"
-        placeholder={globalThis.name}
+        placeholder="你想知道什么？"
         onChange={handleInput}
         onBlur={() => setBoxOpacity(0)}
         value={keyword}

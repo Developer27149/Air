@@ -3,7 +3,6 @@ import { Box, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { setImg, setSearchEngine } from "../../store/defaultSlice";
 import { Loading } from "../../components";
-
 const Search = React.lazy(() => import("../../components/Search.js"));
 const Bars = React.lazy(() => import("../../components/Bars.js"));
 const Time = React.lazy(() => import("../../components/Time.js"));

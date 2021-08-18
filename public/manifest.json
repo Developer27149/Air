@@ -13,7 +13,7 @@
   "background": {
     "service_worker": "bg.js"
   },
-  "permissions": ["storage"],
+  "permissions": ["storage", "downloads"],
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
