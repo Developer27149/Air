@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
-import { ganzhijinian } from "../utils";
+import { ganzhijinian, getMsg } from "../utils";
+import { useSelector, useDispatch } from "react-redux";
+import { setMsg } from "../store/defaultSlice.js";
 
 export default function DateComponent() {
   const [time, setTime] = useState(new Date());
+  const msg = useSelector((state) => state.default.msg);
+  const dispatch = useDispatch();
+
   useEffect(() => {
+    dispatch(setMsg(globalThis.config.msg));
     const id = setInterval(() => {
       setTime(new Date());
     }, 1000);
@@ -17,7 +23,13 @@ export default function DateComponent() {
     let year = time.getFullYear();
     let month = time.getMonth();
     let day = time.getDay();
-    return `${ganzhijinian(year)} ${year}.${month}.${day}`;
+    return `${ganzhijinian(year)}年 ${month}月${day}日`;
+  };
+
+  const handleChangeMsg = async () => {
+    const newMsg = await getMsg();
+    console.log(newMsg, "is new msg");
+    dispatch(setMsg(newMsg.data));
   };
 
   return (
@@ -33,8 +45,8 @@ export default function DateComponent() {
       }}
       textAlign="right"
     >
-      <Text fontSize="lg" color="white" textAlign="right" p="1rem">
-        照顾好自己。
+      <Text fontSize="lg" color="white" textAlign="right" p="1rem" onClick={handleChangeMsg}>
+        {msg}
       </Text>
       <Text fontSize="xs" color="white" textAlign="right">
         {generateDateStr()}

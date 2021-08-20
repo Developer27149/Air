@@ -10,4 +10,6 @@ export const configSchema = yup.object().shape({
   searchEngine: string().required(),
   updateTime: number().required(),
   showTime: boolean().required(),
+  msg: string().required(),
+  useRawWallpaper: string().default("auto"),
 });

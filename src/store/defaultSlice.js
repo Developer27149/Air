@@ -10,6 +10,8 @@ export const defaultSlice = createSlice({
     searchEngine: "google.com",
     fixedImg: "",
     showTime: true,
+    msg: "潜龙勿用",
+    useRawWallpaper: "auto",
   },
   reducers: {
     setImg: (state, action) => {
@@ -39,9 +41,27 @@ export const defaultSlice = createSlice({
       state.showTime = action.payload;
       globalThis.config.showTime = action.payload;
     },
+    setMsg(state, action) {
+      state.msg = action.payload;
+      globalThis.config.msg = action.payload;
+    },
+    setUseRawWallpaper(state, action) {
+      state.useRawWallpaper = action.payload;
+      globalThis.config.useRawWallpaper = action.payload;
+    },
   },
 });
 
 // 每一个 reducer 函数都会生成一个对应的 action
-export const { setImg, setNewImg, setType, setVideo, setSearchEngine } = defaultSlice.actions;
+export const {
+  setImg,
+  setNewImg,
+  setType,
+  setVideo,
+  setSearchEngine,
+  setFixedImg,
+  setShowTime,
+  setMsg,
+  setUseRawWallpaper,
+} = defaultSlice.actions;
 export default defaultSlice.reducer;

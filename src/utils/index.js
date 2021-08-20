@@ -41,6 +41,16 @@ export const getAllWallpaper = async () => {
   }
 };
 
+export const getMsg = async () => {
+  try {
+    const res = await axios.get("http://localhost:3000/msg?name=aaron");
+    return res.data.data;
+  } catch (error) {
+    console.log(error, "from get msg");
+    return "潜龙勿用";
+  }
+};
+
 export const replaceCurrentWallpaper = () => {
   const { historyIdArr, imgArr } = globalThis.config;
   const _ = imgArr.shift();

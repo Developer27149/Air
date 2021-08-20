@@ -18,6 +18,7 @@ import {
 import { TiAttachmentOutline } from "react-icons/ti";
 import { RiNeteaseCloudMusicFill } from "react-icons/ri";
 import { VscDesktopDownload } from "react-icons/vsc";
+import { BsBookmarks } from "react-icons/bs";
 import { FcEmptyTrash, FcSettings, FcAddImage, FcTodoList, FcWorkflow } from "react-icons/fc";
 import styles from "../styles/bars.module.sass";
 import { setNewImg } from "../store/defaultSlice";
@@ -118,6 +119,14 @@ export default function Bars() {
           as={FcAddImage}
           onClick={onOpen}
           title="壁纸"
+        />
+        <Icon
+          ref={setRef}
+          className={styles.icon}
+          fontSize="24px"
+          margin="8px"
+          as={BsBookmarks}
+          title="书签"
         />
         <Icon className={styles.icon} fontSize="24px" margin="8px" as={FcSettings} title="设置" />
         <Icon

@@ -1,10 +1,10 @@
 import { getStorage, setStorage } from "./utils";
 import { configSchema } from "./schema";
-import { getAllWallpaper } from "./utils";
+import { getAllWallpaper, getMsg } from "./utils";
 
 export default async function init() {
   try {
-    // chrome.storage.local.clear();
+    chrome.storage.local.clear();
     if (navigator.onLine) {
       const updateTime = new Date().getTime();
       let storage = await getStorage("config");
@@ -14,17 +14,20 @@ export default async function init() {
       const isValid = await configSchema.isValid(config);
       if (!isValid) {
         console.log("init check, unvalid");
-        imgData = await getAllWallpaper();
+        const res = await Promise.all([getMsg(), getAllWallpaper()]);
+        imgData = res[1];
         // init config
         config = {
           showTime: true,
           fixedImg: "",
           updateTime,
-          imgArr: imgData,
+          imgArr: res[1],
           unlikeImgArr: [],
           historyIdArr: [],
           videoArr: [],
-          searchEngine: "g", // support google bing and others
+          searchEngine: "google.com", // support google bing and others
+          msg: res[0],
+          useRawWallpaper: "auto",
         };
         await setStorage({
           config: JSON.stringify(config),
@@ -42,7 +45,7 @@ export default async function init() {
           config: JSON.stringify(config),
         });
       }
-      console.table(imgData);
+
       globalThis.config = new Proxy(config, {
         set: function (target, prop, receiver) {
           // 更新的同时，修改本地存储
