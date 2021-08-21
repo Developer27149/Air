@@ -81,3 +81,5 @@ export const keyword2SearchEngine = (keyword) => {
   };
   return _[keyword];
 };
+
+export const emptyFunc = () => {};

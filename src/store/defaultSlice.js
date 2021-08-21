@@ -10,7 +10,7 @@ export const defaultSlice = createSlice({
     searchEngine: "google.com",
     fixedImg: "",
     showTime: true,
-    msg: "潜龙勿用",
+    msg: "",
     useRawWallpaper: "auto",
   },
   reducers: {
@@ -42,8 +42,10 @@ export const defaultSlice = createSlice({
       globalThis.config.showTime = action.payload;
     },
     setMsg(state, action) {
+      console.log("set new msg", action.payload);
       state.msg = action.payload;
       globalThis.config.msg = action.payload;
+      console.log("new msg is: ", globalThis.config.msg);
     },
     setUseRawWallpaper(state, action) {
       state.useRawWallpaper = action.payload;

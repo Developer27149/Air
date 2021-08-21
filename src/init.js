@@ -28,6 +28,7 @@ export default async function init() {
           searchEngine: "google.com", // support google bing and others
           msg: res[0],
           useRawWallpaper: "auto",
+          apiHost: "http://localhost:3000",
         };
         await setStorage({
           config: JSON.stringify(config),

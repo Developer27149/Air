@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
+import Weather from "./Weather.js";
 
 export default function Time() {
   const [time, setTime] = useState(new Date());
@@ -11,16 +12,6 @@ export default function Time() {
       clearInterval(id);
     };
   }, []);
-
-  const generateTimeStr = () => {
-    let hours = time.getHours();
-    let minutes = time.getMinutes();
-    let seconds = time.getSeconds();
-    if (hours < 10) hours = `0${hours}`;
-    if (minutes < 10) minutes = `0${minutes}`;
-    if (seconds < 10) seconds = `0${seconds}`;
-    return `${hours}:${minutes}:${seconds}`;
-  };
 
   return (
     <Box
@@ -39,8 +30,13 @@ export default function Time() {
       p="4px"
     >
       <Text fontSize="sm" color="white" fontWeight="bold" w="72px">
-        {generateTimeStr()}
+        {time.getHours() > 9 ? time.getHours() : `0${time.getHours()}`}
+        <Text display="inline-block" opacity={time.getSeconds() % 2 === 0 ? 0 : 1} p="0 3px">
+          :
+        </Text>
+        {time.getHours() > 9 ? time.getHours() : `0${time.getHours()}`}
       </Text>
+      <Weather />
     </Box>
   );
 }

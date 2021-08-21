@@ -27,24 +27,14 @@ export default function DateComponent() {
   };
 
   const handleChangeMsg = async () => {
-    const newMsg = await getMsg();
-    console.log(newMsg, "is new msg");
-    dispatch(setMsg(newMsg.data));
+    const data = await getMsg();
+    console.log(data, "is data");
+    dispatch(setMsg(data));
+    globalThis.config.msg = data;
   };
 
   return (
-    <Box
-      position="fixed"
-      bottom="1rem"
-      right="1rem"
-      zIndex="9"
-      opacity=".6"
-      transition="al .4s ease-in-out"
-      _hover={{
-        opacity: 1,
-      }}
-      textAlign="right"
-    >
+    <Box position="fixed" bottom="1rem" right="1rem" zIndex="9" opacity=".6" textAlign="right">
       <Text fontSize="lg" color="white" textAlign="right" p="1rem" onClick={handleChangeMsg}>
         {msg}
       </Text>

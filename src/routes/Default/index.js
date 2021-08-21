@@ -24,7 +24,7 @@ export default function Default() {
     // setTimeout show date and time component
     setTimeout(() => {
       setShowDateAndTime(true);
-    }, 2000);
+    }, 20);
     const { imgArr, unlikeImgArr, historyIdArr, searchEngine } = globalThis.config;
     // set img
     imgArr.some((item) => {

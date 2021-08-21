@@ -9,21 +9,7 @@ export default function App() {
         <Route path="/">
           <Default />
         </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/wallpapers">
-          <Wallpapers />
-        </Route>
       </Switch>
     </Router>
   );
-}
-
-function Login() {
-  return <div>login</div>;
-}
-
-function Wallpapers() {
-  return <div>Wallpapers</div>;
 }
