@@ -64,8 +64,8 @@ export const replaceCurrentWallpaper = () => {
 
 export const ganzhijinian = (year) => {
   let _ = "";
-  year === 2021 && (_ = "辛丑");
-  year === 2022 && (_ = "壬寅");
+  year === "2021" && (_ = "辛丑");
+  year === "2022" && (_ = "壬寅");
   return _;
 };
 

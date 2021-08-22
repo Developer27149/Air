@@ -18,7 +18,6 @@ export default function Search() {
   const handleInput = (e) => {
     if (boxOpacity === 0) setBoxOpacity(1);
     const v = e.target.value;
-    console.log("v is:", v);
     const searchEngine = keyword2SearchEngine(v);
     if (searchEngine) {
       if (searchEngineDomain !== searchEngine) {

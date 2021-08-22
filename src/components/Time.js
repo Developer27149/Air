@@ -27,14 +27,14 @@ export default function Time() {
         opacity: 0.7,
       }}
       textAlign="center"
-      p="4px"
+      p="4px 12px"
     >
-      <Text fontSize="sm" color="white" fontWeight="bold" w="72px">
+      <Text fontSize="sm" color="white" fontWeight="bold">
         {time.getHours() > 9 ? time.getHours() : `0${time.getHours()}`}
         <Text display="inline-block" opacity={time.getSeconds() % 2 === 0 ? 0 : 1} p="0 3px">
           :
         </Text>
-        {time.getHours() > 9 ? time.getHours() : `0${time.getHours()}`}
+        {time.getMinutes() > 9 ? time.getMinutes() : `0${time.getMinutes()}`}
       </Text>
       <Weather />
     </Box>

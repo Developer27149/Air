@@ -20,9 +20,10 @@ export default function DateComponent() {
   }, []);
 
   const generateDateStr = () => {
-    let year = time.getFullYear();
-    let month = time.getMonth();
-    let day = time.getDay();
+    const arr = time.toLocaleDateString().split("/");
+    let year = arr[0];
+    let month = arr[1];
+    let day = arr[2];
     return `${ganzhijinian(year)}年 ${month}月${day}日`;
   };
 
