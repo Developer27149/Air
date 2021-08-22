@@ -3,14 +3,16 @@ import { Box, Text } from "@chakra-ui/react";
 import { ganzhijinian, getMsg } from "../utils";
 import { useSelector, useDispatch } from "react-redux";
 import { setMsg } from "../store/defaultSlice.js";
+import { useToast } from "@chakra-ui/react";
 
 export default function DateComponent() {
   const [time, setTime] = useState(new Date());
   const msg = useSelector((state) => state.default.msg);
   const dispatch = useDispatch();
+  const toast = useToast();
 
   useEffect(() => {
-    dispatch(setMsg(globalThis.config.msg));
+    msg !== globalThis.config.msg && dispatch(setMsg(globalThis.config.msg));
     const id = setInterval(() => {
       setTime(new Date());
     }, 1000);
@@ -28,10 +30,21 @@ export default function DateComponent() {
   };
 
   const handleChangeMsg = async () => {
-    const data = await getMsg();
-    console.log(data, "is data");
-    dispatch(setMsg(data));
-    globalThis.config.msg = data;
+    try {
+      const data = await getMsg();
+      if (data !== globalThis.config.msg) {
+        dispatch(setMsg(data));
+        globalThis.config.msg = data;
+      }
+    } catch (error) {
+      console.log("error:", error);
+      toast({
+        title: "Tip",
+        description: "网络异常",
+        status: "error",
+        isClosable: true,
+      });
+    }
   };
 
   return (

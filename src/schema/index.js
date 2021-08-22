@@ -13,4 +13,5 @@ export const configSchema = yup.object().shape({
   msg: string().required(),
   useRawWallpaper: string().default("auto"),
   apiHost: string().required(),
+  location: string().required(),
 });

@@ -24,6 +24,7 @@ import styles from "../styles/bars.module.sass";
 import { setNewImg } from "../store/defaultSlice";
 import { useDispatch } from "react-redux";
 import { replaceCurrentWallpaper } from "../utils";
+import Setting from "./Setting.js";
 
 export default function Bars() {
   const dispatch = useDispatch();
@@ -128,7 +129,7 @@ export default function Bars() {
           as={BsBookmarks}
           title="书签"
         />
-        <Icon className={styles.icon} fontSize="24px" margin="8px" as={FcSettings} title="设置" />
+        <Setting />
         <Icon
           className={styles.icon}
           fontSize="24px"

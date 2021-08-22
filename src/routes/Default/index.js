@@ -35,8 +35,10 @@ export default function Default() {
       let url = "";
       if (useRawWallpaper === "auto") {
         if (window.devicePixelRatio >= 2) {
+          console.log("use auto config and use raw");
           url = item.raw;
         } else {
+          console.log("use auto config but use hd");
           url = item.url;
         }
       } else if (useRawWallpaper === "Raw") {

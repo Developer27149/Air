@@ -10,8 +10,9 @@ export const defaultSlice = createSlice({
     searchEngine: "google.com",
     fixedImg: "",
     showTime: true,
-    msg: "",
+    msg: "潜龙勿用",
     useRawWallpaper: "auto",
+    location: "",
   },
   reducers: {
     setImg: (state, action) => {

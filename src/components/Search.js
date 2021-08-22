@@ -3,7 +3,6 @@ import { Input, Box, Icon } from "@chakra-ui/react";
 import { FcGoogle } from "react-icons/fc";
 import { DiBingSmall, DiCode } from "react-icons/di";
 import { SiZhihu } from "react-icons/si";
-import { RiBaiduFill } from "react-icons/ri";
 import { GiGoldNuggets } from "react-icons/gi";
 import { VscGithubAlt } from "react-icons/vsc";
 import { setSearchEngine } from "../store/defaultSlice";
@@ -34,7 +33,6 @@ export default function Search() {
     if (searchEngineDomain === "zhihu.com") return SiZhihu;
     if (searchEngineDomain === "dev.to") return DiCode;
     if (searchEngineDomain === "github.com") return VscGithubAlt;
-    if (searchEngineDomain === "baidu.com") return RiBaiduFill;
     if (searchEngineDomain === "juejin.cn") return GiGoldNuggets;
     return FcGoogle;
   };

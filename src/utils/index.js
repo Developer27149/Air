@@ -1,4 +1,14 @@
 import axios from "axios";
+import config from "../config";
+
+export async function backendStatuTest() {
+  try {
+    await axios.get(config.backendHost);
+    return true;
+  } catch (error) {
+    return false;
+  }
+}
 
 export function getStorage(key) {
   return new Promise((resolve, reject) => {
@@ -31,7 +41,7 @@ export const isEmptyObj = (obj) => isObject(obj) && Object.keys(obj).length === 
 
 export const getAllWallpaper = async () => {
   try {
-    const res = await axios.get("http://localhost:3000/wallpapers?name=aaron");
+    const res = await axios.get(`${config.backendHost}/wallpapers?name=aaron`);
     return res.data;
   } catch (error) {
     console.log("网络问题，无法获取 Aaron 服务");
@@ -43,7 +53,7 @@ export const getAllWallpaper = async () => {
 
 export const getMsg = async () => {
   try {
-    const res = await axios.get("http://localhost:3000/msg?name=aaron");
+    const res = await axios.get(`${config.backendHost}/msg?name=aaron`);
     return res.data.data;
   } catch (error) {
     console.log(error, "from get msg");
@@ -73,7 +83,6 @@ export const keyword2SearchEngine = (keyword) => {
   const _ = {
     gh: "github.com",
     bi: "bing.com",
-    bd: "baidu.com",
     gg: "google.com",
     zh: "zhihu.com",
     jj: "juejin.cn",

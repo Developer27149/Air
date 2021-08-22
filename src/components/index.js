@@ -1,4 +1,4 @@
-import Loading from "./loading";
+import Loading from "./Loading";
 import Bar from "./Bars";
 import Search from "./Search";
 import Time from "./Time";
