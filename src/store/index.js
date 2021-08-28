@@ -1,8 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
-import defaultReducer from "./defaultSlice";
+import basicSlice from "./basicSlice.js";
+import homeReducer from "./homeSlice";
 
 export default configureStore({
   reducer: {
-    default: defaultReducer,
+    home: homeReducer,
+    basic: basicSlice,
   },
 });

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { ganzhijinian, getMsg } from "../utils";
 import { useSelector, useDispatch } from "react-redux";
-import { setMsg } from "../store/defaultSlice.js";
+import { setMsg } from "../store/homeSlice.js";
 import { useToast } from "@chakra-ui/react";
 
 export default function DateComponent() {
@@ -12,7 +12,7 @@ export default function DateComponent() {
   const toast = useToast();
 
   useEffect(() => {
-    msg !== globalThis.config.msg && dispatch(setMsg(globalThis.config.msg));
+    msg !== globalThis.settings.msg.text && dispatch(setMsg(globalThis.settings.msg.text));
     const id = setInterval(() => {
       setTime(new Date());
     }, 1000);
@@ -32,9 +32,9 @@ export default function DateComponent() {
   const handleChangeMsg = async () => {
     try {
       const data = await getMsg();
-      if (data !== globalThis.config.msg) {
+      if (data !== globalThis.settings.msg.text) {
         dispatch(setMsg(data));
-        globalThis.config.msg = data;
+        globalThis.settings.msg.text = data;
       }
     } catch (error) {
       console.log("error:", error);
@@ -48,11 +48,18 @@ export default function DateComponent() {
   };
 
   return (
-    <Box position="fixed" bottom="1rem" right="1rem" zIndex="9" opacity=".6" textAlign="right">
-      <Text fontSize="lg" color="white" textAlign="right" p="1rem" onClick={handleChangeMsg}>
+    <Box opacity=".8" textAlign="right" pos="fixed" right="1rem" bottom="1rem">
+      <Text
+        fontSize="lg"
+        color="white"
+        textAlign="right"
+        p="1rem"
+        onClick={handleChangeMsg}
+        className="zhanku"
+      >
         {msg}
       </Text>
-      <Text fontSize="xs" color="white" textAlign="right">
+      <Text fontSize="xs" color="white" textAlign="right" className="zhanku">
         {generateDateStr()}
       </Text>
     </Box>

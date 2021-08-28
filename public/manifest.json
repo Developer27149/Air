@@ -17,5 +17,5 @@
   "chrome_url_overrides": {
     "newtab": "index.html"
   },
-  "host_permissions": ["http://localhost:3000/"]
+  "host_permissions": ["http://110.42.133.25:3000/", "http://localhost:3000/"]
 }

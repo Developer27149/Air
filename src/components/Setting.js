@@ -1,6 +1,7 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { Icon, Box, Text, useDisclosure, Image, Switch } from "@chakra-ui/react";
 import { FcPositiveDynamic, FcSettings } from "react-icons/fc";
+import { WiSunset } from "react-icons/wi";
 import {
   Drawer,
   DrawerBody,
@@ -12,11 +13,13 @@ import {
 } from "@chakra-ui/react";
 import styles from "../styles/bars.module.sass";
 import { useDispatch, useSelector } from "react-redux";
-import { setUseRawWallpaper } from "../store/defaultSlice.js";
+import { setLocation, setUseRawWallpaper } from "../store/homeSlice.js";
 
 export default function Setting() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const rawWallpaper = useSelector((state) => state.default.rawWallpaper);
+  const location = useSelector((state) => state.default.location);
+  const [inputLocation, setInputLocation] = useState("");
   const iconRef = useRef();
   const items = [
     {
@@ -25,15 +28,25 @@ export default function Setting() {
       status: rawWallpaper === "raw",
     },
     {
-      icon: FcPositiveDynamic,
+      icon: WiSunset,
       text: "使用自动定位获取天气信息",
-      status: rawWallpaper === "raw",
+      status: location === "",
     },
   ];
   const dispatch = useDispatch();
   const handleChangeItem = (index) => {
     items[index].status = !items[index].status;
-    dispatch(setUseRawWallpaper(items[index].status ? "raw" : "auto"));
+    switch (index) {
+      case 0:
+        dispatch(setUseRawWallpaper(items[index].status ? "raw" : "auto"));
+        break;
+      case 1:
+        dispatch(setLocation(items[index].status ? "" : inputLocation));
+        break;
+
+      default:
+        break;
+    }
   };
 
   return (

@@ -5,7 +5,7 @@ import { DiBingSmall, DiCode } from "react-icons/di";
 import { SiZhihu } from "react-icons/si";
 import { GiGoldNuggets } from "react-icons/gi";
 import { VscGithubAlt } from "react-icons/vsc";
-import { setSearchEngine } from "../store/defaultSlice";
+import { setSearchEngine } from "../store/homeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { keyword2SearchEngine } from "../utils";
 

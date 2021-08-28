@@ -26,7 +26,7 @@ const config = {
   resolve: {
     extensions: [".js"],
   },
-  devtool: "cheap-module-source-map",
+  devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: "index.html",

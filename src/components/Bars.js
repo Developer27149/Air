@@ -21,10 +21,11 @@ import { VscDesktopDownload } from "react-icons/vsc";
 import { BsBookmarks } from "react-icons/bs";
 import { FcEmptyTrash, FcSettings, FcAddImage, FcTodoList, FcWorkflow } from "react-icons/fc";
 import styles from "../styles/bars.module.sass";
-import { setNewImg } from "../store/defaultSlice";
+import { setNewImg } from "../store/homeSlice";
 import { useDispatch } from "react-redux";
 import { replaceCurrentWallpaper } from "../utils";
 import Setting from "./Setting.js";
+import { Link } from "react-router-dom";
 
 export default function Bars() {
   const dispatch = useDispatch();
@@ -37,7 +38,8 @@ export default function Bars() {
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
   const setRef = useRef();
-  const { imgArr, historyIdArr } = globalThis.config;
+  const imgArr = [];
+  const historyIdArr = [];
   const [keyword, setKeyword] = useState("");
   useEffect(() => {
     console.log(keyword, imgArr);
@@ -89,9 +91,7 @@ export default function Bars() {
     <Box
       w="100%"
       display="flex"
-      position="absolute"
-      bottom=".2rem"
-      opacity="0"
+      opacity="1"
       transition="all .5s ease-in-out"
       _hover={{ opacity: 1 }}
     >
@@ -103,15 +103,26 @@ export default function Bars() {
         padding=".2rem 1.4rem"
         margin=".2rem auto"
       >
-        <Icon
-          ref={setRef}
-          className={styles.icon}
-          fontSize="24px"
-          margin="8px"
-          as={RiNeteaseCloudMusicFill}
-          title="Music - Jay"
-          color="pink.400"
-        />
+        <Link to="/home">
+          <Box
+            w="24px"
+            h="24px"
+            margin="8px"
+            backgroundImage="url(icons/48.png)"
+            backgroundSize="cover"
+          ></Box>
+        </Link>
+        <Link to="/user">
+          <Icon
+            ref={setRef}
+            className={styles.icon}
+            fontSize="24px"
+            margin="8px"
+            as={RiNeteaseCloudMusicFill}
+            title="Music - Jay"
+            color="pink.400"
+          />
+        </Link>
         <Icon
           ref={setRef}
           className={styles.icon}

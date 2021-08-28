@@ -16,7 +16,7 @@ export default function Weather() {
     const getWeather = async () => {
       if (location !== "") {
         const res = await axios.get(
-          `${globalThis.config.apiHost}/weather?name=aaron&location=${location}`
+          `${globalThis.settings.backendBaseUrl}/weather?location=${location}`
         );
         setDisplay("inline-block");
         setData(res.data);
@@ -27,7 +27,7 @@ export default function Weather() {
             console.log("get data from location", coords);
             const { latitude, longitude } = coords;
             const res = await axios.get(
-              `${globalThis.config.apiHost}/weather?name=aaron&location=${longitude.toFixed(
+              `${globalThis.settings.backendBaseUrl}/weather?location=${longitude.toFixed(
                 2
               )},${latitude.toFixed(2)}`,
               {

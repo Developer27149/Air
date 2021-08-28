@@ -1,1 +1,21 @@
-{ "typeAcquisition": { "include": ["chrome"] } }
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonJS",
+    "target": "es6",
+    "sourceMap": true,
+    "paths": {
+      "@Config/*": ["config/*"],
+      "@Components/*": ["components/*"],
+      "@Containers/*": ["containers/*"],
+      "@Handlers/*": ["handlers/*"],
+      "@Utils/*": ["utils/*"],
+      "@Style": ["style/style.js"]
+    }
+  },
+  "typeAcquisition": {
+    "include": ["chrome"]
+  },
+  "include": ["./**/*"],
+  "exclude": ["node_modules"]
+}

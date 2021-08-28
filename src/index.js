@@ -4,9 +4,9 @@ import App from "./routes";
 import { ChakraProvider } from "@chakra-ui/react";
 import store from "./store";
 import { Provider } from "react-redux";
-import init from "./init.js";
+import prepareFn from "./prepare";
 
-init().then(() => {
+prepareFn().finally(() => {
   ReactDOM.render(
     <Provider store={store}>
       <ChakraProvider>

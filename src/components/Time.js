@@ -15,19 +15,17 @@ export default function Time() {
 
   return (
     <Box
-      position="fixed"
-      top="1rem"
-      left="1rem"
-      zIndex="9"
       backgroundColor="black"
-      opacity=".2"
+      opacity=".5"
       borderRadius=".4rem"
       transition="al .4s ease-in-out"
       _hover={{
-        opacity: 0.7,
+        opacity: 0.8,
       }}
       textAlign="center"
+      margin="1rem"
       p="4px 12px"
+      margin="1rem"
     >
       <Text fontSize="sm" color="white" fontWeight="bold">
         {time.getHours() > 9 ? time.getHours() : `0${time.getHours()}`}
