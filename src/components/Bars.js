@@ -114,7 +114,6 @@ export default function Bars() {
         </Link>
         <Link to="/user">
           <Icon
-            ref={setRef}
             className={styles.icon}
             fontSize="24px"
             margin="8px"
@@ -124,7 +123,6 @@ export default function Bars() {
           />
         </Link>
         <Icon
-          ref={setRef}
           className={styles.icon}
           fontSize="24px"
           margin="8px"
@@ -132,14 +130,7 @@ export default function Bars() {
           onClick={onOpen}
           title="壁纸"
         />
-        <Icon
-          ref={setRef}
-          className={styles.icon}
-          fontSize="24px"
-          margin="8px"
-          as={BsBookmarks}
-          title="书签"
-        />
+        <Icon className={styles.icon} fontSize="24px" margin="8px" as={BsBookmarks} title="书签" />
         <Setting />
         <Icon
           className={styles.icon}
@@ -202,6 +193,7 @@ export default function Bars() {
                       margin="12px 0"
                       boxShadow="4px 4px 4px 4px rgba(0, 0, 255, .2)"
                       onClick={() => handleSelectNewWallpaper(img.id)}
+                      key={img.id}
                     >
                       <Image src={img.smImgUrl} objectFit="cover" pos="relative" />
                       <Text

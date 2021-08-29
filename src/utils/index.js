@@ -1,14 +1,4 @@
 import axios from "axios";
-import config from "../config";
-
-export async function backendStatuTest() {
-  try {
-    await axios.get(config.backendHost);
-    return true;
-  } catch (error) {
-    return false;
-  }
-}
 
 export function getStorage(key) {
   return new Promise((resolve, reject) => {

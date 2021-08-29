@@ -2,17 +2,23 @@ import React, { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import { ganzhijinian, getMsg } from "../utils";
 import { useSelector, useDispatch } from "react-redux";
-import { setMsg } from "../store/homeSlice.js";
+import { setMsg } from "../store/basicSlice.js";
 import { useToast } from "@chakra-ui/react";
 
 export default function DateComponent() {
   const [time, setTime] = useState(new Date());
-  const msg = useSelector((state) => state.default.msg);
+  const msg = useSelector((state) => state.basic.msg);
   const dispatch = useDispatch();
   const toast = useToast();
 
   useEffect(() => {
-    msg !== globalThis.settings.msg.text && dispatch(setMsg(globalThis.settings.msg.text));
+    msg !== globalThis.settings.msg.text &&
+      dispatch(
+        setMsg({
+          ...msg,
+          text: globalThis.settings.msg.text,
+        })
+      );
     const id = setInterval(() => {
       setTime(new Date());
     }, 1000);
@@ -33,8 +39,16 @@ export default function DateComponent() {
     try {
       const data = await getMsg();
       if (data !== globalThis.settings.msg.text) {
-        dispatch(setMsg(data));
-        globalThis.settings.msg.text = data;
+        dispatch(
+          setMsg({
+            ...msg,
+            text: data,
+          })
+        );
+        globalThis.settings = {
+          ...globalThis.settings,
+          msg,
+        };
       }
     } catch (error) {
       console.log("error:", error);

@@ -1,6 +1,6 @@
 import axios from "axios";
-const configSchema = require("../schema");
-const { setStorage, getStorage, clearStorage } = require("../utils/index.js");
+import { configSchema } from "Schema/index.js";
+import { getStorage } from "Utils/index.js";
 
 export const config = {
   wallpaper: {
@@ -32,17 +32,21 @@ export const config = {
 
 export const init = async () => {
   const storageData = await getStorage("config");
-  const isValid = await configSchema.isValid(storageData);
+  const isValid = await configSchema.isValid(storageData.config);
   let currentConfig = config;
-  console.log(storageData, "is storage data");
+  console.log(storageData.config, "is storage data", isValid);
   if (isValid) {
-    currentConfig = storageData;
+    currentConfig = storageData.config;
     // just update data
     // 1. get new image items
     const wallpapersData = await axios.get(`${config.backendBaseUrl}/wallpapers`);
     console.log(wallpapersData, "is wallpapers data");
   } else {
-    await clearStorage();
+    console.log("clear local storage");
+    await chrome.storage.local.clear();
+    await setStorage({
+      config: JSON.stringify(currentConfig),
+    });
   }
   globalThis.settings = new Proxy(currentConfig, {
     set: async function (target, prop, receiver) {
@@ -59,4 +63,6 @@ export const init = async () => {
       }
     },
   });
+
+  console.log(await getStorage("config"));
 };

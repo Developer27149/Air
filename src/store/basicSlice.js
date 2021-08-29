@@ -1,25 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { config } from "../prepare/init";
+import getInitConfig from "Utils/getInitState.js";
 
-// const settings = globalThis.settings || config;
+const { time, msg, backendBaseUrl, updateTimestamp, token } = await getInitConfig();
+
 export const basicSlice = createSlice({
   name: "basic",
   initialState: {
-    location: "",
-    time: globalThis?.settings?.time || {},
-    msg: globalThis?.settings?.search || {},
-    backendBaseUrl: globalThis?.settings?.backendBaseUrl || {},
-    updateTimestamp: globalThis?.settings?.updateTimestamp || "",
-    token: globalThis?.settings?.token || "",
+    time,
+    msg,
+    backendBaseUrl,
+    updateTimestamp,
+    token,
   },
   reducers: {
-    setLocation(state, action) {
-      state.location = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        location: action.payload,
-      };
-    },
     setTime(state, action) {
       state.time = action.payload;
       globalThis.settings = {
@@ -59,6 +52,6 @@ export const basicSlice = createSlice({
 });
 
 // 每一个 reducer 函数都会生成一个对应的 action
-export const { setBackendBaseUrl, setToken, setTime, setLocation, setUpdateTimestamp, setMsg } =
+export const { setBackendBaseUrl, setToken, setTime, setUpdateTimestamp, setMsg } =
   basicSlice.actions;
 export default basicSlice.reducer;

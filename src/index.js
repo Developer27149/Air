@@ -2,11 +2,11 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./routes";
 import { ChakraProvider } from "@chakra-ui/react";
-import store from "./store";
 import { Provider } from "react-redux";
-import prepareFn from "./prepare";
+import store from "Store/index.js";
+import prepareFn from "Prepare/index.js";
 
-prepareFn().finally(() => {
+prepareFn().finally(async () => {
   ReactDOM.render(
     <Provider store={store}>
       <ChakraProvider>

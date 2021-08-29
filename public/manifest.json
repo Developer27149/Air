@@ -2,8 +2,8 @@
   "version": "1.0.0",
   "manifest_version": 3,
   "author": "Youyi",
-  "description": "岚 - 浏览器默认标签页插件",
-  "name": "岚",
+  "description": "空 - 浏览器默认标签页插件",
+  "name": "空",
   "icons": {
     "16": "./icons/16.png",
     "32": "./icons/32.png",

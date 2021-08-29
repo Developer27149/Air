@@ -27,13 +27,13 @@ export default function Time() {
       p="4px 12px"
       margin="1rem"
     >
-      <Text fontSize="sm" color="white" fontWeight="bold">
+      <Box fontSize="sm" color="white" fontWeight="bold">
         {time.getHours() > 9 ? time.getHours() : `0${time.getHours()}`}
-        <Text display="inline-block" opacity={time.getSeconds() % 2 === 0 ? 0 : 1} p="0 3px">
+        <Text display="inline-block" animation="" p="0 3px">
           :
         </Text>
         {time.getMinutes() > 9 ? time.getMinutes() : `0${time.getMinutes()}`}
-      </Text>
+      </Box>
       <Weather />
     </Box>
   );

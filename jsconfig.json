@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "module": "commonJS",
+    "target": "esnext",
+    "sourceMap": true,
+    "paths": {
+      "Utils/*": ["src/utils/*"],
+      "Components/*": ["src/components/*"],
+      "Routes/*": ["src/routes/*"],
+      "Prepare/*": ["src/prepare/*"],
+      "Store/*": ["src/store/*"],
+      "Schema/*": ["src/schema/*"],
+      "Styles/*": ["src/styles/*"]
+    }
+  },
+  "typeAcquisition": {
+    "include": ["chrome"]
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

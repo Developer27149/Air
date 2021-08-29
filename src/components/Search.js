@@ -5,7 +5,7 @@ import { DiBingSmall, DiCode } from "react-icons/di";
 import { SiZhihu } from "react-icons/si";
 import { GiGoldNuggets } from "react-icons/gi";
 import { VscGithubAlt } from "react-icons/vsc";
-import { setSearchEngine } from "../store/homeSlice";
+import { setSearch } from "../store/homeSlice";
 import { useSelector, useDispatch } from "react-redux";
 import { keyword2SearchEngine } from "../utils";
 
@@ -13,15 +13,19 @@ export default function Search() {
   const dispatch = useDispatch();
   const [boxOpacity, setBoxOpacity] = useState(0);
   const [keyword, setKeyword] = useState("");
-  const searchEngineDomain = useSelector((state) => state.default.searchEngine);
+  const searchEngineDomain = useSelector((state) => state.home.search);
   const handleInput = (e) => {
     if (boxOpacity === 0) setBoxOpacity(1);
     const v = e.target.value;
     const searchEngine = keyword2SearchEngine(v);
     if (searchEngine) {
-      if (searchEngineDomain !== searchEngine) {
+      if (searchEngineDomain.engine !== searchEngine) {
         setKeyword("");
-        dispatch(setSearchEngine(searchEngine));
+        dispatch(
+          setSearch({
+            engine: searchEngine,
+          })
+        );
       }
     } else {
       setKeyword(v.replace(/^-/, ""));
@@ -29,18 +33,18 @@ export default function Search() {
   };
 
   const selectIcon = () => {
-    if (searchEngineDomain === "bing.com") return DiBingSmall;
-    if (searchEngineDomain === "zhihu.com") return SiZhihu;
-    if (searchEngineDomain === "dev.to") return DiCode;
-    if (searchEngineDomain === "github.com") return VscGithubAlt;
-    if (searchEngineDomain === "juejin.cn") return GiGoldNuggets;
+    if (searchEngineDomain.engine === "bing.com") return DiBingSmall;
+    if (searchEngineDomain.engine === "zhihu.com") return SiZhihu;
+    if (searchEngineDomain.engine === "dev.to") return DiCode;
+    if (searchEngineDomain.engine === "github.com") return VscGithubAlt;
+    if (searchEngineDomain.engine === "juejin.cn") return GiGoldNuggets;
     return FcGoogle;
   };
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
       console.log("start search", searchEngineDomain);
-      let url = `https://www.${searchEngineDomain}/search?q=${keyword}`;
+      let url = `https://www.${searchEngineDomain.engine}/search?q=${keyword}`;
       globalThis.location = url;
     }
   };

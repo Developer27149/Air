@@ -6,18 +6,16 @@ import { useSelector } from "react-redux";
 
 export default function Weather() {
   const [data, setData] = useState({
-    temp: 28,
-    text: "晴",
+    temp: 0,
+    text: "",
   });
   const [display, setDisplay] = useState("none");
-  const location = useSelector((state) => state.default.location);
-
+  const location = useSelector((state) => state.basic.location);
+  const backendBaseUrl = useSelector((state) => state.basic.backendBaseUrl);
   useEffect(() => {
     const getWeather = async () => {
       if (location !== "") {
-        const res = await axios.get(
-          `${globalThis.settings.backendBaseUrl}/weather?location=${location}`
-        );
+        const res = await axios.get(`${backendBaseUrl}/weather?location=${location}`);
         setDisplay("inline-block");
         setData(res.data);
       } else {
@@ -27,9 +25,7 @@ export default function Weather() {
             console.log("get data from location", coords);
             const { latitude, longitude } = coords;
             const res = await axios.get(
-              `${globalThis.settings.backendBaseUrl}/weather?location=${longitude.toFixed(
-                2
-              )},${latitude.toFixed(2)}`,
+              `${backendBaseUrl}/weather?location=${longitude.toFixed(2)},${latitude.toFixed(2)}`,
               {
                 timeout: 12000,
               }

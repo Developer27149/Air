@@ -12,6 +12,7 @@ export const configSchema = yup.object().shape({
   time: object({
     showTime: boolean().required(),
     showWeather: boolean().required(),
+    location: string(),
   }).required(),
   msg: object({
     show: boolean().required(),
@@ -21,8 +22,7 @@ export const configSchema = yup.object().shape({
   search: object({
     engine: string().required(),
   }),
-  location: string().required(),
   updateTimestamp: string().required(),
   backendBaseUrl: string().required(),
-  token: string().required(),
+  token: string(),
 });

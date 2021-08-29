@@ -25,6 +25,15 @@ const config = {
   },
   resolve: {
     extensions: [".js"],
+    alias: {
+      Utils: path.resolve(__dirname, "src/utils"),
+      Routes: path.resolve(__dirname, "src/routes"),
+      Components: path.resolve(__dirname, "src/components"),
+      Prepare: path.resolve(__dirname, "src/prepare"),
+      Schema: path.resolve(__dirname, "src/schema"),
+      Store: path.resolve(__dirname, "src/store"),
+      Styles: path.resolve(__dirname, "src/styles"),
+    },
   },
   devtool: "inline-source-map",
   plugins: [
@@ -74,6 +83,9 @@ const config = {
     splitChunks: {
       chunks: "all",
     },
+  },
+  experiments: {
+    topLevelAwait: true,
   },
 };
 

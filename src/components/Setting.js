@@ -13,24 +13,27 @@ import {
 } from "@chakra-ui/react";
 import styles from "../styles/bars.module.sass";
 import { useDispatch, useSelector } from "react-redux";
-import { setLocation, setUseRawWallpaper } from "../store/homeSlice.js";
+import { setWallpaper } from "../store/homeSlice.js";
+import { setLocation } from "../store/basicSlice.js";
 
 export default function Setting() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const rawWallpaper = useSelector((state) => state.default.rawWallpaper);
-  const location = useSelector((state) => state.default.location);
+  const wallpaperState = useSelector((state) => state.home.wallpaper);
+  const location = useSelector((state) => state.basic.location);
   const [inputLocation, setInputLocation] = useState("");
   const iconRef = useRef();
   const items = [
     {
       icon: FcPositiveDynamic,
       text: "4k 壁纸,首次加载和更换的速度会变慢（取决于网速）",
-      status: rawWallpaper === "raw",
+      status: wallpaperState.raw,
+      id: 0,
     },
     {
       icon: WiSunset,
       text: "使用自动定位获取天气信息",
       status: location === "",
+      id: 1,
     },
   ];
   const dispatch = useDispatch();
@@ -38,7 +41,12 @@ export default function Setting() {
     items[index].status = !items[index].status;
     switch (index) {
       case 0:
-        dispatch(setUseRawWallpaper(items[index].status ? "raw" : "auto"));
+        dispatch(
+          setWallpaper({
+            ...wallpaperState,
+            raw: items[index].status,
+          })
+        );
         break;
       case 1:
         dispatch(setLocation(items[index].status ? "" : inputLocation));
@@ -51,15 +59,9 @@ export default function Setting() {
 
   return (
     <>
-      <Icon
-        className={styles.icon}
-        fontSize="24px"
-        margin="8px"
-        as={FcSettings}
-        title="设置"
-        ref={iconRef}
-        onClick={onOpen}
-      />
+      <Box ref={iconRef} onClick={onOpen}>
+        <Icon className={styles.icon} fontSize="24px" margin="8px" as={FcSettings} title="设置" />
+      </Box>
       <Drawer isOpen={isOpen} placement="left" onClose={onClose} finalFocusRef={iconRef}>
         <DrawerOverlay />
         <DrawerContent>
@@ -81,6 +83,7 @@ export default function Setting() {
                   _hover={{
                     bg: "purple.50",
                   }}
+                  key={item.id}
                 >
                   <Icon as={item.icon} className={styles.icon} fontSize="18px" />
                   <Text p=".2rem 1rem" fontFamily="sans-serif" flexGrow="1">
