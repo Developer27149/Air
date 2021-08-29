@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, Text } from "@chakra-ui/react";
 import Weather from "./Weather.js";
+import { motion } from "framer-motion";
 
 export default function Time() {
   const [time, setTime] = useState(new Date());
@@ -26,12 +27,24 @@ export default function Time() {
       margin="1rem"
       p="4px 12px"
       margin="1rem"
+      zIndex="99"
     >
       <Box fontSize="sm" color="white" fontWeight="bold">
         {time.getHours() > 9 ? time.getHours() : `0${time.getHours()}`}
-        <Text display="inline-block" animation="" p="0 3px">
+        <motion.span
+          initial={{
+            padding: "0 4px",
+          }}
+          animate={{
+            opacity: [0, 1, 0],
+          }}
+          transition={{
+            duration: 1,
+            repeat: Infinity,
+          }}
+        >
           :
-        </Text>
+        </motion.span>
         {time.getMinutes() > 9 ? time.getMinutes() : `0${time.getMinutes()}`}
       </Box>
       <Weather />

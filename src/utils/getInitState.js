@@ -2,7 +2,9 @@ import { configSchema } from "Schema/index.js";
 import { getStorage } from "./index.js";
 
 const getInitConfig = async () => {
-  let { config } = await getStorage("config");
+  let storageData = await getStorage("config");
+  console.log(storageData);
+  let config = storageData?.config;
   try {
     await configSchema.validate(config);
   } catch (error) {

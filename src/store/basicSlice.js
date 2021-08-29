@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import getInitConfig from "Utils/getInitState.js";
 
 const { time, msg, backendBaseUrl, updateTimestamp, token } = await getInitConfig();
-
 export const basicSlice = createSlice({
   name: "basic",
   initialState: {

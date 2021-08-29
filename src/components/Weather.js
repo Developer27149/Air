@@ -10,13 +10,15 @@ export default function Weather() {
     text: "",
   });
   const [display, setDisplay] = useState("none");
-  const location = useSelector((state) => state.basic.location);
+  const time = useSelector((state) => state.basic.time);
   const backendBaseUrl = useSelector((state) => state.basic.backendBaseUrl);
   useEffect(() => {
     const getWeather = async () => {
+      const { location } = time;
       if (location !== "") {
         const res = await axios.get(`${backendBaseUrl}/weather?location=${location}`);
         setDisplay("inline-block");
+        console.log(res.data);
         setData(res.data);
       } else {
         navigator.geolocation.getCurrentPosition(

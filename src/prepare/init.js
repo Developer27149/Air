@@ -1,6 +1,6 @@
 import axios from "axios";
 import { configSchema } from "Schema/index.js";
-import { getStorage } from "Utils/index.js";
+import { getStorage, setStorage } from "Utils/index.js";
 
 export const config = {
   wallpaper: {
@@ -8,9 +8,7 @@ export const config = {
     fixed: false,
     history: [],
     unlike: [],
-    items: [
-      "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3904&q=80",
-    ],
+    items: [],
   },
   time: {
     showTime: true,
@@ -32,15 +30,15 @@ export const config = {
 
 export const init = async () => {
   const storageData = await getStorage("config");
-  const isValid = await configSchema.isValid(storageData.config);
+  const isValid = await configSchema.isValid(storageData?.config);
   let currentConfig = config;
-  console.log(storageData.config, "is storage data", isValid);
+  console.log(storageData?.config, "is storage data", isValid);
   if (isValid) {
-    currentConfig = storageData.config;
+    currentConfig = storageData?.config;
     // just update data
     // 1. get new image items
-    const wallpapersData = await axios.get(`${config.backendBaseUrl}/wallpapers`);
-    console.log(wallpapersData, "is wallpapers data");
+    const { data } = await axios.get(`${config.backendBaseUrl}/wallpapers`);
+    currentConfig.wallpaper.items = data;
   } else {
     console.log("clear local storage");
     await chrome.storage.local.clear();

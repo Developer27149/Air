@@ -1,13 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
-// import { config } from "../prepare/init";
+import getInitConfig from "Utils/getInitState.js";
 
-// const settings = globalThis.settings || config;
+const { wallpaper, search } = await getInitConfig();
+
 export const homeSlice = createSlice({
   name: "home",
   initialState: {
     newImg: "",
-    wallpaper: globalThis?.settings?.wallpaper || {},
-    search: globalThis?.settings?.search || {},
+    wallpaper,
+    search,
   },
   reducers: {
     setNewImg(state, action) {

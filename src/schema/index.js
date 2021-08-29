@@ -22,7 +22,7 @@ export const configSchema = yup.object().shape({
   search: object({
     engine: string().required(),
   }),
-  updateTimestamp: string().required(),
-  backendBaseUrl: string().required(),
+  updateTimestamp: string(),
+  backendBaseUrl: string(),
   token: string(),
 });
