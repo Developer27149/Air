@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getInitConfig from "Utils/getInitState.js";
 
-const { wallpaper, search } = await getInitConfig();
+const { wallpaper, search, weather } = await getInitConfig();
 
 export const homeSlice = createSlice({
   name: "home",
@@ -9,6 +9,7 @@ export const homeSlice = createSlice({
     newImg: "",
     wallpaper,
     search,
+    weather,
   },
   reducers: {
     setNewImg(state, action) {
@@ -28,9 +29,18 @@ export const homeSlice = createSlice({
         search: action.payload,
       };
     },
+    setWeather(state, action) {
+      console.log(action);
+      state.weather = action.payload;
+      globalThis.settings = {
+        ...globalThis.settings,
+        weather: action.payload,
+      };
+      console.log(globalThis.settings);
+    },
   },
 });
 
 // 每一个 reducer 函数都会生成一个对应的 action
-export const { setNewImg, setSearch, setWallpaper } = homeSlice.actions;
+export const { setNewImg, setSearch, setWallpaper, setWeather } = homeSlice.actions;
 export default homeSlice.reducer;

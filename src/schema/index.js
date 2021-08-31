@@ -25,4 +25,8 @@ export const configSchema = yup.object().shape({
   updateTimestamp: string(),
   backendBaseUrl: string(),
   token: string(),
+  weather: object({
+    temp: number(),
+    text: string(),
+  }),
 });

@@ -2,9 +2,9 @@ import React, { useEffect, Suspense, useState } from "react";
 import { Box, Image } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { setWallpaper, setSearch, setNewImg } from "../../store/homeSlice";
-import Loading from "Components/Loading.js";
-
-const Search = React.lazy(() => import("../../components/Search.js"));
+import Search from "Components/Search.js";
+// import Loading from "Components/Loading.js";
+// const Search = React.lazy(() => import("../../components/Search.js"));
 
 export default function Home() {
   const wallpaperConfig = useSelector((state) => state.home.wallpaper);
@@ -31,7 +31,7 @@ export default function Home() {
   };
 
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       <Image
         w="100vw"
         h="100vh"
@@ -60,6 +60,6 @@ export default function Home() {
       >
         <Search />
       </Box>
-    </Suspense>
+    </>
   );
 }

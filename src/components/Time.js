@@ -17,7 +17,7 @@ export default function Time() {
   return (
     <Box
       backgroundColor="black"
-      opacity=".5"
+      opacity=".4"
       borderRadius=".4rem"
       transition="al .4s ease-in-out"
       _hover={{
@@ -25,7 +25,7 @@ export default function Time() {
       }}
       textAlign="center"
       margin="1rem"
-      p="4px 12px"
+      p="4px 16px"
       margin="1rem"
       zIndex="99"
     >

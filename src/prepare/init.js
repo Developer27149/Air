@@ -26,6 +26,10 @@ export const config = {
   updateTimestamp: new Date().getTime(),
   backendBaseUrl: "http://localhost:3000",
   token: "",
+  weather: {
+    temp: 28,
+    text: "多云",
+  },
 };
 
 export const init = async () => {
