@@ -6,7 +6,7 @@ const { wallpaper, search, weather } = await getInitConfig();
 export const homeSlice = createSlice({
   name: "home",
   initialState: {
-    newImg: "",
+    newImg: "wallpaper.jpeg",
     wallpaper,
     search,
     weather,
@@ -17,26 +17,16 @@ export const homeSlice = createSlice({
     },
     setWallpaper(state, action) {
       state.wallpaper = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        wallpaper: action.payload,
-      };
+      globalThis.settings.wallpaper = action.payload;
     },
     setSearch(state, action) {
       state.search = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        search: action.payload,
-      };
+      globalThis.settings.search = action.payload;
     },
     setWeather(state, action) {
       console.log(action);
       state.weather = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        weather: action.payload,
-      };
-      console.log(globalThis.settings);
+      globalThis.settings.weather = action.payload;
     },
   },
 });

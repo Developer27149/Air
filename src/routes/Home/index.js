@@ -8,12 +8,15 @@ import Search from "Components/Search.js";
 
 export default function Home() {
   const wallpaperConfig = useSelector((state) => state.home.wallpaper);
+  const isRawWallpaper = wallpaperConfig.raw;
   const newImg = useSelector((state) => state.home.newImg);
+  const url = wallpaperConfig.items[0][`${isRawWallpaper ? "raw" : "url"}`] || "wallpaper.jpeg";
 
   const dispatch = useDispatch();
 
   useEffect(async () => {
     // set img
+    dispatch(setNewImg(url));
   }, []);
 
   const handleLoadedNewImg = () => {
@@ -32,18 +35,7 @@ export default function Home() {
 
   return (
     <>
-      <Image
-        w="100vw"
-        h="100vh"
-        position="fixed"
-        left="0"
-        top="0"
-        m="0"
-        p="0"
-        src={newImg}
-        onLoad={handleLoadedNewImg}
-        onError={handleLoadFail}
-      />
+      <Image display="none" src={url} onLoad={handleLoadedNewImg} onError={handleLoadFail} />
       <Box
         display="flex"
         justifyContent="center"
@@ -55,7 +47,7 @@ export default function Home() {
         top="0"
         m="0"
         p="0"
-        background={`url(${wallpaperConfig.items[0]})`}
+        background={`url(${newImg})`}
         backgroundSize="cover"
       >
         <Search />

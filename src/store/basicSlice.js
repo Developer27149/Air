@@ -14,38 +14,23 @@ export const basicSlice = createSlice({
   reducers: {
     setTime(state, action) {
       state.time = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        time: action.payload,
-      };
+      globalThis.settings.time = action.payload;
     },
     setMsg(state, action) {
       state.msg = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        msg: action.payload,
-      };
+      globalThis.settings.msg = action.payload;
     },
     setBackendBaseUrl(state, action) {
       state.backendBaseUrl = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        backendBaseUrl: action.payload,
-      };
+      globalThis.settings.backendBaseUrl = action.payload;
     },
     setUpdateTimestamp(state, action) {
       state.updateTimestamp = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        updateTimestamp: action.payload,
-      };
+      globalThis.settings.updateTimestamp = action.payload;
     },
     setToken(state, action) {
       state.token = action.payload;
-      globalThis.settings = {
-        ...globalThis.settings,
-        token: action.payload,
-      };
+      globalThis.settings.token = action.payload;
     },
   },
 });
