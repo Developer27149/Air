@@ -11,7 +11,8 @@
       "Prepare/*": ["src/prepare/*"],
       "Store/*": ["src/store/*"],
       "Schema/*": ["src/schema/*"],
-      "Styles/*": ["src/styles/*"]
+      "Styles/*": ["src/styles/*"],
+      "Hooks/*": ["src/hooks/*"]
     }
   },
   "typeAcquisition": {

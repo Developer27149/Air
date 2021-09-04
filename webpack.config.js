@@ -1,5 +1,4 @@
 // Generated using webpack-cli https://github.com/webpack/webpack-cli
-
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -33,13 +32,14 @@ const config = {
       Schema: path.resolve(__dirname, "src/schema"),
       Store: path.resolve(__dirname, "src/store"),
       Styles: path.resolve(__dirname, "src/styles"),
+      Hooks: path.resolve(__dirname, "src/hooks"),
     },
   },
   devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
       template: "index.html",
-      title: "岚",
+      title: "空",
       chunks: ["main"],
     }),
 
@@ -86,6 +86,10 @@ const config = {
   },
   experiments: {
     topLevelAwait: true,
+  },
+  cache: {
+    type: "filesystem",
+    cacheDirectory: path.resolve(__dirname, ".cache"),
   },
 };
 

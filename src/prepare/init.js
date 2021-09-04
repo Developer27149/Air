@@ -36,7 +36,7 @@ export const init = async () => {
   const storageData = await getStorage("config");
   const isValid = await configSchema.isValid(storageData?.config);
   let currentConfig = config;
-  console.log(storageData?.config, "is storage data", isValid);
+  console.log("storage data is valid?", isValid);
   if (isValid) {
     currentConfig = storageData?.config;
     // just update data
@@ -56,7 +56,6 @@ export const init = async () => {
       target[prop] = receiver;
       const isValid = configSchema.isValid(target);
       if (isValid) {
-        console.log("current setting is valid");
         await setStorage({
           config: JSON.stringify(target),
         });
@@ -65,6 +64,4 @@ export const init = async () => {
       }
     },
   });
-
-  console.log(await getStorage("config"));
 };

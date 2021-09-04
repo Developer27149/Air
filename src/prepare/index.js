@@ -9,6 +9,5 @@ import { init } from "./init"; // 初始化全局 config 对象，更新此对�
 const prepareFn = async () => {
   console.log("prepare function is running.");
   await init();
-  console.log("init and print global this settings", globalThis.settings);
 };
 export default prepareFn;

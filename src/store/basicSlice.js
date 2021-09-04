@@ -25,6 +25,7 @@ export const basicSlice = createSlice({
       globalThis.settings.backendBaseUrl = action.payload;
     },
     setUpdateTimestamp(state, action) {
+      console.log(action);
       state.updateTimestamp = action.payload;
       globalThis.settings.updateTimestamp = action.payload;
     },
@@ -38,4 +39,5 @@ export const basicSlice = createSlice({
 // 每一个 reducer 函数都会生成一个对应的 action
 export const { setBackendBaseUrl, setToken, setTime, setUpdateTimestamp, setMsg } =
   basicSlice.actions;
+
 export default basicSlice.reducer;

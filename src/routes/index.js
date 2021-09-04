@@ -1,14 +1,10 @@
 import React, { lazy, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Bars from "../components/Bars.js";
-import { Box, Image } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Time from "../components/Time.js";
 import DateComponent from "../components/DateComponent.js";
-import { Suspense } from "react";
-import Loading from "Components/Loading.js";
-// const Home = lazy(() => import("Routes/Home"));
 import Home from "Routes/Home";
-import { useSelector } from "react-redux";
 
 export default function App() {
   return (
@@ -16,7 +12,7 @@ export default function App() {
       <Box w="100vw" height="100vh" display="flex" flexDir="column">
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Time />
-          {/* <DateComponent /> */}
+          <DateComponent />
         </Box>
         <Box flexGrow="1">
           <Switch>

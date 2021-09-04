@@ -3,7 +3,6 @@ import { getStorage } from "./index.js";
 
 const getInitConfig = async () => {
   let storageData = await getStorage("config");
-  console.log(storageData);
   let config = storageData?.config;
   try {
     await configSchema.validate(config);
