@@ -14,7 +14,6 @@ import {
 import styles from "../styles/bars.module.sass";
 import { useDispatch, useSelector } from "react-redux";
 import { setWallpaper } from "../store/homeSlice.js";
-import { setLocation } from "../store/basicSlice.js";
 
 export default function Setting() {
   const { isOpen, onOpen, onClose } = useDisclosure();

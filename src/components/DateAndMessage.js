@@ -3,7 +3,7 @@ import { Box, Text } from "@chakra-ui/react";
 import { ganzhijinian } from "Utils/index.js";
 import useMessage from "Hooks/useMessage";
 
-export default function DateComponent() {
+export default function DateAndMessage() {
   const msg = useMessage();
   const generateDateStr = () => {
     const dateObj = new Date();

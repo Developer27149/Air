@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 import getInitConfig from "Utils/getInitState.js";
 
 const { wallpaper, search, weather } = await getInitConfig();
-
 export const homeSlice = createSlice({
   name: "home",
   initialState: {

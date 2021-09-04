@@ -1,10 +1,10 @@
 import React, { lazy, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import Bars from "../components/Bars.js";
 import { Box } from "@chakra-ui/react";
 import Time from "../components/Time.js";
-import DateComponent from "../components/DateComponent.js";
+import DateComponent from "../components/DateAndMessage.js";
 import Home from "Routes/Home";
+import { Bar } from "Components/index.js";
 
 export default function App() {
   return (
@@ -27,7 +27,7 @@ export default function App() {
             </Route>
           </Switch>
         </Box>
-        <Bars />
+        <Bar />
       </Box>
     </Router>
   );

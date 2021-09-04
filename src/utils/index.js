@@ -1,4 +1,11 @@
 import axios from "axios";
+import { FcGoogle } from "react-icons/fc";
+import { DiBingSmall, DiCode } from "react-icons/di";
+import { SiZhihu } from "react-icons/si";
+import { GiGoldNuggets } from "react-icons/gi";
+import { VscGithubAlt } from "react-icons/vsc";
+
+export const searchIcons = { FcGoogle, DiCode, DiBingSmall, SiZhihu, GiGoldNuggets, VscGithubAlt };
 
 export function getStorage(key) {
   return new Promise((resolve, reject) => {
@@ -79,6 +86,15 @@ export const keyword2SearchEngine = (keyword) => {
     dev: "dev.to",
   };
   return _[keyword];
+};
+
+export const selectIcon = (search) => {
+  if (search.engine === "bing.com") return DiBingSmall;
+  if (search.engine === "zhihu.com") return SiZhihu;
+  if (search.engine === "dev.to") return DiCode;
+  if (search.engine === "github.com") return VscGithubAlt;
+  if (search.engine === "juejin.cn") return GiGoldNuggets;
+  return FcGoogle;
 };
 
 export const emptyFunc = () => {};

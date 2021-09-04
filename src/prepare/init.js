@@ -37,18 +37,23 @@ export const init = async () => {
   const isValid = await configSchema.isValid(storageData?.config);
   let currentConfig = config;
   console.log("storage data is valid?", isValid);
-  if (isValid) {
-    currentConfig = storageData?.config;
-    // just update data
-    // 1. get new image items
-    const { data } = await axios.get(`${config.backendBaseUrl}/wallpapers`);
-    currentConfig.wallpaper.items = data;
-  } else {
-    console.log("clear local storage");
-    await chrome.storage.local.clear();
-    await setStorage({
-      config: JSON.stringify(currentConfig),
-    });
+  try {
+    if (isValid) {
+      console.log("storageData is:", storageData);
+      currentConfig = storageData.config;
+      // just update data
+      // 1. get new image items
+      const { data } = await axios.get(`${config.backendBaseUrl}/wallpapers`);
+      currentConfig.wallpaper.items = data;
+    } else {
+      console.log("clear local storage");
+      await chrome.storage.local.clear();
+      await setStorage({
+        config: JSON.stringify(currentConfig),
+      });
+    }
+  } catch (error) {
+    currentConfig = config;
   }
   globalThis.settings = new Proxy(currentConfig, {
     set: async function (target, prop, receiver) {

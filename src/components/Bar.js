@@ -65,7 +65,7 @@ export default function Bars() {
       title: "设置新壁纸",
       description: "网络加载中，等等",
       status: "info",
-      duration: 2000,
+      duration: 3000,
       isClosable: true,
     });
     setTimeout(() => {
@@ -94,6 +94,7 @@ export default function Bars() {
       opacity="1"
       transition="all .5s ease-in-out"
       _hover={{ opacity: 1 }}
+      zIndex="99"
     >
       <Box
         display="flex"

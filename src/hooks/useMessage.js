@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { setMsg } from "Store/basicSlice.js";
 
 export default function useMessage() {
   const msg = useSelector((state) => state.basic.msg);
@@ -16,19 +17,19 @@ export default function useMessage() {
       try {
         const currentDateTime = new Date().getTime();
         // 如果最近一小时内获取过则忽略
-        if (currentDateTime - updateTimestamp > 1000 * 60 * 60) {
+        if (currentDateTime - updateTimestamp > 60) {
           // 获取新的更新到 storage
           // 如果用户需要展示每日文字，则获取新的内容
           if (msg.show) {
             const { data } = await axios.get(`${backendBaseUrl}/msg`);
-            console.log(data);
             dispatch(
               setMsg({
                 ...msg,
-                text: data,
+                text: data.data,
               })
             );
-            setData(data);
+            console.log("set new data msg:", data);
+            setData(data.data);
           }
         }
       } catch (error) {

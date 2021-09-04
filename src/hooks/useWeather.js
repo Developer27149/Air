@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setUpdateTimestamp } from "Store/basicSlice.js";
+import { setWeather } from "Store/homeSlice.js";
 
 export default function UseWeather() {
   const updateTimestamp = useSelector((state) => state.basic.updateTimestamp);
