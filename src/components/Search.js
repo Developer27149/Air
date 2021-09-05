@@ -16,7 +16,7 @@ export default function Search() {
     if (e.key === "Enter") {
       console.log("start search", engine);
       let url = `https://www.${engine}/search?q=${keyword}`;
-      globalThis.location = url;
+      globalThis.open(url);
     }
   };
 
