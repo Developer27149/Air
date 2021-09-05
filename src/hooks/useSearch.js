@@ -1,63 +1,56 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { keyword2SearchEngine, searchIcons, selectIcon } from "Utils/index.js";
 import { setSearch } from "Store/homeSlice.js";
 
 export default function useSearch() {
-  const [keyword, setKeyword] = useState("");
   const search = useSelector((state) => state.home.search);
-  const [engineIcon, setEngineIcon] = useState(selectIcon(search));
+  const [keyword, setKeyword] = useState("");
   const [engine, setEngine] = useState(search.engine);
   const dispatch = useDispatch();
-  // const [searchEngine, setSearchEngine] = useState(search.engine)
   const mapList = [
     {
       key: "bi",
-      icon: searchIcons.DiBingSmall,
+      engine: "bing.com",
     },
     {
       key: "zh",
-      icon: searchIcons.SiZhihu,
+      engine: "zhihu.com",
     },
     {
       key: "dev",
-      icon: searchIcons.DiCode,
+      engine: "dev.to",
     },
     {
       key: "gh",
-      icon: searchIcons.VscGithubAlt,
+      engine: "github.com",
     },
     {
       key: "jj",
-      icon: searchIcons.GiGoldNuggets,
+      engine: "juejin.cn",
     },
     {
       key: "gg",
-      icon: searchIcons.FcGoogle,
+      engine: "google.com",
     },
   ];
 
   useEffect(() => {
     mapList.some((item) => {
-      if (keyword.startsWith(item.key) && engineIcon !== item.icon) {
+      if (keyword.startsWith(item.key) && engine !== item.engine) {
         // dispatch data to store and save to storage
-        setEngine(keyword2SearchEngine(item.key));
+        setEngine(item.engine);
         dispatch(
           setSearch({
-            engine,
+            engine: item.engine,
           })
         );
-        // reset icon and modify search keyword
-        setEngineIcon(item.icon);
+        // reset engine and modify search keyword
         setKeyword(keyword.replace(item.key, ""));
         return true;
       }
       return false;
     });
-    return () => {
-      setKeyword("");
-    };
   }, [keyword]);
 
-  return { keyword, engineIcon, setKeyword, engine };
+  return { keyword, setKeyword, engine };
 }

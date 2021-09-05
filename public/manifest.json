@@ -20,6 +20,6 @@
   "host_permissions": [
     "http://110.42.133.25:3000/",
     "http://localhost:3000/",
-    "https://unsplash.com"
+    "https://unsplash.com/"
   ]
 }

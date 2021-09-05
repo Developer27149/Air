@@ -11,6 +11,7 @@ export default function useMessage() {
   const dispatch = useDispatch();
   // data
   const [data, setData] = useState(msg.text);
+  const fontSize = msg.fontSize;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -40,5 +41,5 @@ export default function useMessage() {
     fetchData();
   }, []);
 
-  return data;
+  return { data, fontSize };
 }

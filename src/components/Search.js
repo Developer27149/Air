@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Input, Box, Icon } from "@chakra-ui/react";
 import useSearch from "Hooks/useSearch.js";
+import { selectIcon } from "Utils/index.js";
 
 export default function Search() {
   const [boxOpacity, setBoxOpacity] = useState(0);
-  const { keyword, engineIcon, setKeyword, engine } = useSearch();
+  const { keyword, setKeyword, engine } = useSearch();
   const handleInput = (e) => {
     if (boxOpacity === 0) setBoxOpacity(1);
     const v = e.target.value;
@@ -32,9 +33,16 @@ export default function Search() {
         opacity: 1,
       }}
     >
-      <Icon as={engineIcon} boxSize="16px" position="relative" left="1.6rem" zIndex="9" />
+      <Icon
+        as={selectIcon(engine)}
+        p="4px"
+        fontSize="1.9rem"
+        pos="relative"
+        left="2.2rem"
+        zIndex="99"
+      />
       <Input
-        paddingLeft="2rem"
+        paddingLeft="2.2rem"
         maxW="400px"
         bg="white"
         placeholder="你想知道什么？"

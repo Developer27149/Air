@@ -88,12 +88,12 @@ export const keyword2SearchEngine = (keyword) => {
   return _[keyword];
 };
 
-export const selectIcon = (search) => {
-  if (search.engine === "bing.com") return DiBingSmall;
-  if (search.engine === "zhihu.com") return SiZhihu;
-  if (search.engine === "dev.to") return DiCode;
-  if (search.engine === "github.com") return VscGithubAlt;
-  if (search.engine === "juejin.cn") return GiGoldNuggets;
+export const selectIcon = (engine) => {
+  if (engine === "bing.com") return DiBingSmall;
+  if (engine === "zhihu.com") return SiZhihu;
+  if (engine === "dev.to") return DiCode;
+  if (engine === "github.com") return VscGithubAlt;
+  if (engine === "juejin.cn") return GiGoldNuggets;
   return FcGoogle;
 };
 

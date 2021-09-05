@@ -17,7 +17,7 @@ export const config = {
   },
   msg: {
     show: true,
-    fontSize: 32,
+    fontSize: 24,
     text: "潜龙勿用",
   },
   search: {

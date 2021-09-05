@@ -1,10 +1,12 @@
 import React, { lazy, useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import Time from "../components/Time.js";
 import DateComponent from "../components/DateAndMessage.js";
 import Home from "Routes/Home";
 import { Bar } from "Components/index.js";
+import Wallpaper from "Components/Wallpaper.js";
+import Music from "./Music/index.js";
 
 export default function App() {
   return (
@@ -13,6 +15,7 @@ export default function App() {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Time />
           <DateComponent />
+          <Wallpaper />
         </Box>
         <Box flexGrow="1">
           <Switch>
@@ -22,8 +25,11 @@ export default function App() {
             <Route path="/users">
               <Users />
             </Route>
-            <Route path="/">
+            <Route path="/music">
               <Home />
+            </Route>
+            <Route path="/">
+              <Music />
             </Route>
           </Switch>
         </Box>
@@ -39,4 +45,8 @@ function About() {
 
 function Users() {
   return <h2 id="user">Users</h2>;
+}
+
+function Demo() {
+  return <h2>Demo</h2>;
 }

@@ -26,9 +26,12 @@ import { useDispatch } from "react-redux";
 import { replaceCurrentWallpaper } from "../utils";
 import Setting from "./Setting.js";
 import { Link } from "react-router-dom";
+import { useHistory } from "react-router";
 
 export default function Bars() {
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const handleChangeWallpaper = () => {
     const newImg = replaceCurrentWallpaper();
     dispatch(setNewImg(newImg));
@@ -37,7 +40,6 @@ export default function Bars() {
     dispatch();
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const setRef = useRef();
   const imgArr = [];
   const historyIdArr = [];
   const [keyword, setKeyword] = useState("");
@@ -46,6 +48,10 @@ export default function Bars() {
   }, [keyword]);
 
   const toast = useToast();
+
+  const navigatorTo = (url) => {
+    history.replace(url);
+  };
 
   const handleSelectNewWallpaper = (id) => {
     console.log(id);
@@ -91,7 +97,7 @@ export default function Bars() {
     <Box
       w="100%"
       display="flex"
-      opacity="1"
+      opacity="0"
       transition="all .5s ease-in-out"
       _hover={{ opacity: 1 }}
       zIndex="99"
@@ -104,25 +110,24 @@ export default function Bars() {
         padding=".2rem 1.4rem"
         margin=".2rem auto"
       >
-        <Link to="/home">
-          <Box
-            w="24px"
-            h="24px"
-            margin="8px"
-            backgroundImage="url(icons/48.png)"
-            backgroundSize="cover"
-          ></Box>
-        </Link>
-        <Link to="/user">
-          <Icon
-            className={styles.icon}
-            fontSize="24px"
-            margin="8px"
-            as={RiNeteaseCloudMusicFill}
-            title="Music - Jay"
-            color="pink.400"
-          />
-        </Link>
+        <Box
+          w="24px"
+          h="24px"
+          margin="8px"
+          backgroundImage="url(icons/48.png)"
+          backgroundSize="cover"
+          onClick={() => navigatorTo("/")}
+          cursor="pointer"
+        ></Box>
+        <Icon
+          className={styles.icon}
+          fontSize="24px"
+          margin="8px"
+          as={RiNeteaseCloudMusicFill}
+          title="Music - Jay"
+          color="pink.400"
+          onClick={() => navigatorTo("/music")}
+        />
         <Icon
           className={styles.icon}
           fontSize="24px"
@@ -156,7 +161,7 @@ export default function Bars() {
           fontSize="24px"
           margin="8px"
           title="搬砖事宜"
-          onClick={handleFixedWallpaper}
+          onClick={() => navigatorTo("/todos")}
         />
         <Icon
           as={VscDesktopDownload}

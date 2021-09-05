@@ -4,7 +4,7 @@ import { ganzhijinian } from "Utils/index.js";
 import useMessage from "Hooks/useMessage";
 
 export default function DateAndMessage() {
-  const msg = useMessage();
+  const { data, fontSize } = useMessage();
   const generateDateStr = () => {
     const dateObj = new Date();
     return `${ganzhijinian(dateObj.getFullYear())} ${dateObj
@@ -14,10 +14,10 @@ export default function DateAndMessage() {
 
   return (
     <Box opacity=".8" textAlign="right" pos="fixed" right="1rem" bottom="1rem" zIndex="99">
-      <Text fontSize="lg" color="white" textAlign="right" p="1rem" className="zhanku">
-        {msg}
+      <Text fontSize={fontSize} color="white" textAlign="right" p="1rem" className="zhanku">
+        {data}
       </Text>
-      <Text fontSize="xs" color="white" textAlign="right" className="zhanku">
+      <Text fontSize="md" color="white" textAlign="right" className="zhanku">
         {generateDateStr()}
       </Text>
     </Box>
