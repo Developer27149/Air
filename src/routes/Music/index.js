@@ -4,6 +4,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import Audio from "Components/Audio.js";
 const MotionImg = motion(Image);
 
 export default function Music() {
@@ -74,7 +75,7 @@ export default function Music() {
             );
           })}
       </Box>
-      <Box h="20vh">play</Box>
+      <Audio />
     </Box>
   );
 }

@@ -97,4 +97,6 @@ export const selectIcon = (engine) => {
   return FcGoogle;
 };
 
+export const formatDuration = (duration) => "04:80";
+
 export const emptyFunc = () => {};
