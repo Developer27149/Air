@@ -6,19 +6,30 @@ import AudioControl from "./AudioControl.js";
 import { formatDuration } from "Utils/index.js";
 import { FcFlashOn } from "react-icons/fc";
 import { BiPause, BiSkipNext, BiSkipPrevious } from "react-icons/bi";
-import { MdPause, MdRepeat, MdRepeatOne } from "react-icons/md";
-import { RepeatClockIcon, RepeatIcon } from "@chakra-ui/icons";
+import { MdRepeat, MdRepeatOne } from "react-icons/md";
 import { RiPlayListLine } from "react-icons/ri";
+import { BsPlay } from "react-icons/bs";
+import useAudioPlayer from "Hooks/useAudioPlayer.js";
 
 export default function Song(props) {
   const {
     songName = "一路向北",
     atrist = "Jay",
     picUrl = "http://p4.music.126.net/Gd-HAk9hKC85L0wNtfRs1g==/7946170535396804.jpg",
+    url,
   } = props;
-  const [curTime, setCurTime] = useState(600);
-  const [duration, setDuration] = useState(1000);
+  const { curTime, duration, playing, setPlaying, setClickendTime } = useAudioPlayer();
   const [isLoop, setIsLoop] = useState(false);
+  const [playTime, setPlayTime] = useState(new Date().getTime());
+
+  const handleSwitchPlayAndPause = (isPlaying) => {
+    const _time = new Date().getTime();
+    if (_time - playTime > 300) {
+      setPlaying(!isPlaying);
+      setPlayTime(_time);
+    }
+  };
+
   return (
     <Box flexGrow="1">
       <AudioControl curTime={curTime} duration={duration} />
@@ -34,7 +45,21 @@ export default function Song(props) {
         </Box>
         <Box display="flex" justifyContent="center" alignItems="center" flexGrow="1">
           <Icon as={BiSkipPrevious} fontSize="1.6rem" color="tomato" />
-          <Icon as={BiPause} fontSize="2.6rem" color="tomato" />
+          {playing ? (
+            <Icon
+              as={BiPause}
+              fontSize="2.6rem"
+              color="tomato"
+              onClick={() => handleSwitchPlayAndPause(playing)}
+            />
+          ) : (
+            <Icon
+              as={BsPlay}
+              fontSize="2.6rem"
+              color="tomato"
+              onClick={() => handleSwitchPlayAndPause(playing)}
+            />
+          )}
           <Icon as={BiSkipNext} fontSize="1.6rem" color="tomato" />
         </Box>
         <Box p="0 1rem">

@@ -11,6 +11,13 @@ export default function Music() {
   const [rotateIndex, setRotateIndex] = useState(0);
   const backendBaseUrl = useSelector((state) => state.basic.backendBaseUrl);
   const [songs, setSongs] = useState([]);
+  const [curSong, setCurSong] = useState({
+    picUrl: "./instant_crush.jpg",
+    url: "./song.mp3",
+    artist: "Daft Punk / Julian ",
+    songName: "Instant Crush",
+  });
+
   useEffect(() => {
     let timer;
     const getData = async () => {
@@ -50,6 +57,7 @@ export default function Music() {
           songs.map((song, index) => {
             return (
               <MotionImg
+                onClick={() => setCurSong(song)}
                 objectFit="cover"
                 key={song.id}
                 src={song.picUrl}
@@ -75,7 +83,7 @@ export default function Music() {
             );
           })}
       </Box>
-      <Audio />
+      <Audio data={curSong} />
     </Box>
   );
 }
