@@ -19,65 +19,22 @@ import { TiAttachmentOutline } from "react-icons/ti";
 import { RiNeteaseCloudMusicFill } from "react-icons/ri";
 import { VscDesktopDownload } from "react-icons/vsc";
 import { BsBookmarks } from "react-icons/bs";
-import { FcEmptyTrash, FcSettings, FcAddImage, FcTodoList, FcWorkflow } from "react-icons/fc";
+import { FcAddImage, FcTodoList, FcWorkflow } from "react-icons/fc";
 import styles from "../styles/bars.module.sass";
-import { setNewImg } from "../store/homeSlice";
 import { useDispatch } from "react-redux";
 import { replaceCurrentWallpaper } from "../utils";
-import Setting from "./Setting.js";
-import { Link } from "react-router-dom";
 import { useHistory } from "react-router";
+import Setting from "./Setting.js";
 
 export default function Bars() {
   const dispatch = useDispatch();
   const history = useHistory();
-
-  const handleChangeWallpaper = () => {
-    const newImg = replaceCurrentWallpaper();
-    dispatch(setNewImg(newImg));
-  };
-  const handleFixedWallpaper = () => {
-    dispatch();
-  };
-  const { isOpen, onOpen, onClose } = useDisclosure();
-  const imgArr = [];
-  const historyIdArr = [];
-  const [keyword, setKeyword] = useState("");
-  useEffect(() => {
-    console.log(keyword, imgArr);
-  }, [keyword]);
-
-  const toast = useToast();
-
   const navigatorTo = (url) => {
     history.replace(url);
   };
 
-  const handleSelectNewWallpaper = (id) => {
-    console.log(id);
-    historyIdArr.push(id);
-    let newImg;
-    const tempArr = [];
-    imgArr.map((i) => {
-      if (i.id === id) {
-        newImg = i;
-      } else {
-        tempArr.push(i);
-      }
-    });
-    tempArr.shift();
-    dispatch(setNewImg(newImg.url));
-    toast({
-      title: "设置新壁纸",
-      description: "网络加载中，等等",
-      status: "info",
-      duration: 3000,
-      isClosable: true,
-    });
-    setTimeout(() => {
-      globalThis.config.imgArr = tempArr;
-      globalThis.config.historyIdArr = historyIdArr;
-    }, 2000);
+  const handleFixedWallpaper = () => {
+    dispatch();
   };
 
   const handleDownloadWallpaper = () => {
@@ -133,7 +90,7 @@ export default function Bars() {
           fontSize="24px"
           margin="8px"
           as={FcAddImage}
-          onClick={onOpen}
+          onClick={() => navigatorTo("/wallpapers")}
           title="壁纸"
         />
         <Icon className={styles.icon} fontSize="24px" margin="8px" as={BsBookmarks} title="书签" />
@@ -143,7 +100,7 @@ export default function Bars() {
           fontSize="24px"
           margin="8px"
           as={FcWorkflow}
-          onClick={handleChangeWallpaper}
+          // onClick={handleChangeWallpaper}
           title="换换口味"
         />
         <Icon
@@ -173,59 +130,6 @@ export default function Bars() {
           color="purple.200"
         />
       </Box>
-      <Drawer placement="left" isOpen={isOpen} onClose={onClose}>
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader>不期而遇</DrawerHeader>
-          <DrawerBody>
-            <Box>
-              <Input
-                variant="filled"
-                size="sm"
-                placeholder="keyword ❤️ search"
-                onChange={(e) => setKeyword(e.target.value)}
-              />
-              {imgArr.length > 1 ? (
-                imgArr
-                  .slice(1)
-                  .filter(
-                    (i) =>
-                      keyword === "" || (i.description !== null && i.description.includes(keyword))
-                  )
-                  .map((img) => (
-                    <Box
-                      pos="relative"
-                      margin="12px 0"
-                      boxShadow="4px 4px 4px 4px rgba(0, 0, 255, .2)"
-                      onClick={() => handleSelectNewWallpaper(img.id)}
-                      key={img.id}
-                    >
-                      <Image src={img.smImgUrl} objectFit="cover" pos="relative" />
-                      <Text
-                        display="block"
-                        color="grey.700"
-                        bgColor="white"
-                        p="12px"
-                        textAlign="center"
-                      >
-                        {img.description || new Date(img.createAt).toLocaleTimeString()}
-                      </Text>
-                    </Box>
-                  ))
-              ) : (
-                <Box>
-                  <Icon as={FcEmptyTrash} fontSize="24px" padding="1rem" />
-                  <Text>真的一张都没了，联系我添加吧🤣</Text>
-                </Box>
-              )}
-            </Box>
-          </DrawerBody>
-          <DrawerFooter>
-            <Text>适可而止</Text>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
     </Box>
   );
 }

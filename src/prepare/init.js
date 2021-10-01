@@ -1,6 +1,10 @@
-import axios from "axios";
 import { configSchema } from "Schema/index.js";
-import { getStorage, setStorage } from "Utils/index.js";
+import { clearStorage, getStorage, setStorage } from "Utils/index.js";
+
+/**
+ * 默认配置文件，导出初始化配置文件给第一次使用扩展的用户
+ * 导出初始化函数
+ */
 
 export const config = {
   wallpaper: {
@@ -9,19 +13,20 @@ export const config = {
     history: [],
     unlike: [],
     items: [],
+    blob: {},
   },
   time: {
     showTime: true,
     showWeather: true,
-    location: "",
+    location: "柳州",
   },
   msg: {
     show: true,
     fontSize: 24,
-    text: "潜龙勿用",
+    text: "毒鸡汤",
   },
   search: {
-    engine: "google.com",
+    engine: "bing.com",
   },
   updateTimestamp: new Date().getTime(),
   backendBaseUrl: "http://localhost:3000",
@@ -33,40 +38,40 @@ export const config = {
 };
 
 export const init = async () => {
-  const storageData = await getStorage("config");
-  const isValid = await configSchema.isValid(storageData?.config);
-  let currentConfig = config;
-  console.log("storage data is valid?", isValid);
   try {
-    if (isValid) {
-      console.log("storageData is:", storageData);
-      currentConfig = storageData.config;
-      // just update data
-      // 1. get new image items
-      const { data } = await axios.get(`${config.backendBaseUrl}/wallpapers`);
-      currentConfig.wallpaper.items = data;
-    } else {
-      console.log("clear local storage");
+    // 首先读取本地配置，检查配置文件是否符合格式
+    chrome.storage.local.clear();
+    const storageConfig = await getStorage("config");
+    console.log("本地配置文件", storageConfig);
+    const isValid = await configSchema.isValid(storageConfig);
+    // 设置当前配置为默认格式
+    // 无效则清空配置，重建本地数据
+    if (!isValid) {
+      console.log("本地配置无效，重建本地配置");
       await chrome.storage.local.clear();
       await setStorage({
-        config: JSON.stringify(currentConfig),
+        config,
       });
+    } else {
+      console.log("配置文件有效，下一步");
     }
+    // 初始化全局配置对象，每次更新这个对象都自动修改本地数据
+    globalThis.settings = new Proxy(isValid ? storageConfig : config, {
+      set: async function (target, prop, receiver) {
+        // 更新的同时，修改本地存储
+        target[prop] = receiver;
+        const isValid = configSchema.isValid(target);
+        if (isValid) {
+          await setStorage({
+            config: JSON.stringify(target),
+          });
+        } else {
+          console.log("config is unvalid，无法更新配置");
+        }
+      },
+    });
   } catch (error) {
-    currentConfig = config;
+    // 错误
+    console.log(`初始化数据错误：${error}`);
   }
-  globalThis.settings = new Proxy(currentConfig, {
-    set: async function (target, prop, receiver) {
-      // 更新的同时，修改本地存储
-      target[prop] = receiver;
-      const isValid = configSchema.isValid(target);
-      if (isValid) {
-        await setStorage({
-          config: JSON.stringify(target),
-        });
-      } else {
-        console.log("config is unvalid");
-      }
-    },
-  });
 };

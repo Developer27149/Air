@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
 import Weather from "./Weather.js";
 import { motion } from "framer-motion";
 
@@ -23,13 +23,16 @@ export default function Time() {
       _hover={{
         opacity: 0.8,
       }}
+      minW="5rem"
+      maxW="8rem"
       textAlign="center"
       margin="1rem"
       p="4px 16px"
       margin="1rem"
       zIndex="99"
+      fontSize="1.4rem"
     >
-      <Box fontSize="sm" color="white" fontWeight="bold">
+      <Box color="white" fontWeight="bold">
         {time.getHours() > 9 ? time.getHours() : `0${time.getHours()}`}
         <motion.span
           initial={{

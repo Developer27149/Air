@@ -11,9 +11,6 @@ export const homeSlice = createSlice({
     weather,
   },
   reducers: {
-    setNewImg(state, action) {
-      state.newImg = action.payload;
-    },
     setWallpaper(state, action) {
       state.wallpaper = action.payload;
       globalThis.settings.wallpaper = action.payload;
@@ -31,5 +28,5 @@ export const homeSlice = createSlice({
 });
 
 // 每一个 reducer 函数都会生成一个对应的 action
-export const { setNewImg, setSearch, setWallpaper, setWeather } = homeSlice.actions;
+export const { setSearch, setWallpaper, setWeather } = homeSlice.actions;
 export default homeSlice.reducer;

@@ -1,9 +1,13 @@
 import { Box, Text } from "@chakra-ui/layout";
-import React from "react";
+import React, { useEffect } from "react";
 import moment from "moment";
 // import momentDurationFromatSetup from "moment-duration-format";
 
-export default function AudioControl({ duration = 100000, curTime = 1, onTimeUpdate }) {
+export default function AudioControl({ duration, curTime, onTimeUpdate, url }) {
+  useEffect(() => {
+    const audio = document.getElementById("audio");
+    console.log(audio);
+  }, [url]);
   const curPercentage = (curTime / duration) * 100;
   // 计算点击的位置对应的时间，用于调整进度条
   const calcClickedTime = (e) => {
@@ -38,6 +42,10 @@ export default function AudioControl({ duration = 100000, curTime = 1, onTimeUpd
       cursor="pointer"
       display="flex"
       alignItems="center"
+      position="relative"
+      left="96px"
+      top="4px"
+      className="bar__progress"
     >
       {/* <Box
         display="inline-block"

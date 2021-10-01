@@ -17,6 +17,15 @@ export default function Music() {
     artist: "Daft Punk / Julian ",
     songName: "Instant Crush",
   });
+  const [MyAudio, setMyAudio] = useState(<Audio data={curSong} />);
+
+  useEffect(() => {
+    console.log("create a new audio");
+    setMyAudio(<Audio data={curSong} />);
+    return () => {
+      setMyAudio(null);
+    };
+  }, [curSong]);
 
   useEffect(() => {
     let timer;
@@ -33,6 +42,7 @@ export default function Music() {
       clearInterval(timer);
     };
   }, []);
+
   return (
     <Box
       bgColor="black"
@@ -45,7 +55,7 @@ export default function Music() {
       background="radial-gradient(circle, rgba(50,60,113,1) 0%, rgba(26,32,32,1) 100%)"
     >
       <Box
-        h="80vh"
+        h="90vh"
         d="flex"
         justifyContent="flex-start"
         alignContent="flex-start"
@@ -61,8 +71,8 @@ export default function Music() {
                 objectFit="cover"
                 key={song.id}
                 src={song.picUrl}
-                w="10vw"
-                h="10vw"
+                w={["25vw", "20vw", "12.5vw", "10vw"]}
+                h={["25vw", "20vw", "12.5vw", "10vw"]}
                 bgColor="black"
                 animate={
                   rotateIndex === index && {
@@ -83,7 +93,7 @@ export default function Music() {
             );
           })}
       </Box>
-      <Audio data={curSong} />
+      {MyAudio}
     </Box>
   );
 }

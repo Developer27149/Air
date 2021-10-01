@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function useAudioPlayer() {
+export default function useAudioPlayer({ url }) {
   const [duration, setDuration] = useState();
   const [curTime, setCurTime] = useState();
   const [playing, setPlaying] = useState(false);
@@ -22,7 +22,7 @@ export default function useAudioPlayer() {
 
     // React state listeners: update DOM on React state changes
     playing ? audio.play() : audio.pause();
-    if (clickedTime && clickedTime !== currentTime) {
+    if (clickedTime && clickedTime !== curTime) {
       // update currentTime
       audio.currentTime = clickedTime;
       setClickendTime(null);
@@ -34,11 +34,19 @@ export default function useAudioPlayer() {
       audio.removeEventListener("timeupdate", setAudioTime); // 更新音频时间点
     };
   });
+  // useEffect(() => {
+  //   const audio = document.getElementById("audio");
+  //   setCurTime(audio.currentTime);
+  //   setDuration(audio.duration);
+  //   setPlaying(true);
+  // }, [url]);
   return {
     curTime,
     duration,
     playing,
     setPlaying,
     setClickendTime,
+    setCurTime,
+    setDuration,
   };
 }

@@ -7,6 +7,10 @@ import { VscGithubAlt } from "react-icons/vsc";
 
 export const searchIcons = { FcGoogle, DiCode, DiBingSmall, SiZhihu, GiGoldNuggets, VscGithubAlt };
 
+/**
+ * @param  {any} key
+ * @return {Promise} data
+ */
 export function getStorage(key) {
   return new Promise((resolve, reject) => {
     chrome.storage.local.get(key, (items) => {
@@ -14,8 +18,7 @@ export function getStorage(key) {
       if (isEmptyObj(items)) {
         resolve(undefined);
       } else {
-        items[key] = JSON.parse(items[key]);
-        resolve(items);
+        resolve(items[key]);
       }
     });
   });
@@ -29,8 +32,6 @@ export function setStorage(obj) {
     });
   });
 }
-
-export const clearStorage = chrome.storage.local.clear;
 
 export const isObject = (v) => v !== null && typeof v === "object";
 
@@ -100,3 +101,9 @@ export const selectIcon = (engine) => {
 export const formatDuration = (duration) => "04:80";
 
 export const emptyFunc = () => {};
+
+export const generateBlobFromUrl = async (url) => {
+  const { data } = await axios.get(url, { responseType: "blob" });
+  console.log(data);
+  return data;
+};

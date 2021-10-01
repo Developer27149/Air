@@ -7,7 +7,7 @@
 import { init } from "./init"; // 初始化全局 config 对象，更新此对象将会直接写入 storage
 
 const prepareFn = async () => {
-  console.log("prepare function is running.");
+  console.log("前置函数启动");
   await init();
 };
 export default prepareFn;

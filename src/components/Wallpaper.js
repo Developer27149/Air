@@ -5,7 +5,7 @@ export default function Wallpaper() {
   return (
     <>
       <Image
-        src="wallpaper.jpeg"
+        src=""
         w="100vw"
         h="100vh"
         pos="fixed"

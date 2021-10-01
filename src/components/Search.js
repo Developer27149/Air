@@ -43,7 +43,9 @@ export default function Search() {
       />
       <Input
         paddingLeft="2.2rem"
-        maxW="400px"
+        height="3rem"
+        lineHeight="2rem"
+        maxW="600px"
         bg="white"
         placeholder="你想知道什么？"
         onChange={handleInput}
