@@ -104,6 +104,5 @@ export const emptyFunc = () => {};
 
 export const generateBlobFromUrl = async (url) => {
   const { data } = await axios.get(url, { responseType: "blob" });
-  console.log(data);
   return data;
 };

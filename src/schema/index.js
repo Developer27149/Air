@@ -8,7 +8,7 @@ export const configSchema = yup.object().shape({
     history: array().required(),
     unlike: array().required(),
     items: array().required(),
-    blob: object(),
+    blob: object().required(),
   }).required(),
   time: object({
     showTime: boolean().required(),

@@ -5,7 +5,6 @@ const { wallpaper, search, weather } = await getInitConfig();
 export const homeSlice = createSlice({
   name: "home",
   initialState: {
-    newImg: "wallpaper.jpeg",
     wallpaper,
     search,
     weather,

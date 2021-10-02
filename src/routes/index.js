@@ -5,12 +5,17 @@ import Home from "Routes/Home";
 import { Bar, Loading } from "Components/index.js";
 import Music from "./Music/index.js";
 import axios from "axios";
-import { useSelector } from "react-redux";
-import { generateBlobFromUrl } from "Utils/index.js";
+import { useDispatch, useSelector } from "react-redux";
+import { generateBlobFromUrl, isEmptyObj } from "Utils/index.js";
+import { setWallpaper } from "Store/homeSlice.js";
 
 export default function App() {
-  const [blobUrl, setBlobUrl] = useState(null);
+  // 从 store 获取壁纸对象，里面保存着 storage 里存储的 blob 对象
+  const wallpaper = useSelector((state) => state.home.wallpaper);
+  const [blobData, setBlobData] = useState(wallpaper.blob);
+  const [initImgUrl, setInitImgUrl] = useState("wallpaper.jpeg");
   const backendBaseUrl = useSelector((state) => state.basic.backendBaseUrl);
+  const dispatch = useDispatch();
   // update blob object
   useEffect(() => {
     const getData = async () => {
@@ -18,20 +23,35 @@ export default function App() {
         const {
           data: { url },
         } = await axios.get(`${backendBaseUrl}/daily_wallpaper`);
-        console.log(url);
-        setBlobUrl(URL.createObjectURL(await generateBlobFromUrl(url)));
+        const newBlobData = await generateBlobFromUrl(url);
+        // 创建新的壁纸地址
+        const newBlobUrl = URL.createObjectURL(newBlobData);
+        setInitImgUrl(newBlobUrl);
+        // 更新最新的壁纸 blob 数据到 store，并且更新 storage 存储
+        dispatch(
+          setWallpaper({
+            ...wallpaper,
+            blob: newBlobData,
+          })
+        );
       } catch (error) {
-        console.log(error);
-        setBlobUrl(URL.createObjectURL(await generateBlobFromUrl("/wallpaper.jpeg")));
+        if (error.message === "Network Error") {
+          //  无网络，则使用默认的壁纸
+          // setBlobData(URL.createObjectURL(await generateBlobFromUrl("/wallpaper.jpeg")));
+          setInitImgUrl("wallpaper.jpeg");
+        }
       }
     };
-    setTimeout(getData, 3000);
+    // 如果是第一次运行，则获取新的图片 Blob 数据并且保存
+    if (isEmptyObj(blobData)) {
+      getData();
+    }
     return () => {};
   }, []);
   // daily_wallpaper
   return (
     <Router>
-      {blobUrl === null ? (
+      {isEmptyObj(blobData) ? (
         <Loading />
       ) : (
         <Box
@@ -39,7 +59,9 @@ export default function App() {
           height="100vh"
           display="flex"
           flexDir="column"
-          backgroundImage={`url(${blobUrl})`}
+          backgroundImage={`url(${initImgUrl})`}
+          bgSize="100% 100%"
+          bgRepeat="no-repeat"
         >
           {/* 顶栏：下载按钮 + 搜索框 + 天气时间框 */}
           <Box flexGrow="1">

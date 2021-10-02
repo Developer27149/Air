@@ -40,9 +40,9 @@ export const config = {
 export const init = async () => {
   try {
     // 首先读取本地配置，检查配置文件是否符合格式
-    chrome.storage.local.clear();
+    await chrome.storage.local.clear();
     const storageConfig = await getStorage("config");
-    console.log("本地配置文件", storageConfig);
+    console.log("本地配置文件", storageConfig, typeof storageConfig);
     const isValid = await configSchema.isValid(storageConfig);
     // 设置当前配置为默认格式
     // 无效则清空配置，重建本地数据
