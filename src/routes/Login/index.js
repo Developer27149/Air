@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { Box, Text } from "@chakra-ui/react";
 
-export default function Init() {
+export default function Login() {
   return (
     <Box>
-      <Text>init</Text>
+      <Text>Login</Text>
     </Box>
   );
 }

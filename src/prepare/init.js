@@ -1,5 +1,6 @@
 import { configSchema } from "Schema/index.js";
 import { clearStorage, getStorage, setStorage } from "Utils/index.js";
+import { base64String } from "Utils/wallpaperBase64.js";
 
 /**
  * 默认配置文件，导出初始化配置文件给第一次使用扩展的用户
@@ -13,7 +14,7 @@ export const config = {
     history: [],
     unlike: [],
     items: [],
-    blob: {},
+    imgBase64: base64String,
   },
   time: {
     showTime: true,
@@ -39,8 +40,8 @@ export const config = {
 
 export const init = async () => {
   try {
+    // await chrome.storage.local.clear();
     // 首先读取本地配置，检查配置文件是否符合格式
-    await chrome.storage.local.clear();
     const storageConfig = await getStorage("config");
     console.log("本地配置文件", storageConfig, typeof storageConfig);
     const isValid = await configSchema.isValid(storageConfig);
@@ -63,13 +64,15 @@ export const init = async () => {
         const isValid = configSchema.isValid(target);
         if (isValid) {
           await setStorage({
-            config: JSON.stringify(target),
+            config: target,
           });
         } else {
           console.log("config is unvalid，无法更新配置");
         }
       },
     });
+    // 禁止页面刷新行为导致文件丢失异常 - 暂时无解
+    // window.onbeforeunload = () => {};
   } catch (error) {
     // 错误
     console.log(`初始化数据错误：${error}`);

@@ -18,7 +18,14 @@ export function getStorage(key) {
       if (isEmptyObj(items)) {
         resolve(undefined);
       } else {
-        resolve(items[key]);
+        try {
+          // console.log(items, key, typeof items, typeof key);
+          // console.log(items[key]);
+          // const res = JSON.parse(items[key]);
+          resolve(items[key]);
+        } catch (error) {
+          console.log(error);
+        }
       }
     });
   });
@@ -102,7 +109,22 @@ export const formatDuration = (duration) => "04:80";
 
 export const emptyFunc = () => {};
 
-export const generateBlobFromUrl = async (url) => {
+export const getBase64FromUrl = async (url) => {
   const { data } = await axios.get(url, { responseType: "blob" });
-  return data;
+  return blobToBase64(data);
 };
+
+export const isNewDay = (boolOption) => {
+  if (boolOption) return !!boolOption;
+  console.log("比较日期");
+  const tempDate = new Date().getDate();
+  return tempDate - new Date(globalThis.settings.updateTimestamp).getDate() >= 1;
+};
+
+export function blobToBase64(blob) {
+  return new Promise((resolve, _) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
+}

@@ -45,7 +45,8 @@ export default function Search() {
         paddingLeft="2.2rem"
         height="3rem"
         lineHeight="2rem"
-        maxW="600px"
+        w="600px"
+        maxW="70vw"
         bg="white"
         placeholder="你想知道什么？"
         onChange={handleInput}
