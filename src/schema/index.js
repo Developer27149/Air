@@ -9,6 +9,7 @@ export const configSchema = yup.object().shape({
     unlike: array().required(),
     items: array().required(),
     imgBase64: string().required(),
+    downloadUrl: string().required(),
   }).required(),
   time: object({
     showTime: boolean().required(),
@@ -25,9 +26,15 @@ export const configSchema = yup.object().shape({
   }),
   updateTimestamp: string(),
   backendBaseUrl: string(),
-  token: string(),
   weather: object({
     temp: number(),
     text: string(),
   }),
+  profile: {
+    token: string(),
+    avatar: string(),
+    username: string(),
+    photos: array(),
+    email: string(),    
+  }
 });

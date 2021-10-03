@@ -7,12 +7,13 @@ import { BsBookmarks } from "react-icons/bs";
 import { FcHome, FcTodoList, FcWorkflow } from "react-icons/fc";
 import { IoAppsOutline } from "react-icons/io5";
 import styles from "../styles/bars.module.sass";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory } from "react-router-dom";
 import Setting from "./Setting.js";
 
 export default function Bars() {
   const dispatch = useDispatch();
+  const wallpaper = useSelector((state) => state.home.wallpaper);
   const history = useHistory();
   const navigatorTo = (url) => {
     history.replace(url);
@@ -27,7 +28,7 @@ export default function Bars() {
     chrome.downloads.download(
       {
         method: "GET",
-        url: globalThis.config.imgArr[0].url,
+        url: wallpaper.downloadUrl,
       },
       (id) => {
         console.log(id, "download event");
@@ -43,6 +44,7 @@ export default function Bars() {
       transition="all .5s ease-in-out"
       _hover={{ opacity: 1 }}
       zIndex="99"
+      pos="relative"
     >
       <Box
         display="flex"

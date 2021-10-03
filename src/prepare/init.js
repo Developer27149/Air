@@ -1,6 +1,6 @@
 import { configSchema } from "Schema/index.js";
-import { clearStorage, getStorage, setStorage } from "Utils/index.js";
-import { base64String } from "Utils/wallpaperBase64.js";
+import { getStorage, setStorage } from "Utils/index.js";
+import { base64String, downloadUrl } from "Utils/wallpaperBase64.js";
 
 /**
  * 默认配置文件，导出初始化配置文件给第一次使用扩展的用户
@@ -14,6 +14,7 @@ export const config = {
     history: [],
     unlike: [],
     items: [],
+    downloadUrl,
     imgBase64: base64String,
   },
   time: {
@@ -31,16 +32,22 @@ export const config = {
   },
   updateTimestamp: new Date().getTime(),
   backendBaseUrl: "http://localhost:3000",
-  token: "",
   weather: {
     temp: 28,
     text: "多云",
+  },
+  profile: {
+    username: "Whoami",
+    avatar: "",
+    photos: [],
+    email: "",
+    token: "",
   },
 };
 
 export const init = async () => {
   try {
-    // await chrome.storage.local.clear();
+    await chrome.storage.local.clear();
     // 首先读取本地配置，检查配置文件是否符合格式
     const storageConfig = await getStorage("config");
     console.log("本地配置文件", storageConfig, typeof storageConfig);

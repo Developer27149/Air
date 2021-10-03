@@ -9,6 +9,7 @@ import { getBase64FromUrl, isNewDay } from "Utils/index.js";
 import { setWallpaper } from "Store/homeSlice.js";
 import Wallpapers from "./Wallpapers/index.js";
 import Login from "./Login/index.js";
+import { setUpdateTimestamp } from "Store/basicSlice.js";
 
 export default function App() {
   // 从 store 获取壁纸对象，里面保存着 storage 里存储的 blob 对象转化后的字符串
@@ -20,12 +21,14 @@ export default function App() {
   useEffect(() => {
     const getData = async () => {
       let base64Str;
+      let rawUrl;
       try {
         const res = await axios.get(`${backendBaseUrl}/wallpaper/random`);
         const {
-          data: { full },
+          data: { full, raw },
         } = res;
         base64Str = await getBase64FromUrl(full);
+        rawUrl = raw;
       } catch (error) {
         // 当首次安装切网络错误的时候，使用默认图片
         if (error.message === "Network Error") {
@@ -39,6 +42,7 @@ export default function App() {
         const newWallpaper = {
           ...wallpaper,
           imgBase64: base64Str,
+          downloadUrl: rawUrl,
         };
         dispatch(setWallpaper(newWallpaper));
       }
@@ -47,10 +51,12 @@ export default function App() {
     // 如果设置了锁定壁纸，则不再每天更新
     if (!wallpaper.fixed && isNewDay()) {
       getData();
+      // 更新时间戳
+      dispatch(setUpdateTimestamp(new Date().getTime()));
     }
   }, []);
   return (
-    <div>
+    <>
       {imgBase64 === "" ? (
         <Loading />
       ) : (
@@ -68,7 +74,7 @@ export default function App() {
             <Box flexGrow="1">
               <Switch>
                 <Route exact path="/">
-                  <Home />
+                  <Wallpapers />
                 </Route>
                 <Route path="/wallpapers">
                   <Wallpapers />
@@ -82,6 +88,6 @@ export default function App() {
           </Box>
         </Router>
       )}
-    </div>
+    </>
   );
 }

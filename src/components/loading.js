@@ -5,8 +5,8 @@ import styles from "../styles/loading.module.scss";
 export default function Loading() {
   return (
     <Box
-      w="100vw"
-      h="100vh"
+      w="100%"
+      h="100%"
       display="flex"
       alignItems="center"
       justifyContent="center"

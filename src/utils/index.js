@@ -118,7 +118,8 @@ export const isNewDay = (boolOption) => {
   if (boolOption) return !!boolOption;
   console.log("比较日期");
   const tempDate = new Date().getDate();
-  return tempDate - new Date(globalThis.settings.updateTimestamp).getDate() >= 1;
+  const result = tempDate - new Date(globalThis.settings.updateTimestamp).getDate() >= 1;
+  return result;
 };
 
 export function blobToBase64(blob) {
