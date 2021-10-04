@@ -16,6 +16,7 @@ export default function App() {
   const wallpaper = useSelector((state) => state.home.wallpaper);
   const [imgBase64, setImgBase64] = useState(wallpaper.imgBase64);
   const backendBaseUrl = useSelector((state) => state.basic.backendBaseUrl);
+  const updateTimeStamp = useSelector((state) => state.basic.updateTimeStamp);
   const dispatch = useDispatch();
   // update blob object
   useEffect(() => {
@@ -49,7 +50,7 @@ export default function App() {
     };
     // 如果是第一次运行，则获取新的图片 Blob 数据并且保存
     // 如果设置了锁定壁纸，则不再每天更新
-    if (!wallpaper.fixed && isNewDay()) {
+    if (!wallpaper.fixed && isNewDay(new Date(updateTimeStamp).getDate())) {
       getData();
       // 更新时间戳
       dispatch(setUpdateTimestamp(new Date().getTime()));

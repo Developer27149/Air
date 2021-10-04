@@ -44,7 +44,10 @@ export default function Bars() {
       transition="all .5s ease-in-out"
       _hover={{ opacity: 1 }}
       zIndex="99"
-      pos="relative"
+      pos="fixed"
+      bottom="0"
+      left="0"
+      right="0"
     >
       <Box
         display="flex"

@@ -37,7 +37,7 @@ export const config = {
     text: "多云",
   },
   profile: {
-    username: "Whoami",
+    username: "岚",
     avatar: "",
     photos: [],
     email: "",
@@ -47,7 +47,7 @@ export const config = {
 
 export const init = async () => {
   try {
-    await chrome.storage.local.clear();
+    // await chrome.storage.local.clear()
     // 首先读取本地配置，检查配置文件是否符合格式
     const storageConfig = await getStorage("config");
     console.log("本地配置文件", storageConfig, typeof storageConfig);

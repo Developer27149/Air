@@ -114,11 +114,11 @@ export const getBase64FromUrl = async (url) => {
   return blobToBase64(data);
 };
 
-export const isNewDay = (boolOption) => {
+export const isNewDay = (dateNum, boolOption) => {
   if (boolOption) return !!boolOption;
   console.log("比较日期");
   const tempDate = new Date().getDate();
-  const result = tempDate - new Date(globalThis.settings.updateTimestamp).getDate() >= 1;
+  const result = tempDate - dateNum >= 1;
   return result;
 };
 
@@ -128,4 +128,17 @@ export function blobToBase64(blob) {
     reader.onloadend = () => resolve(reader.result);
     reader.readAsDataURL(blob);
   });
+}
+/**
+ * @param  {Array} arr
+ * @param  {Number} num 将一维数组均匀拆分为多个二维数组
+ */
+export function sliceArray(arr, num) {
+  if (arr.length === 0 || num === 1) return arr;
+  const result = [];
+  const size = ~~(arr.length / num);
+  while (arr.length > 0) {
+    result.push(arr.splice(0, size));
+  }
+  return result;
 }

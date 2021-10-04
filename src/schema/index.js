@@ -30,11 +30,11 @@ export const configSchema = yup.object().shape({
     temp: number(),
     text: string(),
   }),
-  profile: {
+  profile: object({
     token: string(),
     avatar: string(),
     username: string(),
     photos: array(),
-    email: string(),    
-  }
+    email: string(),
+  }),
 });
