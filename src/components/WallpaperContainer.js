@@ -26,14 +26,15 @@ export default function WallpaperContainer() {
   const { isOpen, onToggle } = useDisclosure();
 
   const [wallpaperArr, setWallpaperArr] = useState([]);
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const getData = async () => {
       try {
-        const { data } = await axios.get(`${backendBaseUrl}/wallpaper/all`);
-        console.log(data);
+        const data = await axios.get(`${backendBaseUrl}/wallpaper/${page}`);
+        console.log(data.data);
         setIsGetData(false);
-        setWallpaperArr(data);
+        setWallpaperArr(data.data.data);
       } catch (error) {
         console.log(error);
       }
