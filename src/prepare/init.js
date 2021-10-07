@@ -13,6 +13,7 @@ export const config = {
     fixed: false,
     history: [],
     unlike: [],
+    like: [],
     items: [],
     downloadUrl,
     imgBase64: base64String,

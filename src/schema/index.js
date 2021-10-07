@@ -7,6 +7,7 @@ export const configSchema = yup.object().shape({
     fixed: boolean().required(),
     history: array().required(),
     unlike: array().required(),
+    like: array().required(),
     items: array().required(),
     imgBase64: string().required(),
     downloadUrl: string().required(),

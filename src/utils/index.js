@@ -132,6 +132,7 @@ export function blobToBase64(blob) {
 /**
  * @param  {Array} arr
  * @param  {Number} num 将一维数组均匀拆分为多个二维数组
+ * @returns {Array} []
  */
 export function sliceArray(arr, num) {
   if (arr.length === 0 || num === 1) return arr;
