@@ -69,7 +69,7 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
                         as={wallpaper.unlike.includes(id) ? AiFillLike : AiOutlineLike}
                         cursor="pointer"
                         color="white"
-                        onClick={() => handleSwitchLike(id, 'like')}
+                        onClick={() => handleSwitchLike(id, "like")}
                       />
                       <Icon
                         fontSize="1.4rem"
@@ -77,7 +77,7 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
                         as={wallpaper.unlike.includes(id) ? AiFillDislike : AiOutlineDislike}
                         cursor="pointer"
                         color="white"
-                        onClick={() => handleSwitchLike(id, 'unlike')}
+                        onClick={() => handleSwitchLike(id, "unlike")}
                       />
                     </Box>
                     <Box
@@ -98,6 +98,7 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
                           colorScheme={color}
                           color="#eee"
                           justifySelf="flex-end"
+                          cursor="pointer"
                         >
                           {Object.keys(topic_submissions)[0] ?? <AddIcon />}
                         </Badge>
