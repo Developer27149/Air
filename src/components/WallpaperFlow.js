@@ -2,12 +2,16 @@ import { Avatar } from "@chakra-ui/avatar";
 import { AddIcon } from "@chakra-ui/icons";
 import { Image } from "@chakra-ui/image";
 import { Badge, Box, Link } from "@chakra-ui/layout";
-import React from "react";
+import React, { useState } from "react";
 import { Icon } from "@chakra-ui/icons";
 import { sliceArray } from "Utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
+import { FcLink } from "react-icons/fc";
+import { Button } from "@chakra-ui/button";
+import { CgMaximizeAlt } from "react-icons/cg";
+import ImageView from "./ImageView.js";
 
 export default function WallpaperFlow({ wallpaperArr = [] }) {
   const dispatch = useDispatch();
@@ -24,6 +28,8 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
     );
   };
 
+  const [curImg, setCurImg] = useState(null);
+
   const newWallpaperArr = sliceArray(
     wallpaperArr.filter((i) => !wallpaper.unlike.includes(i.id)),
     3
@@ -38,7 +44,6 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
                 user: {
                   profile_image,
                   links: { html },
-                  first_name,
                 },
                 urls: { small, raw, full },
                 descrption,
@@ -62,6 +67,19 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
                       opacity: 1,
                     }}
                   >
+                    <Icon
+                      fontSize="1.4rem"
+                      m="0 .5rem"
+                      as={CgMaximizeAlt}
+                      cursor="pointer"
+                      color="white"
+                      pos="absolute"
+                      top="1.5rem"
+                      right="0"
+                      cursor="pointer"
+                      zIndex="9"
+                      onClick={() => setCurImg({ full, raw })}
+                    />
                     <Box pos="absolute" top="1rem" display="flex" p="0.5rem" mt=".5rem" w="100%">
                       <Icon
                         fontSize="1.4rem"
@@ -80,6 +98,7 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
                         onClick={() => handleSwitchLike(id, "unlike")}
                       />
                     </Box>
+
                     <Box
                       pos="absolute"
                       bottom="1.5rem"
@@ -100,7 +119,13 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
                           justifySelf="flex-end"
                           cursor="pointer"
                         >
-                          {Object.keys(topic_submissions)[0] ?? <AddIcon />}
+                          <a
+                            href={`https://unsplash.com/s/photos/${
+                              Object.keys(topic_submissions)[0]
+                            }`}
+                          >
+                            {Object.keys(topic_submissions)[0]}
+                          </a>
                         </Badge>
                       </Box>
                     </Box>
@@ -111,6 +136,7 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
           </Box>
         );
       })}
+      {curImg === null ? null : <ImageView full={curImg.full} raw={curImg.raw} handleHidden={() => setCurImg(null)} />}
     </Box>
   );
 }

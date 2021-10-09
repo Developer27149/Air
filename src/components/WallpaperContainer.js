@@ -10,6 +10,7 @@ import { useDisclosure } from "@chakra-ui/react";
 import { Collapse } from "@chakra-ui/transition";
 import Empty from "./Empty.js";
 import WallpaperFlow from "./WallpaperFlow.js";
+import { setWallpaper } from "Store/homeSlice.js";
 
 export default function WallpaperContainer() {
   const dispatch = useDispatch();
@@ -31,10 +32,16 @@ export default function WallpaperContainer() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const data = await axios.get(`${backendBaseUrl}/wallpaper/${page}`);
-        console.log(data.data);
+        const data = await axios.post(`${backendBaseUrl}/wallpaper/newest`, {
+          exist: wallpaper.items.map((i) => i.id),
+        });
+        const currentWallpaperArr = {
+          ...wallpaper,
+          items: [...wallpaper.items, ...data.data.data],
+        };
         setIsGetData(false);
-        setWallpaperArr(data.data.data);
+        setWallpaperArr(currentWallpaperArr.items.slice(0, page * 18)); 
+        dispatch(setWallpaper(currentWallpaperArr));
       } catch (error) {
         console.log(error);
       }

@@ -143,3 +143,10 @@ export function sliceArray(arr, num) {
   }
   return result;
 }
+
+export const handleDownloadWallpaper = (url) => {
+  chrome.downloads.download({
+    method: "GET",
+    url,
+  });
+};
