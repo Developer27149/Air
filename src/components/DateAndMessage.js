@@ -14,10 +14,10 @@ export default function DateAndMessage() {
 
   return (
     <Box opacity=".8" textAlign="right" pos="fixed" right="1rem" bottom="1rem" zIndex="99">
-      <Text fontSize={fontSize} color="white" textAlign="right" p="1rem" className="zhanku">
+      <Text fontSize={fontSize} color="white" textAlign="right" p="1rem">
         {data}
       </Text>
-      <Text fontSize="md" color="white" textAlign="right" className="zhanku">
+      <Text fontSize="md" color="white" textAlign="right">
         {generateDateStr()}
       </Text>
     </Box>

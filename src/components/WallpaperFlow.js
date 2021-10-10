@@ -8,8 +8,6 @@ import { sliceArray } from "Utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
-import { FcLink } from "react-icons/fc";
-import { Button } from "@chakra-ui/button";
 import { CgMaximizeAlt } from "react-icons/cg";
 import ImageView from "./ImageView.js";
 
@@ -78,7 +76,7 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
                       right="0"
                       cursor="pointer"
                       zIndex="9"
-                      onClick={() => setCurImg({ full, raw })}
+                      onClick={() => setCurImg({ full, raw, id })}
                     />
                     <Box pos="absolute" top="1rem" display="flex" p="0.5rem" mt=".5rem" w="100%">
                       <Icon
@@ -136,7 +134,14 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
           </Box>
         );
       })}
-      {curImg === null ? null : <ImageView full={curImg.full} raw={curImg.raw} handleHidden={() => setCurImg(null)} />}
+      {curImg === null ? null : (
+        <ImageView
+          id={curImg.id}
+          full={curImg.full}
+          raw={curImg.raw}
+          handleHidden={() => setCurImg(null)}
+        />
+      )}
     </Box>
   );
 }

@@ -23,11 +23,23 @@ export default function WallpaperContainer() {
   );
 
   const profile = useSelector((state) => state.profile.profile);
-
   const { isOpen, onToggle } = useDisclosure();
-
   const [wallpaperArr, setWallpaperArr] = useState([]);
   const [page, setPage] = useState(1);
+
+  const handleShowLike = () => {
+    console.log("show like:", wallpaper.like);
+    console.log(wallpaperArr.map((i) => i.id));
+    // setWallpaper(wallpaperArr.filter((i) => wallpaper.like.includes(i.id)));
+  };
+
+  const handleShowAll = () => {
+    setWallpaper(
+      wallpaper.items.filter((i) => !wallpaper.unlike.includes(i.id)).slice(0, page * 18)
+    );
+  };
+
+  const handleUpload = () => {};
 
   useEffect(() => {
     const getData = async () => {
@@ -40,7 +52,7 @@ export default function WallpaperContainer() {
           items: [...wallpaper.items, ...data.data.data],
         };
         setIsGetData(false);
-        setWallpaperArr(currentWallpaperArr.items.slice(0, page * 18)); 
+        setWallpaperArr(currentWallpaperArr.items.slice(0, page * 18));
         dispatch(setWallpaper(currentWallpaperArr));
       } catch (error) {
         console.log(error);
@@ -114,17 +126,17 @@ export default function WallpaperContainer() {
             <Collapse in={isOpen} animateOpacity>
               <Box display="flex">
                 <Box>
-                  <Button colorScheme="teal" variant="ghost">
+                  <Button colorScheme="teal" variant="ghost" onClick={handleShowAll}>
                     所有壁纸👏
                   </Button>
                 </Box>
                 <Box>
-                  <Button colorScheme="teal" variant="ghost">
+                  <Button colorScheme="teal" variant="ghost" onClick={handleUpload}>
                     我要分享🙋🏻
                   </Button>
                 </Box>
                 <Box>
-                  <Button colorScheme="teal" variant="ghost">
+                  <Button colorScheme="teal" variant="ghost" onClick={handleShowLike}>
                     我喜欢的😎
                   </Button>
                 </Box>
