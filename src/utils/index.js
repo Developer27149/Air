@@ -131,11 +131,12 @@ export function blobToBase64(blob) {
 }
 /**
  * @param  {Array} arr
- * @param  {Number} num 将一维数组均匀拆分为多个二维数组
+ * @param  {Number} num 将一维数组均匀拆分为多个二维数组，如果小于 num ，则每一个分配一个元素
  * @returns {Array} []
  */
 export function sliceArray(arr, num) {
   if (arr.length === 0 || num === 1) return arr;
+  if (arr.length <= num) return arr.map((i) => [i]);
   const result = [];
   const size = ~~(arr.length / num);
   while (arr.length > 0) {

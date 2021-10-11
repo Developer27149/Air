@@ -28,9 +28,8 @@ export default function WallpaperContainer() {
   const [page, setPage] = useState(1);
 
   const handleShowLike = () => {
-    console.log("show like:", wallpaper.like);
-    console.log(wallpaperArr.map((i) => i.id));
-    // setWallpaper(wallpaperArr.filter((i) => wallpaper.like.includes(i.id)));
+    const newArr = wallpaper.items.filter((i) => wallpaper.like.includes(i.id));
+    setWallpaperArr(newArr);
   };
 
   const handleShowAll = () => {
@@ -149,7 +148,7 @@ export default function WallpaperContainer() {
               {wallpaperArr.length === 0 ? (
                 <Empty />
               ) : (
-                <WallpaperFlow wallpaperArr={[...wallpaperArr]} />
+                <WallpaperFlow wallpaperArr={wallpaperArr} />
               )}
             </Box>
           </Box>
