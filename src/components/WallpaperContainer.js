@@ -26,6 +26,7 @@ export default function WallpaperContainer() {
   const { isOpen, onToggle } = useDisclosure();
   const [wallpaperArr, setWallpaperArr] = useState([]);
   const [page, setPage] = useState(1);
+  const [currentWallpaperArr, setCurrentWallpaperArr] = useState([]);
 
   const handleShowLike = () => {
     const newArr = wallpaper.items.filter((i) => wallpaper.like.includes(i.id));
@@ -33,9 +34,8 @@ export default function WallpaperContainer() {
   };
 
   const handleShowAll = () => {
-    setWallpaper(
-      wallpaper.items.filter((i) => !wallpaper.unlike.includes(i.id)).slice(0, page * 18)
-    );
+    console.log("show current all wallpaper", currentWallpaperArr);
+    setWallpaper(currentWallpaperArr);
   };
 
   const handleUpload = () => {};
@@ -46,13 +46,18 @@ export default function WallpaperContainer() {
         const data = await axios.post(`${backendBaseUrl}/wallpaper/newest`, {
           exist: wallpaper.items.map((i) => i.id),
         });
-        const currentWallpaperArr = {
+        // 从服务器获取更新
+        const tempWallpaperArr = {
           ...wallpaper,
           items: [...wallpaper.items, ...data.data.data],
         };
+        // 设置为已经更新了数据
+        console.log(tempWallpaperArr.items.slice(0, 18));
         setIsGetData(false);
-        setWallpaperArr(currentWallpaperArr.items.slice(0, page * 18));
-        dispatch(setWallpaper(currentWallpaperArr));
+        setWallpaperArr(tempWallpaperArr.items.slice(0, page * 18));
+        // 在筛选之前保存了当前页面的壁纸数据
+        setCurrentWallpaperArr(tempWallpaperArr.items.slice(0, page * 18));
+        dispatch(setWallpaper(tempWallpaperArr));
       } catch (error) {
         console.log(error);
       }

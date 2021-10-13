@@ -4,15 +4,19 @@ import { DownloadIcon } from "@chakra-ui/icons";
 import { Image } from "@chakra-ui/image";
 import { Box } from "@chakra-ui/layout";
 import { Tooltip } from "@chakra-ui/tooltip";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { CgMinimize, CgUserlane } from "react-icons/cg";
 import { FcLike } from "react-icons/fc";
 import { handleDownloadWallpaper } from "Utils/index.js";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setWallpaper } from "Store/homeSlice.js";
+import axios from "axios";
+import Loading from "./Loading.js";
 
 export default function ImageView({ id, full, raw, handleHidden }) {
+  const [imgData, setImgData] = useState(null);
+  const [completed, setCompleted] = useState(false);
   const applyToast = useToast();
   const likeToast = useToast();
   const dispatch = useDispatch();
@@ -48,15 +52,41 @@ export default function ImageView({ id, full, raw, handleHidden }) {
       })
     );
   };
+
   useEffect(() => {
+    // handle esc key
+    document.addEventListener("keydown", (e) => {
+      if (e.code === "Escape") {
+        handleHidden();
+      }
+    });
+    // get full img data
+    let source = axios.CancelToken.source();
+    const getImgData = async () => {
+      try {
+        const { data } = await axios.get(full, {
+          cancelToken: source.token,
+          responseType: "blob",
+        });
+        console.log(data);
+        setImgData(URL.createObjectURL(data));
+      } catch (error) {
+        console.log(error);
+        setImgData(full);
+      }
+    };
     document.documentElement.requestFullscreen();
+    getImgData();
     return () => {
-      document.exitFullscreen();
+      console.log("uninstall");
+      document.fullscreenElement && document.exitFullscreen();
+      source.cancel("组件卸载，取消请求");
     };
   }, []);
   return (
     <Box w="100vw" h="100vh" pos="fixed" left="0" right="0" top="0" bottom="0" zIndex="999">
-      <Image src={full} w="100%" h="100%" />
+      {completed ? null : <Loading />}
+      <Image src={imgData} w="100%" h="100%" onLoad={() => setCompleted(true)} />
       <Box
         pos="absolute"
         right="2rem"

@@ -2,17 +2,18 @@ import { Avatar } from "@chakra-ui/avatar";
 import { AddIcon } from "@chakra-ui/icons";
 import { Image } from "@chakra-ui/image";
 import { Badge, Box, Link } from "@chakra-ui/layout";
-import React, { useEffect, useState } from "react";
+import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Icon } from "@chakra-ui/icons";
 import { sliceArray } from "Utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
 import { CgMaximizeAlt } from "react-icons/cg";
-import ImageView from "./ImageView.js";
+import Loading from "./Loading.js";
+
+const ImageView = lazy(() => import("./ImageView.js"));
 
 export default function WallpaperFlow({ wallpaperArr = [] }) {
-  console.log(wallpaperArr);
   const dispatch = useDispatch();
   const wallpaper = useSelector((state) => state.home.wallpaper);
   // 设置为喜欢或不喜欢
@@ -31,20 +32,18 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
   const [curImg, setCurImg] = useState(null);
   const [newWallpaperArr, setNewWallpaperArr] = useState([]);
   useEffect(() => {
-    setNewWallpaperArr(
-      sliceArray(
-        wallpaperArr.filter((i) => !wallpaper.unlike.includes(i.id)),
-        3
-      )
-    );
+    const _ = sliceArray(wallpaperArr, 3);
+    console.log(_);
+    setNewWallpaperArr(_);
   }, [wallpaperArr]);
 
   return (
     <Box
       display="flex"
-      justifyContent={newWallpaperArr.length >= 3 ? "space-between" : "flex-start"}
+      // justifyContent={newWallpaperArr.length >= 3 ? "space-between" : "flex-start"}
     >
       {newWallpaperArr.map((item, idx) => {
+        console.log(item);
         return (
           <Box key={idx} m="1rem .4rem">
             {item.map((photo) => {
@@ -145,12 +144,14 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
         );
       })}
       {curImg === null ? null : (
-        <ImageView
-          id={curImg.id}
-          full={curImg.full}
-          raw={curImg.raw}
-          handleHidden={() => setCurImg(null)}
-        />
+        <Suspense fallback={<Loading />}>
+          <ImageView
+            id={curImg.id}
+            full={curImg.full}
+            raw={curImg.raw}
+            handleHidden={() => setCurImg(null)}
+          />
+        </Suspense>
       )}
     </Box>
   );
