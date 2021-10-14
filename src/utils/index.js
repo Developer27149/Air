@@ -131,7 +131,7 @@ export function blobToBase64(blob) {
 }
 /**
  * @param  {Array} arr
- * @param  {Number} num 将一维数组均匀拆分为多个二维数组，如果小于 num ，则每一个分配一个元素
+ * @param  {Number} num 将一维数组均匀拆分为 num 个二维数组，如果小于 num ，则每一个分配一个元素
  * @returns {Array} []
  */
 export function sliceArray(arr, num) {
@@ -143,6 +143,17 @@ export function sliceArray(arr, num) {
     result.push(arr.splice(0, size));
   }
   return result;
+}
+/**
+ * 将一维数组拆分为包含多个一位数组的二维数组，每个数组包含固定的个数
+ * @param  {} perPageNum=15
+ */
+export function unflatArr(arr = [], perPageNum = 15) {
+  const res = [];
+  while (arr.length > 0) {
+    res.push(arr.splice(0, perPageNum));
+  }
+  return res;
 }
 
 export const handleDownloadWallpaper = (url) => {

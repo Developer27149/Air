@@ -9,12 +9,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
 import { CgMaximizeAlt } from "react-icons/cg";
-import Loading from "./Loading.js";
+import Loading from "Components/Loading.js";
 
-const ImageView = lazy(() => import("./ImageView.js"));
+const ImageView = lazy(() => import("../ImageView.js"));
 
-export default function WallpaperFlow({ wallpaperArr = [] }) {
+export default function WallpaperFlow() {
   const dispatch = useDispatch();
+  const { wallpaperArr, curPage } = useSelector((state) => state.wallpaper);
+
   const wallpaper = useSelector((state) => state.home.wallpaper);
   // 设置为喜欢或不喜欢
   const handleSwitchLike = (id, field) => {
@@ -32,10 +34,11 @@ export default function WallpaperFlow({ wallpaperArr = [] }) {
   const [curImg, setCurImg] = useState(null);
   const [newWallpaperArr, setNewWallpaperArr] = useState([]);
   useEffect(() => {
-    const _ = sliceArray(wallpaperArr, 3);
+    console.log(wallpaperArr[curPage - 1]);
+    const _ = sliceArray(wallpaperArr[curPage - 1], 3);
     console.log(_);
-    setNewWallpaperArr(_);
-  }, [wallpaperArr]);
+    // setNewWallpaperArr(_);
+  }, [wallpaperArr, curPage]);
 
   return (
     <Box

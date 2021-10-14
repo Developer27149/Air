@@ -23,9 +23,21 @@ export const homeSlice = createSlice({
       state.weather = action.payload;
       globalThis.settings.weather = action.payload;
     },
+    updateWallpaperItems(
+      state,
+      action = {
+        payload: [],
+      }
+    ) {
+      action.payload.forEach((item) => {
+        if (state.wallpaper.items.every((i) => i.id !== item.id)) {
+          state.wallpaper.items.push(item);
+        }
+      });
+    },
   },
 });
 
 // 每一个 reducer 函数都会生成一个对应的 action
-export const { setSearch, setWallpaper, setWeather } = homeSlice.actions;
+export const { setSearch, setWallpaper, setWeather, updateWallpaperItems } = homeSlice.actions;
 export default homeSlice.reducer;
