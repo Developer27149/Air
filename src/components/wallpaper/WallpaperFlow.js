@@ -4,7 +4,7 @@ import { Image } from "@chakra-ui/image";
 import { Badge, Box, Link } from "@chakra-ui/layout";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Icon } from "@chakra-ui/icons";
-import { sliceArray } from "Utils/index.js";
+import { generateFallbackImgWidth, sliceArray } from "Utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
@@ -15,6 +15,7 @@ const ImageView = lazy(() => import("../ImageView.js"));
 
 export default function WallpaperFlow() {
   const dispatch = useDispatch();
+
   const { wallpaperArr, curPage } = useSelector((state) => state.wallpaper);
 
   const wallpaper = useSelector((state) => state.home.wallpaper);
@@ -34,19 +35,20 @@ export default function WallpaperFlow() {
   const [curImg, setCurImg] = useState(null);
   const [newWallpaperArr, setNewWallpaperArr] = useState([]);
   useEffect(() => {
-    console.log(wallpaperArr[curPage - 1]);
-    const _ = sliceArray(wallpaperArr[curPage - 1], 3);
-    console.log(_);
-    // setNewWallpaperArr(_);
+    const _ = sliceArray([...wallpaperArr[curPage - 1]], 3);
+    setNewWallpaperArr(_);
   }, [wallpaperArr, curPage]);
 
   return (
     <Box
       display="flex"
-      // justifyContent={newWallpaperArr.length >= 3 ? "space-between" : "flex-start"}
+      justifyContent={newWallpaperArr.length >= 3 ? "center" : "flex-start"}
+      w="min(100vw, 1280px)"
+      m="0 auto"
+      mt="1rem"
+      p={["1rem", "1rem", "1rem", "0"]}
     >
       {newWallpaperArr.map((item, idx) => {
-        console.log(item);
         return (
           <Box key={idx} m="1rem .4rem">
             {item.map((photo) => {
@@ -56,6 +58,8 @@ export default function WallpaperFlow() {
                   links: { html },
                 },
                 urls: { small, raw, full },
+                height,
+                width,
                 descrption,
                 topic_submissions,
                 id,
@@ -63,8 +67,15 @@ export default function WallpaperFlow() {
               } = photo;
 
               return (
-                <Box key={id} w="400px" pos="relative">
-                  <Image src={small} title={descrption} p="1rem 0" />
+                <Box
+                  key={id}
+                  pos="relative"
+                  h={generateFallbackImgWidth(width, height)}
+                  w="400px"
+                  bg="purple.100"
+                  m="1rem 0"
+                >
+                  <Image src={small} title={descrption} />
                   <Box
                     pos="absolute"
                     left="0"

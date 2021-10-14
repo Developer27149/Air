@@ -67,6 +67,7 @@ export default function ImageView({ id, full, raw, handleHidden }) {
         const { data } = await axios.get(full, {
           cancelToken: source.token,
           responseType: "blob",
+          withCredentials: true,
         });
         console.log(data);
         setImgData(URL.createObjectURL(data));

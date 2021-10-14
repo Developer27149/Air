@@ -36,6 +36,7 @@ export default function WallpaperFilter() {
       left="0"
       right="0"
       bg="white"
+      zIndex="99"
     >
       <Box as="header" display="flex" justifyContent="space-between" alignItems="center">
         <Image src="./icons/64.png" />

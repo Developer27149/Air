@@ -135,14 +135,26 @@ export function blobToBase64(blob) {
  * @returns {Array} []
  */
 export function sliceArray(arr, num) {
-  if (arr.length === 0 || num === 1) return arr;
+  // if (arr.length === 0 || num === 1) return arr;
+  // if (arr.length <= num) return arr.map((i) => [i]);
+  // const result = [];
+  // const size = ~~(arr.length / num);
+  // while (arr.length > 0) {
+  //   result.push(arr.splice(0, size));
+  // }
+
+  // 简单说就是将 [1,2,3,4] ,在 num 为 2 的时候转化为 [[1,2], [3,4]]
+  // 均分数组为多个数组，保存在一个数组里
+  console.log(arr, num);
   if (arr.length <= num) return arr.map((i) => [i]);
-  const result = [];
-  const size = ~~(arr.length / num);
+  const res = Array.from({ length: num }, () => []);
   while (arr.length > 0) {
-    result.push(arr.splice(0, size));
+    for (const item of res) {
+      if (arr.length === 0) break;
+      item.push(arr.shift());
+    }
   }
-  return result;
+  return res.filter((i) => i.length > 0);
 }
 /**
  * 将一维数组拆分为包含多个一位数组的二维数组，每个数组包含固定的个数
@@ -162,3 +174,28 @@ export const handleDownloadWallpaper = (url) => {
     url,
   });
 };
+
+/**
+ * 通过获取缩放比例，获取目标图片的缩放高度
+ * @param  {} width
+ * @param  {} height
+ * @param  {} resizeWidth=400
+ */
+export function generateFallbackImgWidth(width, height, resizeWidth = 400) {
+  return (height / width) * resizeWidth;
+}
+
+export function shuffle(arr = []) {
+  if (arr.length === 0) return arr;
+  let i = arr.length;
+  let temp;
+  while (i !== 0) {
+    temp = ~~(Math.random() * i--);
+    [arr[i], arr[temp]] = [arr[temp], arr[i]];
+  }
+  return arr;
+}
+
+export function randomColor() {
+  
+}
