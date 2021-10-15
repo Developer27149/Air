@@ -7,7 +7,7 @@ import { Tooltip } from "@chakra-ui/tooltip";
 import React, { useEffect, useState } from "react";
 import { CgMinimize, CgUserlane } from "react-icons/cg";
 import { FcLike } from "react-icons/fc";
-import { handleDownloadWallpaper } from "Utils/index.js";
+import { handleDownloadWallpaper, getBase64FromUrl } from "Utils/index.js";
 import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setWallpaper } from "Store/homeSlice.js";
@@ -25,12 +25,34 @@ export default function ImageView({ id, full, raw, handleHidden }) {
   const handleApplyImg = () => {
     applyToast({
       title: "Tip",
-      description: "已经将这张壁纸设置到初始页面❤️",
-      status: "success",
+      description: "正在将这张壁纸设置到初始页面❤️",
+      status: "info",
       duration: 4500,
       isClosable: true,
       position: "top",
     });
+    const applyToHome = async () => {
+      try {
+        const data = await getBase64FromUrl(full);
+        dispatch(
+          setWallpaper({
+            ...wallpaper,
+            imgBase64: data,
+          })
+        );
+        applyToast({
+          title: "Tip",
+          description: "👌🏻 设置好了！",
+          status: "success",
+          duration: 4500,
+          isClosable: true,
+          position: "top",
+        });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    applyToHome();
   };
 
   const handleLikeImg = () => {
@@ -78,7 +100,6 @@ export default function ImageView({ id, full, raw, handleHidden }) {
     document.documentElement.requestFullscreen();
     getImgData();
     return () => {
-      console.log("uninstall");
       document.fullscreenElement && document.exitFullscreen();
       source.cancel("组件卸载，取消请求");
     };

@@ -5,6 +5,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import { Provider } from "react-redux";
 import store from "Store/index.js";
 import prepareFn from "Prepare/index.js";
+import "Styles/global.scss";
 
 prepareFn().finally(async () => {
   ReactDOM.render(

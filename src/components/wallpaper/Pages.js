@@ -15,19 +15,49 @@ export default function Pages() {
   const generatorButtons = () => {
     const res = [];
     let _count = 0;
-    while (wallpaperArr.length > curPage + _count && _count < 1) {
+    while (wallpaperArr.length > startPage + _count && _count < 1) {
       ++_count;
-      res.push(<Button key={_count}>{curPage + _count}</Button>);
+      res.push(
+        <Button
+          key={_count}
+          onClick={() => {
+            goTop(document.querySelector("#wallpaper_flow"));
+            dispatch(setCurPage(startPage + _count));
+          }}
+          isActive={curPage === startPage + _count}
+          _active={{
+            borderColor: "purple.200",
+            borderWidth: "2px",
+          }}
+        >
+          {startPage + _count}
+        </Button>
+      );
     }
-    if (curPage + _count < wallpaperArr.length) {
-      if (curPage + _count + 1 < wallpaperArr.length) {
+    if (startPage + _count < wallpaperArr.length) {
+      if (startPage + _count + 1 < wallpaperArr.length) {
         res.push(
-          <Button key="..." cursor="not-allowed">
+          <Button key="..." onClick={handleChangeCurPage}>
             ...
           </Button>
         );
       }
-      res.push(<Button key="last">{wallpaperArr.length}</Button>);
+      res.push(
+        <Button
+          key="last"
+          isActive={curPage === wallpaperArr.length}
+          onClick={() => {
+            goTop(document.querySelector("#wallpaper_flow"));
+            dispatch(setCurPage(wallpaperArr.length));
+          }}
+          _active={{
+            borderColor: "purple.200",
+            borderWidth: "2px",
+          }}
+        >
+          {wallpaperArr.length}
+        </Button>
+      );
     }
     return res;
   };
@@ -35,25 +65,34 @@ export default function Pages() {
   const switchPage = (isPrev) => () => {
     // 首页时无法向前，末页时无法向后
     if ((curPage === 1 && isPrev) || (curPage === wallpaperArr.length && !isPrev)) return;
-    goTop();
+    goTop(document.querySelector("#wallpaper_flow"));
+    if (isPrev && curPage - 1 < startPage) {
+      setStartPage(curPage - 1);
+    }
+    if (!isPrev && curPage + 1 > startPage + 1) {
+      setStartPage(curPage + 1);
+    }
     dispatch(setCurPage(curPage + (isPrev ? -1 : 1)));
   };
 
   const handlePrevPage = switchPage(true);
   const handleNextPage = switchPage(false);
 
+  const handleChangeCurPage = () => {
+    if (startPage + 2 < wallpaperArr.length) {
+      goTop(document.querySelector("#wallpaper_flow"));
+      setStartPage(startPage + 2);
+      dispatch(setCurPage(startPage + 2));
+    }
+  };
+
+  const handleSwitchToStartPage = () => {
+    goTop(document.querySelector("#wallpaper_flow"));
+    dispatch(setCurPage(startPage));
+  };
+
   return (
     <Box display="flex" justifyContent="center" alignItems="center" m="4rem auto">
-      <Badge
-        mr="0.8rem"
-        borderRadius=".2rem"
-        p="0.4rem .6rem"
-        fontSize="1.1rem"
-        colorScheme="messenger"
-        variant="outline"
-      >
-        共 {wallpaperArr.flat().length} 张
-      </Badge>
       <ButtonGroup
         variant="outline"
         spacing="4"
@@ -68,20 +107,20 @@ export default function Pages() {
           onClick={handlePrevPage}
         />
         <Button
-          isActive={true}
+          isActive={startPage === curPage}
+          onClick={handleSwitchToStartPage}
           _active={{
-            bg: "teal.50",
-            transform: "scale(1.1)",
             borderColor: "purple.200",
+            borderWidth: "2px",
           }}
         >
-          {curPage}
+          {startPage}
         </Button>
         {generatorButtons()}
         <ArrowForwardIcon
           fontSize="1.4rem"
-          color={curPage === wallpaperArr.length - 1 ? "gray.300" : "purple.300"}
-          cursor={curPage === wallpaperArr.length - 1 ? "not-allowed" : "pointer"}
+          color={curPage === wallpaperArr.length ? "gray.300" : "purple.300"}
+          cursor={curPage === wallpaperArr.length ? "not-allowed" : "pointer"}
           onClick={handleNextPage}
         />
       </ButtonGroup>

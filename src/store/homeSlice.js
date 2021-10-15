@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 import getInitConfig from "Utils/getInitState.js";
 
 const { wallpaper, search, weather } = await getInitConfig();
@@ -23,17 +23,21 @@ export const homeSlice = createSlice({
       state.weather = action.payload;
       globalThis.settings.weather = action.payload;
     },
-    updateWallpaperItems(
-      state,
-      action = {
-        payload: [],
-      }
-    ) {
+    updateWallpaperItems(state, action) {
+      const currentState = current(state);
+      const idArr = currentState.wallpaper.items.map((i) => i.id);
+      const items = [];
       action.payload.forEach((item) => {
-        if (state.wallpaper.items.every((i) => i.id !== item.id)) {
-          state.wallpaper.items.push(item);
+        if (!idArr.includes(item.id)) {
+          items.push(item);
         }
       });
+      const nextWallpaper = {
+        ...currentState.wallpaper,
+        items: items.concat(currentState.wallpaper.items),
+      };
+      state.wallpaper = nextWallpaper;
+      globalThis.settings.wallpaper = nextWallpaper;
     },
   },
 });

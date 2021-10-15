@@ -6,10 +6,10 @@ import { Bar, Loading } from "Components/index.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getBase64FromUrl, isNewDay } from "Utils/index.js";
-import { setWallpaper } from "Store/homeSlice.js";
+import { setWallpaper, updateWallpaperItems } from "Store/homeSlice.js";
 import Wallpapers from "./Wallpapers/index.js";
 import Login from "./Login/index.js";
-import { setUpdateTimestamp } from "Store/basicSlice.js";
+import { setBackendBaseUrl, setUpdateTimestamp } from "Store/basicSlice.js";
 
 export default function App() {
   // 从 store 获取壁纸对象，里面保存着 storage 里存储的 blob 对象转化后的字符串
@@ -48,6 +48,24 @@ export default function App() {
         dispatch(setWallpaper(newWallpaper));
       }
     };
+
+    const updateNewestWallpaperData = async () => {
+      console.log(wallpaper.items);
+      try {
+        const data = await axios.post(`${backendBaseUrl}/wallpaper/newest`, {
+          exist: wallpaper.items.map((i) => i.id),
+        });
+        console.log(data);
+        // 从服务器获取更新
+        // 更新最新的壁纸数据到本地存储
+        const _ = updateWallpaperItems(data.data.data);
+        console.log(_);
+        dispatch(_);
+      } catch (error) {
+        // 异常同样更新状态为已经获取了数据
+        console.log(error);
+      }
+    };
     // 如果是第一次运行，则获取新的图片 Blob 数据并且保存
     // 如果设置了锁定壁纸，则不再每天更新
     if (!wallpaper.fixed && isNewDay(new Date(updateTimeStamp).getDate())) {
@@ -55,7 +73,13 @@ export default function App() {
       // 更新时间戳
       dispatch(setUpdateTimestamp(new Date().getTime()));
     }
+    // 更新最新数据
+    updateNewestWallpaperData();
   }, []);
+
+  useEffect(() => {
+    setImgBase64(wallpaper.imgBase64);
+  }, [wallpaper.imgBase64]);
   return (
     <>
       {imgBase64 === "" ? (
@@ -75,7 +99,7 @@ export default function App() {
             <Box flexGrow="1">
               <Switch>
                 <Route exact path="/">
-                  <Wallpapers />
+                  <Home />
                 </Route>
                 <Route path="/wallpapers">
                   <Wallpapers />

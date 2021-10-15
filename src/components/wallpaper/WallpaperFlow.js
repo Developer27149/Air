@@ -4,21 +4,25 @@ import { Image } from "@chakra-ui/image";
 import { Badge, Box, Link } from "@chakra-ui/layout";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Icon } from "@chakra-ui/icons";
-import { generateFallbackImgWidth, randomColor, sliceArray } from "Utils/index.js";
+import { generateFallbackImgWidth, randomColor, sliceArray, unflatArr } from "Utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
 import { CgMaximizeAlt } from "react-icons/cg";
 import Loading from "Components/Loading.js";
+import { setWallpaperArr } from "Store/wallpaperSlice.js";
 
 const ImageView = lazy(() => import("../ImageView.js"));
 
 export default function WallpaperFlow() {
   const dispatch = useDispatch();
-
   const { wallpaperArr, curPage } = useSelector((state) => state.wallpaper);
-
   const wallpaper = useSelector((state) => state.home.wallpaper);
+  // init wallpaperArr from origin store
+  useEffect(() => {
+    dispatch(setWallpaperArr(unflatArr([...wallpaper.items])));
+  }, []);
+
   // 设置为喜欢或不喜欢
   const handleSwitchLike = (id, field) => {
     const dataArr = wallpaper[`${field}`].includes(id)
@@ -35,7 +39,7 @@ export default function WallpaperFlow() {
   const [curImg, setCurImg] = useState(null);
   const [newWallpaperArr, setNewWallpaperArr] = useState([]);
   useEffect(() => {
-    const _ = sliceArray([...wallpaperArr[curPage - 1]], 3);
+    const _ = sliceArray([...(wallpaperArr[curPage - 1] ?? [])], 3);
     setNewWallpaperArr(_);
   }, [wallpaperArr, curPage]);
 
@@ -95,24 +99,24 @@ export default function WallpaperFlow() {
                       cursor="pointer"
                       color="white"
                       pos="absolute"
-                      top="1rem"
-                      right="0"
+                      top=".6rem"
+                      right=".4rem"
                       cursor="pointer"
                       zIndex="9"
                       onClick={() => setCurImg({ full, raw, id })}
                     />
-                    <Box pos="absolute" top="1rem" display="flex" p="0.5rem" w="100%">
+                    <Box pos="absolute" top=".4rem" display="flex" p="0.5rem" w="100%">
                       <Icon
-                        fontSize="1.4rem"
-                        m="0 .5rem"
+                        fontSize="1.3rem"
+                        m="0 .4rem"
                         as={wallpaper.unlike.includes(id) ? AiFillLike : AiOutlineLike}
                         cursor="pointer"
                         color="white"
                         onClick={() => handleSwitchLike(id, "like")}
                       />
                       <Icon
-                        fontSize="1.4rem"
-                        m="0 .5rem"
+                        fontSize="1.3rem"
+                        m="0 .4rem"
                         as={wallpaper.unlike.includes(id) ? AiFillDislike : AiOutlineDislike}
                         cursor="pointer"
                         color="white"

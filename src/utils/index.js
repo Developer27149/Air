@@ -135,17 +135,6 @@ export function blobToBase64(blob) {
  * @returns {Array} []
  */
 export function sliceArray(arr, num) {
-  // if (arr.length === 0 || num === 1) return arr;
-  // if (arr.length <= num) return arr.map((i) => [i]);
-  // const result = [];
-  // const size = ~~(arr.length / num);
-  // while (arr.length > 0) {
-  //   result.push(arr.splice(0, size));
-  // }
-
-  // 简单说就是将 [1,2,3,4] ,在 num 为 2 的时候转化为 [[1,2], [3,4]]
-  // 均分数组为多个数组，保存在一个数组里
-  console.log(arr, num);
   if (arr.length <= num) return arr.map((i) => [i]);
   const res = Array.from({ length: num }, () => []);
   while (arr.length > 0) {
@@ -209,6 +198,10 @@ export function randomColor() {
   return randomColorArr[~~(Math.random() * randomColorArr.length)];
 }
 
-export function goTop() {
-  document.body.scrollTo(0, 0);
+export function goTop(elem = document.body) {
+  elem.scrollTo({
+    top: 0,
+    left: 0,
+    behavior: "smooth",
+  });
 }
