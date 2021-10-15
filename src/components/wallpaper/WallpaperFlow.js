@@ -90,18 +90,18 @@ export default function WallpaperFlow() {
                   >
                     <Icon
                       fontSize="1.4rem"
-                      m="0 .5rem"
+                      m="0 .2rem"
                       as={CgMaximizeAlt}
                       cursor="pointer"
                       color="white"
                       pos="absolute"
-                      top="1.5rem"
+                      top="1rem"
                       right="0"
                       cursor="pointer"
                       zIndex="9"
                       onClick={() => setCurImg({ full, raw, id })}
                     />
-                    <Box pos="absolute" top="1rem" display="flex" p="0.5rem" mt=".5rem" w="100%">
+                    <Box pos="absolute" top="1rem" display="flex" p="0.5rem" w="100%">
                       <Icon
                         fontSize="1.4rem"
                         m="0 .5rem"
@@ -122,7 +122,7 @@ export default function WallpaperFlow() {
 
                     <Box
                       pos="absolute"
-                      bottom="1.5rem"
+                      bottom="1rem"
                       left="0.5rem"
                       right="0.5rem"
                       display="flex"
