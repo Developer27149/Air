@@ -6,6 +6,7 @@ import React, { useState } from "react";
 import { GrFormNextLink, GrFormPreviousLink } from "react-icons/gr";
 import { useDispatch, useSelector } from "react-redux";
 import { setCurPage } from "Store/wallpaperSlice.js";
+import { goTop } from "Utils/index.js";
 
 export default function Pages() {
   const dispatch = useDispatch();
@@ -31,12 +32,15 @@ export default function Pages() {
     return res;
   };
 
-  const handlePrevPage = () => {
-    dispatch(setCurPage(curPage - 1));
+  const switchPage = (isPrev) => () => {
+    // 首页时无法向前，末页时无法向后
+    if ((curPage === 1 && isPrev) || (curPage === wallpaperArr.length && !isPrev)) return;
+    goTop();
+    dispatch(setCurPage(curPage + (isPrev ? -1 : 1)));
   };
-  const handleNextPage = () => {
-    dispatch(setCurPage(curPage + 1));
-  };
+
+  const handlePrevPage = switchPage(true);
+  const handleNextPage = switchPage(false);
 
   return (
     <Box display="flex" justifyContent="center" alignItems="center" m="4rem auto">

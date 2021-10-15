@@ -42,7 +42,7 @@ export default function WallpaperFilter() {
         <Image src="./icons/64.png" />
         <Box flexGrow="1" p=".2rem 2rem">
           <Heading as="p" size="sm" p=".2rem" fontWeight="normal">
-            感谢你来到这里。
+            献给喜欢壁纸的你
           </Heading>
         </Box>
         <Avatar

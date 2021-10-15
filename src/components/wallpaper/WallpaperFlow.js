@@ -4,7 +4,7 @@ import { Image } from "@chakra-ui/image";
 import { Badge, Box, Link } from "@chakra-ui/layout";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Icon } from "@chakra-ui/icons";
-import { generateFallbackImgWidth, sliceArray } from "Utils/index.js";
+import { generateFallbackImgWidth, randomColor, sliceArray } from "Utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
@@ -72,7 +72,7 @@ export default function WallpaperFlow() {
                   pos="relative"
                   h={generateFallbackImgWidth(width, height)}
                   w="400px"
-                  bg="purple.100"
+                  bg={randomColor()}
                   m="1rem 0"
                 >
                   <Image src={small} title={descrption} />

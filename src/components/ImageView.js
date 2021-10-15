@@ -69,7 +69,6 @@ export default function ImageView({ id, full, raw, handleHidden }) {
           responseType: "blob",
           withCredentials: true,
         });
-        console.log(data);
         setImgData(URL.createObjectURL(data));
       } catch (error) {
         console.log(error);

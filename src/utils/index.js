@@ -197,5 +197,18 @@ export function shuffle(arr = []) {
 }
 
 export function randomColor() {
-  
+  const randomColorArr = [
+    "teal.50",
+    "purple.100",
+    "blue.100",
+    "gray.300",
+    "yellow.100",
+    "pink.100",
+    "red.100",
+  ];
+  return randomColorArr[~~(Math.random() * randomColorArr.length)];
+}
+
+export function goTop() {
+  document.body.scrollTo(0, 0);
 }
