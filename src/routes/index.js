@@ -10,6 +10,7 @@ import { setWallpaper, updateWallpaperItems } from "Store/homeSlice.js";
 import Wallpapers from "./Wallpapers/index.js";
 import Login from "./Login/index.js";
 import { setBackendBaseUrl, setUpdateTimestamp } from "Store/basicSlice.js";
+import LeaveMessage from "Components/LeaveMessage.js";
 
 export default function App() {
   // 从 store 获取壁纸对象，里面保存着 storage 里存储的 blob 对象转化后的字符串

@@ -11,6 +11,7 @@ export const wallpaperSlice = createSlice({
     wallpaperArr: unflatArr([...wallpaper.items]),
     curPage: 1,
     startPage: 1,
+    comment: null,
   },
   reducers: {
     setWallpaperArr(state, action) {
@@ -22,9 +23,12 @@ export const wallpaperSlice = createSlice({
     setStartPage(state, action) {
       state.startPage = action.payload;
     },
+    setComment(state, action) {
+      state.comments = action.payload;
+    },
   },
 });
 
 // 每一个 reducer 函数都会生成一个对应的 action
-export const { setWallpaperArr, setCurPage, setStartPage } = wallpaperSlice.actions;
+export const { setWallpaperArr, setCurPage, setStartPage,setComment } = wallpaperSlice.actions;
 export default wallpaperSlice.reducer;
