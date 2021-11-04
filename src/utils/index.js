@@ -7,6 +7,16 @@ import { VscGithubAlt } from "react-icons/vsc";
 
 export const searchIcons = { FcGoogle, DiCode, DiBingSmall, SiZhihu, GiGoldNuggets, VscGithubAlt };
 
+export const hadToken = () => {
+  return globalThis.settings.token === "";
+};
+
+export const handleEnter = (e, cb) => {
+  if (e.charCode == 13) {
+    cb();
+  }
+};
+
 /**
  * @param  {any} key
  * @return {Promise} data

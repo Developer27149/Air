@@ -8,7 +8,7 @@ import { FcHome, FcTodoList, FcWorkflow } from "react-icons/fc";
 import { IoAppsOutline } from "react-icons/io5";
 import styles from "../styles/bars.module.sass";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Setting from "./Setting.js";
 
 export default function Bars() {
@@ -63,7 +63,7 @@ export default function Bars() {
           margin="8px"
           as={FcHome}
           title="默认页面"
-          onClick={() => navigatorTo("/")}
+          onClick={() => torTo("/")}
         />
         <Icon
           className={styles.icon}
@@ -71,7 +71,7 @@ export default function Bars() {
           margin="8px"
           as={IoAppsOutline}
           color="tomato"
-          onClick={() => navigatorTo("/wallpapers")}
+          onClick={() => torTo("/wallpapers")}
           title="壁纸"
         />
         <Icon className={styles.icon} fontSize="24px" margin="8px" as={BsBookmarks} title="书签" />

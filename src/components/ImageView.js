@@ -7,17 +7,13 @@ import React, { useEffect, useState } from "react";
 import { CgMinimize, CgUserlane } from "react-icons/cg";
 import { FcLike } from "react-icons/fc";
 import { handleDownloadWallpaper, getBase64FromUrl } from "Utils/index.js";
-import { useToast, Slide } from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { setWallpaper } from "Store/homeSlice.js";
 import axios from "axios";
 import Loading from "./Loading.js";
-import ImageMessages from "./wallpaper/ImageMessages.js";
-import { BiMessageDetail } from "react-icons/bi";
-import { useDisclosure } from "@chakra-ui/hooks";
 
 export default function ImageView({ id, full, raw, handleHidden }) {
-  const { isOpen, onToggle } = useDisclosure();
   const [imgData, setImgData] = useState(null);
   const [completed, setCompleted] = useState(false);
   const applyToast = useToast();
@@ -151,17 +147,7 @@ export default function ImageView({ id, full, raw, handleHidden }) {
           cursor="pointer"
           fontSize="1.5rem"
         />
-        <Icon
-          as={BiMessageDetail}
-          color="white"
-          onClick={onToggle}
-          cursor="pointer"
-          fontSize="1.5rem"
-        />
       </Box>
-      <Slide in={isOpen} direction="left" zIndex="2">
-        <ImageMessages id={id} />
-      </Slide>
     </Box>
   );
 }
