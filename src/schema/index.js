@@ -35,7 +35,8 @@ export const configSchema = yup.object().shape({
     token: string(),
     avatar: string(),
     username: string(),
-    photos: array(),
+    intro: string(),
+    wallpaperUploadId: array(),
     email: string(),
   }),
 });

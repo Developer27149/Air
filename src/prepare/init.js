@@ -38,10 +38,11 @@ export const config = {
     text: "多云",
   },
   profile: {
-    username: "岚",
+    username: "",
     avatar: "",
-    photos: [],
+    wallpaperUploadId: [],
     email: "",
+    intro: "",
     token: "",
   },
 };

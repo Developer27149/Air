@@ -93,7 +93,8 @@ export default function LoginElem() {
             onChange={handleChangeUsername}
             size="sm"
             variant="flushed"
-            placeholder="昵称"
+            placeholder="昵称或邮箱"
+            maxLength="24"
             onKeyPress={(e) => handleEnter(e, handleLogin)}
           />
         </InputGroup>
@@ -110,6 +111,7 @@ export default function LoginElem() {
             type="password"
             variant="flushed"
             placeholder="密码"
+            maxLength="16"
             onKeyPress={(e) => handleEnter(e, handleLogin)}
           />
           <InputRightElement>
@@ -129,7 +131,7 @@ export default function LoginElem() {
         <Flex justify="center" align="center" mb="1rem" w="100%">
           <Divider minW="8rem" />
           <Text flexGrow="1" textAlign="center" minW="7rem">
-            第三方登录
+            第三方登录🏂🏿
           </Text>
           <Divider minW="8rem" />
         </Flex>
@@ -142,7 +144,7 @@ export default function LoginElem() {
         m="0.5rem auto"
         size="sm"
       >
-        没有账号，前去注册
+        没有账号，前去注册🌈
       </Button>
       <Text textAlign="center">or</Text>
       <Button
@@ -152,7 +154,7 @@ export default function LoginElem() {
         m="0.5rem auto"
         size="xs"
       >
-        下次一定
+        我先试用，下次一定🐧
       </Button>
     </Box>
   );

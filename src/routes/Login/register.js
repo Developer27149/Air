@@ -9,15 +9,24 @@ import {
   InputLeftElement,
   InputRightElement,
   useToast,
+  Divider,
 } from "@chakra-ui/react";
 import { FaUserAlt } from "react-icons/fa";
-import { MdSecurity } from "react-icons/md";
+import { MdSecurity, MdEmail } from "react-icons/md";
 import { AiOutlineEnter } from "react-icons/ai";
 import { handleEnter } from "Utils/index.js";
 import { Image } from "@chakra-ui/react";
+import { register } from "Utils/request.js";
+import { useDispatch } from "react-redux";
+import { setProfile } from "Store/profile.js";
+import { useHistory } from "react-router";
 
 export default function LoginElem({ goToLogin }) {
+  const dispatch = useDispatch();
+  const history = useHistory();
+
   const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
@@ -27,6 +36,9 @@ export default function LoginElem({ goToLogin }) {
   };
   const handleChangePassword = (e) => {
     setPassword(e.target.value);
+  };
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
   };
 
   const handleChangeConfirmPass = (e) => setConfirmPassword(e.target.value);
@@ -45,10 +57,32 @@ export default function LoginElem({ goToLogin }) {
     }
     return isPass;
   };
-  const handleRegister = () => {
+  const handleRegister = async () => {
     if (checkInput()) {
       // login
       console.log("start register");
+      const res = await register({ username, password, email });
+      console.log(res);
+      const {
+        data: {
+          token,
+          result: { intro },
+        },
+        status: { code },
+      } = res;
+      // save token and userinfo
+      if (code !== -1) {
+        dispatch(
+          setProfile({
+            username,
+            email,
+            intro,
+            token,
+          })
+        );
+        // 重定向到首页
+        history.replace("/");
+      }
     }
   };
   return (
@@ -68,17 +102,35 @@ export default function LoginElem({ goToLogin }) {
             size="sm"
             variant="flushed"
             placeholder="昵称"
+            maxLength="9"
             onKeyPress={(e) => handleEnter(e, handleRegister)}
           />
         </InputGroup>
         <InputGroup m="1rem">
           <InputLeftElement pointerEvents="none">
-            <Icon pos="relative" bottom="4px" as={FaUserAlt} color="gray.300" />
+            <Icon pos="relative" bottom="4px" as={MdEmail} color="gray.300" />
+          </InputLeftElement>
+          <Input
+            value={email}
+            onChange={handleChangeEmail}
+            size="sm"
+            type="emial"
+            variant="flushed"
+            maxLength="24"
+            placeholder="邮箱（可选，希望能联系上你）"
+            onKeyPress={(e) => handleEnter(e, handleRegister)}
+          />
+        </InputGroup>
+        <InputGroup m="1rem">
+          <InputLeftElement pointerEvents="none">
+            <Icon pos="relative" bottom="4px" as={MdSecurity} color="gray.300" />
           </InputLeftElement>
           <Input
             value={password}
+            maxLength="16"
             onChange={handleChangePassword}
             size="sm"
+            type="password"
             variant="flushed"
             placeholder="密码"
             onKeyPress={(e) => handleEnter(e, handleRegister)}
@@ -96,6 +148,7 @@ export default function LoginElem({ goToLogin }) {
             size="sm"
             type="password"
             variant="flushed"
+            maxLength="16"
             placeholder="重复密码"
             onKeyPress={(e) => handleEnter(e, handleRegister)}
           />
@@ -111,6 +164,13 @@ export default function LoginElem({ goToLogin }) {
             />
           </InputRightElement>
         </InputGroup>
+      </Flex>
+      <Flex justify="center" align="center" mb="1rem" w="100%">
+        <Divider minW="8rem" />
+        <Text flexGrow="1" textAlign="center" minW="7rem">
+          🏄🏿
+        </Text>
+        <Divider minW="8rem" />
       </Flex>
 
       <Button colorScheme="blue" variant="ghost" onClick={goToLogin} m="0.5rem auto" size="sm">

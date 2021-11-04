@@ -8,7 +8,7 @@ import { VscGithubAlt } from "react-icons/vsc";
 export const searchIcons = { FcGoogle, DiCode, DiBingSmall, SiZhihu, GiGoldNuggets, VscGithubAlt };
 
 export const hadToken = () => {
-  return globalThis.settings.token === "";
+  return globalThis.settings.profile.token !== "";
 };
 
 export const handleEnter = (e, cb) => {
@@ -53,39 +53,6 @@ export function setStorage(obj) {
 export const isObject = (v) => v !== null && typeof v === "object";
 
 export const isEmptyObj = (obj) => isObject(obj) && Object.keys(obj).length === 0;
-
-export const getAllWallpaper = async () => {
-  try {
-    const res = await axios.get(`${config.backendHost}/wallpapers?name=aaron`);
-    return res.data;
-  } catch (error) {
-    console.log("网络问题，无法获取 Aaron 服务");
-    return Promise.reject({
-      message: "网络异常",
-    });
-  }
-};
-
-export const getMsg = async () => {
-  try {
-    const res = await axios.get(`${config.backendHost}/msg?name=aaron`);
-    return res.data.data;
-  } catch (error) {
-    console.log(error, "from get msg");
-    return "潜龙勿用";
-  }
-};
-
-export const replaceCurrentWallpaper = () => {
-  const { historyIdArr, imgArr } = globalThis.config;
-  const _ = imgArr.shift();
-  if (!historyIdArr.includes(_.id)) {
-    historyIdArr.push(_.id);
-  }
-  globalThis.config.imgArr = imgArr;
-  globalThis.config.historyIdArr = historyIdArr;
-  return imgArr[0].url;
-};
 
 export const ganzhijinian = (year) => {
   let _ = "";
