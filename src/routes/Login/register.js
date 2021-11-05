@@ -20,6 +20,7 @@ import { register } from "Utils/request.js";
 import { useDispatch } from "react-redux";
 import { setProfile } from "Store/profile.js";
 import { useHistory } from "react-router";
+import { createHash } from "../../utils/index";
 
 export default function LoginElem({ goToLogin }) {
   const dispatch = useDispatch();
@@ -60,9 +61,7 @@ export default function LoginElem({ goToLogin }) {
   const handleRegister = async () => {
     if (checkInput()) {
       // login
-      console.log("start register");
-      const res = await register({ username, password, email });
-      console.log(res);
+      const res = await register({ username, password: createHash(password), email });
       const {
         data: {
           token,

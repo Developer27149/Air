@@ -4,6 +4,8 @@ import { DiBingSmall, DiCode } from "react-icons/di";
 import { SiZhihu } from "react-icons/si";
 import { GiGoldNuggets } from "react-icons/gi";
 import { VscGithubAlt } from "react-icons/vsc";
+import { FiYoutube } from "react-icons/fi";
+import md5 from "crypto-js/md5";
 
 export const searchIcons = { FcGoogle, DiCode, DiBingSmall, SiZhihu, GiGoldNuggets, VscGithubAlt };
 
@@ -61,24 +63,13 @@ export const ganzhijinian = (year) => {
   return _;
 };
 
-export const keyword2SearchEngine = (keyword) => {
-  const _ = {
-    gh: "github.com",
-    bi: "bing.com",
-    gg: "google.com",
-    zh: "zhihu.com",
-    jj: "juejin.cn",
-    dev: "dev.to",
-  };
-  return _[keyword];
-};
-
 export const selectIcon = (engine) => {
   if (engine === "bing.com") return DiBingSmall;
   if (engine === "zhihu.com") return SiZhihu;
   if (engine === "dev.to") return DiCode;
   if (engine === "github.com") return VscGithubAlt;
   if (engine === "juejin.cn") return GiGoldNuggets;
+  if (engine === "youtube.com") return FiYoutube;
   return FcGoogle;
 };
 
@@ -182,3 +173,5 @@ export function goTop(elem = document.body) {
     behavior: "smooth",
   });
 }
+
+export const createHash = (password, secret = "") => md5(password, secret).toString();

@@ -24,7 +24,7 @@ export default function ImageView({ id, full, raw, handleHidden }) {
   const handleApplyImg = () => {
     applyToast({
       title: "Tip",
-      description: "正在将这张壁纸设置到初始页面❤️",
+      description: "马上将这张壁纸设置到初始页面❤️",
       status: "info",
       duration: 4500,
       isClosable: true,
@@ -39,14 +39,6 @@ export default function ImageView({ id, full, raw, handleHidden }) {
             imgBase64: data,
           })
         );
-        applyToast({
-          title: "Tip",
-          description: "👌🏻 设置好了！",
-          status: "success",
-          duration: 4500,
-          isClosable: true,
-          position: "top",
-        });
       } catch (error) {
         console.log(error);
       }

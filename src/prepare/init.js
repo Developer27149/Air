@@ -40,7 +40,7 @@ export const config = {
   profile: {
     username: "",
     avatar: "",
-    wallpaperUploadId: [],
+    uploadWallpaperId: [],
     email: "",
     intro: "",
     token: "",
@@ -52,8 +52,15 @@ export const init = async () => {
     // await chrome.storage.local.clear()
     // 首先读取本地配置，检查配置文件是否符合格式
     const storageConfig = await getStorage("config");
-    console.log("本地配置文件", storageConfig, typeof storageConfig);
     const isValid = await configSchema.isValid(storageConfig);
+    // configSchema
+    //   .validate(storageConfig)
+    //   .then((r) => {
+    //     console.log(r);
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
     // 设置当前配置为默认格式
     // 无效则清空配置，重建本地数据
     if (!isValid) {
@@ -68,15 +75,20 @@ export const init = async () => {
     // 初始化全局配置对象，每次更新这个对象都自动修改本地数据
     globalThis.settings = new Proxy(isValid ? storageConfig : config, {
       set: async function (target, prop, receiver) {
-        // 更新的同时，修改本地存储
-        target[prop] = receiver;
-        const isValid = configSchema.isValid(target);
-        if (isValid) {
-          await setStorage({
-            config: target,
-          });
-        } else {
-          console.log("config is unvalid，无法更新配置");
+        try {
+          // 更新的同时，修改本地存储
+          target[prop] = receiver;
+          const isValid = await configSchema.isValid(target);
+          // console.log(target, isValid);
+          if (isValid) {
+            await setStorage({
+              config: target,
+            });
+          } else {
+            console.log("config is unvalid，无法更新配置");
+          }
+        } catch (error) {
+          console.log(error);
         }
       },
     });

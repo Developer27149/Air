@@ -4,20 +4,29 @@ import { Image } from "@chakra-ui/image";
 import { Badge, Box, Link } from "@chakra-ui/layout";
 import React, { lazy, Suspense, useEffect, useState } from "react";
 import { Icon } from "@chakra-ui/icons";
-import { generateFallbackImgWidth, randomColor, sliceArray, unflatArr } from "Utils/index.js";
+import {
+  generateFallbackImgWidth,
+  getBase64FromUrl,
+  randomColor,
+  sliceArray,
+  unflatArr,
+} from "Utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
-import { CgMaximizeAlt } from "react-icons/cg";
+import { CgMaximizeAlt, CgUserlane } from "react-icons/cg";
 import Loading from "Components/Loading.js";
 import { setWallpaperArr } from "Store/wallpaperSlice.js";
+import { useToast } from "@chakra-ui/toast";
 
 const ImageView = lazy(() => import("../ImageView.js"));
 
 export default function WallpaperFlow() {
   const dispatch = useDispatch();
+  const applyToast = useToast();
   const { wallpaperArr, curPage } = useSelector((state) => state.wallpaper);
   const wallpaper = useSelector((state) => state.home.wallpaper);
+
   // init wallpaperArr from origin store
   useEffect(() => {
     dispatch(setWallpaperArr(unflatArr([...wallpaper.items])));
@@ -34,6 +43,29 @@ export default function WallpaperFlow() {
         [`${field}`]: dataArr,
       })
     );
+  };
+  // 应用到首页
+  const handleApplyImg = async (full) => {
+    try {
+      const data = await getBase64FromUrl(full);
+      dispatch(
+        setWallpaper({
+          ...wallpaper,
+          imgBase64: data,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      applyToast({
+        title: "Tip",
+        description: "壁纸设置到初始页面🍁",
+        status: "success",
+        duration: 4500,
+        isClosable: true,
+        position: "top",
+      });
+    }
   };
 
   const [curImg, setCurImg] = useState(null);
@@ -65,9 +97,7 @@ export default function WallpaperFlow() {
                 height,
                 width,
                 descrption,
-                topic_submissions,
                 id,
-                color,
               } = photo;
 
               return (
@@ -126,7 +156,7 @@ export default function WallpaperFlow() {
 
                     <Box
                       pos="absolute"
-                      bottom="1rem"
+                      bottom=".5rem"
                       left="0.5rem"
                       right="0.5rem"
                       display="flex"
@@ -137,21 +167,13 @@ export default function WallpaperFlow() {
                       </Link>
 
                       <Box flexGrow="1" display="flex" justifyContent="flex-end">
-                        <Badge
-                          fontSize=".8rem"
-                          colorScheme={color}
-                          color="#eee"
-                          justifySelf="flex-end"
+                        <Icon
+                          color="white"
+                          as={CgUserlane}
+                          fontSize="1.5rem"
                           cursor="pointer"
-                        >
-                          <a
-                            href={`https://unsplash.com/s/photos/${
-                              Object.keys(topic_submissions)[0]
-                            }`}
-                          >
-                            {Object.keys(topic_submissions)[0]}
-                          </a>
-                        </Badge>
+                          onClick={() => handleApplyImg(full)}
+                        />
                       </Box>
                     </Box>
                   </Box>

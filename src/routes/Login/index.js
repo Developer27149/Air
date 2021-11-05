@@ -1,8 +1,9 @@
-import React, { useState } from "react";
-import { Box, Text, Flex, Grid } from "@chakra-ui/react";
+import React from "react";
+import { Flex, Grid } from "@chakra-ui/react";
 import LoginElem from "./login.js";
 import { motion } from "framer-motion";
 const FlexMotion = motion(Flex);
+import StatElem from "./stats.js";
 
 export default function Login() {
   return (
@@ -10,7 +11,9 @@ export default function Login() {
       backdropFilter="blur(4px)"
       bgColor="rgb(255,255,255,.4)"
       h="100vh"
-      templateColumns="840px auto"
+      w="100vw"
+      overflow="hidden"
+      templateColumns={["1fr", "600px auto", "760px auto"]}
     >
       <FlexMotion
         align="center"
@@ -20,12 +23,12 @@ export default function Login() {
         left="-50px"
         animate={{
           opacity: 1,
-          left: 0,
+          left: 0.1,
         }}
         transition={{
-          duration: 0.7,
+          duration: 0.6,
           ease: "easeInOut",
-          delay: 0,
+          delay: 0.1,
         }}
       >
         <LoginElem />
@@ -46,7 +49,7 @@ export default function Login() {
           delay: 0,
         }}
       >
-        right
+        <StatElem />
       </FlexMotion>
     </Grid>
   );

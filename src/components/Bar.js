@@ -63,7 +63,7 @@ export default function Bars() {
           margin="8px"
           as={FcHome}
           title="默认页面"
-          onClick={() => torTo("/")}
+          onClick={() => navigatorTo("/")}
         />
         <Icon
           className={styles.icon}
@@ -71,7 +71,7 @@ export default function Bars() {
           margin="8px"
           as={IoAppsOutline}
           color="tomato"
-          onClick={() => torTo("/wallpapers")}
+          onClick={() => navigatorTo("/wallpapers")}
           title="壁纸"
         />
         <Icon className={styles.icon} fontSize="24px" margin="8px" as={BsBookmarks} title="书签" />

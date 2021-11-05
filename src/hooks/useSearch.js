@@ -32,6 +32,10 @@ export default function useSearch() {
       key: "gg",
       engine: "google.com",
     },
+    {
+      key: "yt",
+      engine: "youtube.com",
+    },
   ];
 
   useEffect(() => {
@@ -52,5 +56,5 @@ export default function useSearch() {
     });
   }, [keyword]);
 
-  return { keyword, setKeyword, engine };
+  return { keyword, setKeyword, engine, clearKeyword: () => setKeyword("") };
 }

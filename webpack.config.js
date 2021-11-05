@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CopyPlugin = require("copy-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 
 const isProduction = process.env.NODE_ENV == "production";
 
@@ -55,6 +56,18 @@ const config = {
       ],
     }),
     new CompressionPlugin(),
+    new BundleAnalyzerPlugin({
+      analyzerMode: "server",
+      analyzerHost: "127.0.0.1",
+      analyzerPort: 8888,
+      reportFilename: "report.html",
+      defaultSizes: "parsed",
+      openAnalyzer: false,
+      generateStatsFile: false,
+      statsFilename: "stats.json",
+      statsOptions: null,
+      logLevel: "info",
+    }),
   ],
   module: {
     rules: [

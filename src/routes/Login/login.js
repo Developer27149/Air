@@ -18,13 +18,22 @@ import { AiOutlineEnter } from "react-icons/ai";
 import { handleEnter } from "Utils/index.js";
 import RegisterElem from "./register.js";
 import { Image } from "@chakra-ui/image";
+import { loginAndGetToken } from "Utils/request.js";
+import { createHash } from "../../utils/index";
+import { useHistory } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { setProfile } from "Store/profile.js";
+import { setWallpaper } from "Store/homeSlice.js";
 
 export default function LoginElem() {
-  const [isOnLogin, setIsOnLogin] = useState(true);
+  const [isOnLogin, setIsOnLogin] = useState(false);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const wallpaper = useSelector((state) => state.home.wallpaper);
 
   const toast = useToast();
+  const dispatch = useDispatch();
+  const history = useHistory();
   const handleChangeUsername = (e) => {
     setUsername(e.target.value);
   };
@@ -45,16 +54,44 @@ export default function LoginElem() {
     }
     return isPass;
   };
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (checkInput()) {
       // login
       console.log("start login");
+      const res = await loginAndGetToken({ username, password: createHash(password) });
+      console.log(res.data, res.status);
+      if (res?.status.code !== -1) {
+        // save token
+        const {
+          data: {
+            token,
+            result: { username, email, intro, likeWallpaperId, uploadWallpaperId },
+          },
+        } = res;
+        console.log(likeWallpaperId, uploadWallpaperId);
+        dispatch(
+          setProfile({
+            username,
+            email,
+            intro,
+            token,
+            uploadWallpaperId,
+          })
+        );
+        dispatch(
+          setWallpaper({
+            ...wallpaper,
+            like: likeWallpaperId,
+          })
+        );
+        history.replace("/");
+      }
     }
   };
   return (
     <Box
       bg={!isOnLogin ? "blue.50" : "white"}
-      padding="2rem"
+      padding={["1rem", "1rem", "2rem"]}
       w="min(500px, 38vw)"
       h="min(800px, 80vh)"
       borderRadius="1rem"
@@ -135,7 +172,20 @@ export default function LoginElem() {
           </Text>
           <Divider minW="8rem" />
         </Flex>
-        <Icon as={FaGithub} fontSize="2rem" cursor="pointer" />
+        <Flex
+          p="1rem 2rem"
+          bg="white.200"
+          boxShadow="3px 3px 3px 2px #d9c9c9"
+          borderRadius=".5rem"
+          transition="all .4s ease-in-out"
+          border="1px solid transparent"
+          _hover={{
+            boxShadow: "1px 1px 1px 1px #d9c9c9",
+            border: "1px solid #eee",
+          }}
+        >
+          <Icon as={FaGithub} fontSize="2rem" cursor="pointer" />
+        </Flex>
       </Box>
       <Button
         colorScheme="blue"

@@ -5,7 +5,7 @@ import { selectIcon } from "Utils/index.js";
 
 export default function Search() {
   const [boxOpacity, setBoxOpacity] = useState(0);
-  const { keyword, setKeyword, engine } = useSearch();
+  const { keyword, setKeyword, engine, clearKeyword } = useSearch();
   const handleInput = (e) => {
     if (boxOpacity === 0) setBoxOpacity(1);
     const v = e.target.value;
@@ -14,8 +14,9 @@ export default function Search() {
 
   const handleSearch = (e) => {
     if (e.key === "Enter") {
-      console.log("start search", engine);
       let url = `https://www.${engine}/search?q=${keyword}`;
+      // clear keyword
+      clearKeyword();
       globalThis.open(url);
     }
   };
