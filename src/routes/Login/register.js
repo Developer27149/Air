@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { setProfile } from "Store/profile.js";
 import { useHistory } from "react-router";
 import { createHash } from "../../utils/index";
+import LoginAndTip from "./LoginAndTip.js";
 
 export default function LoginElem({ goToLogin }) {
   const dispatch = useDispatch();
@@ -86,10 +87,7 @@ export default function LoginElem({ goToLogin }) {
   };
   return (
     <>
-      <Image src="./icons/64.png" w="64px" h="64px" />
-      <Text m=".8rem" textAlign="center">
-        🌵 注册一个账号，我希望能为你提供更多功能
-      </Text>
+      <LoginAndTip tip="🌵 注册一个账号，我希望能为你提供更多功能" />
       <Flex align="center" justify="flex-end" flexDir="column" p="2rem">
         <InputGroup m="1rem">
           <InputLeftElement pointerEvents="none">

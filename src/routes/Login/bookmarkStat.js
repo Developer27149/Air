@@ -8,8 +8,8 @@ export default function BookmarkStat() {
         textAlign="center"
         fontSize="1.1rem"
         p="0.4rem"
-        bg="rgba(255,255,255,.5)"
-        color="grey.300"
+        bg="rgba(255,255,255,.2)"
+        color="white"
         backdropFilter="blur(4)"
         borderTopRadius="0.4rem"
       >

@@ -13,8 +13,21 @@ export default function MusicStat() {
       height="100%"
       borderRadius=".4rem"
     >
-      <Text pos="absolute" bottom="0" left="0" right="0" p="0.3rem" textAlign="left">
-        希望你会喜欢 👀
+      <Text
+        pos="absolute"
+        top="0"
+        bottom="0"
+        left="0"
+        p="0.3rem"
+        textAlign="center"
+        fontSize="1.1rem"
+        backdropFilter="blur(2)"
+        bgColor="rgba(255,255,255,.1)"
+        style={{
+          writingMode: "tb",
+        }}
+      >
+        👂 🎧 👂
       </Text>
       <Box
         pos="absolute"

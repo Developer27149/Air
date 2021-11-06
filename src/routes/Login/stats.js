@@ -10,7 +10,9 @@ export default function stats() {
   return (
     <Grid
       h="90vh"
-      w="90%"
+      w="100%"
+      maxW="1200px"
+      margin="0 auto"
       pr="2rem"
       templateRows="repeat(3, 1fr)"
       templateColumns="repeat(5, 1fr)"
