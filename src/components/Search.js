@@ -3,7 +3,7 @@ import { Input, Box, Icon } from "@chakra-ui/react";
 import useSearch from "Hooks/useSearch.js";
 import { selectIcon } from "Utils/index.js";
 
-export default function Search() {
+export default function Search({ isStat = false }) {
   const [boxOpacity, setBoxOpacity] = useState(0);
   const { keyword, setKeyword, engine, clearKeyword } = useSearch();
   const handleInput = (e) => {
@@ -26,9 +26,9 @@ export default function Search() {
       display="flex"
       justifyContent="center"
       alignItems="center"
-      padding="6rem 0"
+      padding={isStat ? "1rem" : "6rem 0"}
       w="100%"
-      opacity={boxOpacity}
+      opacity={isStat ? 1 : boxOpacity}
       transition="all .4s ease-in-out"
       _hover={{
         opacity: 1,
@@ -46,9 +46,10 @@ export default function Search() {
         paddingLeft="2.2rem"
         height="3rem"
         lineHeight="2rem"
-        w="600px"
+        w={isStat ? "360px" : "600px"}
         maxW="70vw"
         bg="white"
+        border="none"
         placeholder="你想知道什么？"
         onChange={handleInput}
         onBlur={() => setBoxOpacity(0)}

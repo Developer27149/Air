@@ -8,12 +8,12 @@ import StatElem from "./stats.js";
 export default function Login() {
   return (
     <Grid
-      backdropFilter="blur(4px)"
-      bgColor="rgb(255,255,255,.4)"
+      // backdropFilter="blur(4px)"
+      // bgColor="rgb(255,255,255,.4)"
       h="100vh"
       w="100vw"
       overflow="hidden"
-      templateColumns={["1fr", "600px auto", "760px auto"]}
+      templateColumns={["1fr", "560px auto", "560px auto", "800px auto"]}
     >
       <FlexMotion
         align="center"

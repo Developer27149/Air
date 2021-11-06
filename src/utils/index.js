@@ -1,13 +1,13 @@
 import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { DiBingSmall, DiCode } from "react-icons/di";
-import { SiZhihu } from "react-icons/si";
+import { FaZhihu } from "react-icons/fa";
 import { GiGoldNuggets } from "react-icons/gi";
 import { VscGithubAlt } from "react-icons/vsc";
 import { FiYoutube } from "react-icons/fi";
 import md5 from "crypto-js/md5";
 
-export const searchIcons = { FcGoogle, DiCode, DiBingSmall, SiZhihu, GiGoldNuggets, VscGithubAlt };
+export const searchIcons = { FcGoogle, DiCode, DiBingSmall, FaZhihu, GiGoldNuggets, VscGithubAlt };
 
 export const hadToken = () => {
   return globalThis.settings.profile.token !== "";
@@ -65,7 +65,7 @@ export const ganzhijinian = (year) => {
 
 export const selectIcon = (engine) => {
   if (engine === "bing.com") return DiBingSmall;
-  if (engine === "zhihu.com") return SiZhihu;
+  if (engine === "zhihu.com") return FaZhihu;
   if (engine === "dev.to") return DiCode;
   if (engine === "github.com") return VscGithubAlt;
   if (engine === "juejin.cn") return GiGoldNuggets;

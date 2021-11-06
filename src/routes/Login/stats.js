@@ -1,19 +1,32 @@
 import { Grid, GridItem } from "@chakra-ui/layout";
 import React from "react";
+import BookmarkStat from "./bookmarkStat.js";
+import MusicStat from "./MusicStat.js";
+import NoteStat from "./NoteStat.js";
+import SearchStat from "./SearchStat.js";
+import WallpaperStat from "./wallpaperStat.js";
+
 export default function stats() {
   return (
     <Grid
-      h="80vh"
+      h="90vh"
+      w="90%"
       pr="2rem"
-      w="80%"
       templateRows="repeat(3, 1fr)"
-      templateColumns="repeat(4, 1fr)"
+      templateColumns="repeat(5, 1fr)"
       gap={4}
     >
-      <GridItem rowSpan={2} colSpan={2} bg="tomato" />
-      <GridItem colSpan={2} bg="papayawhip" />
-      <GridItem colSpan={2} bg="papayawhip" />
-      <GridItem colSpan={4} bg="tomato" />
+      <GridItem borderRadius="0.4rem" rowSpan={2} colSpan={3} children={<WallpaperStat />} />
+      <GridItem borderRadius="0.4rem" colSpan={2} children={<BookmarkStat />} />
+      <GridItem borderRadius="0.4rem" colSpan={2} children={<NoteStat />} />
+      <GridItem
+        borderRadius="0.4rem"
+        colSpan={2}
+        bg="tomato"
+        pos="relative"
+        children={<MusicStat />}
+      />
+      <GridItem borderRadius="0.4rem" colSpan={3} bg="whiteAlpha.600" children={<SearchStat />} />
     </Grid>
   );
 }

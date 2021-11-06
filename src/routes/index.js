@@ -15,6 +15,7 @@ import { useToast } from "@chakra-ui/toast";
 export default function App() {
   // 从 store 获取壁纸对象，里面保存着 storage 里存储的 blob 对象转化后的字符串
   const wallpaper = useSelector((state) => state.home.wallpaper);
+  const profile = useSelector((state) => state.profile.profile);
   const [imgBase64, setImgBase64] = useState(wallpaper.imgBase64);
   const updateTimeStamp = useSelector((state) => state.basic.updateTimeStamp);
   const dispatch = useDispatch();
@@ -114,7 +115,7 @@ export default function App() {
                 </Route>
               </Switch>
             </Box>
-            <Bar />
+            {profile.token.length > 0 ? <Bar /> : null}
           </Box>
         </Router>
       )}
