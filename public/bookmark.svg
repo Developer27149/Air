@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="160px" height="166px" viewBox="0 0 160 166" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>书签1</title>
+    <defs>
+        <linearGradient x1="87.3995617%" y1="-9.84577769%" x2="37.0428419%" y2="72.7941843%" id="linearGradient-1">
+            <stop stop-color="#FFE9C3" offset="0%"></stop>
+            <stop stop-color="#FFA447" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="87.3995617%" y1="0%" x2="12.6004383%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#979797" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.380945592" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="99.6059933%" id="linearGradient-3">
+            <stop stop-color="#FFF4B3" stop-opacity="0.802054879" offset="0%"></stop>
+            <stop stop-color="#FFF5AB" stop-opacity="0.6" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="58.92525%" x2="35.2330451%" y2="100%" id="linearGradient-4">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.721960535" offset="100%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.721960535" offset="100%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.721960535" offset="100%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.721960535" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="0%" x2="50%" y2="100%" id="linearGradient-5">
+            <stop stop-color="#FFFFFF" stop-opacity="0.366951042" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" stop-opacity="0.721960535" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="50%" y1="73.7012271%" x2="-13.9383906%" y2="111.84526%" id="linearGradient-6">
+            <stop stop-color="#FFFFFF" stop-opacity="0" offset="0%"></stop>
+            <stop stop-color="#FFFFFF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="毛玻璃质感图标" transform="translate(-881.000000, -1102.000000)">
+            <g id="书签1" transform="translate(881.000000, 1102.000000)">
+                <rect id="背景" fill="#304B68" x="0" y="0" width="160" height="166" rx="40"></rect>
+                <g id="icon_收藏_选中" transform="translate(20.000000, 22.000000)">
+                    <rect id="选中背景" x="0" y="0.705253968" width="120" height="120" rx="60"></rect>
+                    <path d="M84,27.205254 C85.5187831,27.205254 86.8937831,27.8208624 87.8890873,28.8161667 C88.8843915,29.8114709 89.5,31.1864709 89.5,32.705254 L89.5,32.705254 L89.5,97.5918445 C89.5,98.006058 89.3321068,98.381058 89.0606602,98.6525047 C88.7892136,98.9239513 88.4142136,99.0918445 88,99.0918445 C87.7847784,99.0918445 87.572077,99.0455302 87.3763398,98.9560468 L87.3763398,98.9560468 L60.2867541,86.5717425 C58.8345312,85.9078427 57.1654688,85.9078427 55.7132459,86.5717425 L55.7132459,86.5717425 L28.6236602,98.9560468 C28.2469461,99.1282658 27.83609,99.1314873 27.4763577,98.9974756 C27.1166253,98.8634638 26.8080167,98.5922188 26.6357977,98.2155047 C26.5463143,98.0197675 26.5,97.8070661 26.5,97.5918445 L26.5,97.5918445 L26.5,32.705254 C26.5,31.1864709 27.1156085,29.8114709 28.1109127,28.8161667 C29.1062169,27.8208624 30.4812169,27.205254 32,27.205254 L32,27.205254 Z" id="矩形" stroke="url(#linearGradient-2)" fill="url(#linearGradient-1)"></path>
+                    <path d="M92.6332666,20.3398589 C94.1520497,20.3398589 95.5270497,20.9554674 96.5223539,21.9507717 C97.5176582,22.9460759 98.1332666,24.3210759 98.1332666,25.8398589 L98.1332666,25.8398589 L98.1332666,71.6821555 C98.1332666,72.0963691 97.9653734,72.4713691 97.6939268,72.7428157 C97.4224802,73.0142623 97.0474802,73.1821555 96.6332666,73.1821555 C96.4115638,73.1821555 96.1926175,73.1330106 95.9921831,73.0382572 L95.9921831,73.0382572 L77.9839063,64.5250242 C76.4957677,63.8215215 74.7707656,63.8215215 73.282627,64.5250242 L73.282627,64.5250242 L55.2743502,73.0382572 C54.899873,73.2152876 54.4890919,73.2237716 54.1276724,73.0943787 C53.766253,72.9649859 53.4541953,72.6977162 53.2771649,72.323239 C53.1824116,72.1228046 53.1332666,71.9038583 53.1332666,71.6821555 L53.1332666,71.6821555 L53.1332666,25.8398589 C53.1332666,24.3210759 53.7488751,22.9460759 54.7441794,21.9507717 C55.7394836,20.9554674 57.1144836,20.3398589 58.6332666,20.3398589 L58.6332666,20.3398589 Z" id="矩形" stroke="url(#linearGradient-4)" fill="url(#linearGradient-3)" transform="translate(75.633267, 47.339859) rotate(24.000000) translate(-75.633267, -47.339859) "></path>
+                    <circle id="椭圆形" stroke="url(#linearGradient-6)" fill="url(#linearGradient-5)" cx="79.5" cy="39.205254" r="10"></circle>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

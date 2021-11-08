@@ -9,7 +9,7 @@ import WallpaperStat from "./wallpaperStat.js";
 export default function stats() {
   return (
     <Grid
-      h="90vh"
+      h={["100%", "100%", "90%", "80%"]}
       w="100%"
       maxW="1200px"
       margin="0 auto"
@@ -24,7 +24,7 @@ export default function stats() {
       <GridItem
         borderRadius="0.4rem"
         colSpan={2}
-        bg="tomato"
+        bg="white"
         pos="relative"
         children={<MusicStat />}
       />

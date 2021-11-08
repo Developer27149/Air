@@ -24,7 +24,10 @@ export const getRandomWallpaper = async (historyId = []) => {
   }
 };
 
-
+export const getRandomMusic = async () => {
+  const res = await axios.get("/music/random");
+  return res;
+};
 
 export const register = async (postData) => {
   try {

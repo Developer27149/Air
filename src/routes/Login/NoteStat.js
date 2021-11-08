@@ -1,12 +1,12 @@
-import { Box, Flex } from "@chakra-ui/layout";
+import { Flex } from "@chakra-ui/layout";
 import { Text } from "@chakra-ui/react";
 import React from "react";
 
 export default function NoteStat() {
   return (
     <Flex
-      bgImage="url('./note.jpeg')"
-      bgSize="fill"
+      bgImage="url('./note.svg')"
+      bgSize="contain"
       h="100%"
       justify="flex-end"
       borderRadius=".4rem"
@@ -21,7 +21,7 @@ export default function NoteStat() {
         backdropFilter="blur(4)"
         borderRightRadius="0.4rem"
       >
-        备忘事项喜加一
+        备忘事项
       </Text>
     </Flex>
   );
