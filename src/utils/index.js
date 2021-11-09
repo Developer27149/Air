@@ -2,13 +2,13 @@ import axios from "axios";
 import { FcGoogle } from "react-icons/fc";
 import { DiBingSmall, DiCode } from "react-icons/di";
 import { FaZhihu } from "react-icons/fa";
-import { GiGoldNuggets } from "react-icons/gi";
+import { AiFillGolden } from "react-icons/ai";
 import { VscGithubAlt } from "react-icons/vsc";
 import { FiYoutube } from "react-icons/fi";
 import md5 from "crypto-js/md5";
 import { RiBaiduLine, RiBilibiliLine } from "react-icons/ri";
 
-export const searchIcons = { FcGoogle, DiCode, DiBingSmall, FaZhihu, GiGoldNuggets, VscGithubAlt };
+export const searchIcons = { FcGoogle, DiCode, DiBingSmall, FaZhihu, AiFillGolden, VscGithubAlt };
 
 export const hadToken = () => {
   return globalThis.settings.profile.token !== "";
@@ -69,7 +69,7 @@ export const selectIcon = (engine) => {
   if (engine === "zhihu.com") return FaZhihu;
   if (engine === "dev.to") return DiCode;
   if (engine === "github.com") return VscGithubAlt;
-  if (engine === "juejin.cn") return GiGoldNuggets;
+  if (engine === "juejin.cn") return AiFillGolden;
   if (engine === "youtube.com") return FiYoutube;
   if (engine === "bilibili.com") return RiBilibiliLine;
   if (engine === "baidu.com") return RiBaiduLine;
@@ -181,6 +181,6 @@ export const createHash = (password, secret = "") => md5(password, secret).toStr
 
 const fuckyouSiteArr = {
   "bilibili.com": "keyword",
-  "baidu.com": "wd",
 };
-export const getFuckSiteKeyword = (site) => fuckyouSiteArr[site];
+
+export const getFuckSiteKeyword = (site) => fuckyouSiteArr[site] ?? "q";

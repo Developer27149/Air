@@ -9,7 +9,8 @@ import { VscGithubAlt } from "react-icons/vsc";
 import { randomColor } from "Utils/index.js";
 import { FcGoogle } from "react-icons/fc";
 import { Image } from "@chakra-ui/image";
-import { RiBaiduLine, RiBilibiliLine } from "react-icons/ri";
+import { RiBilibiliLine } from "react-icons/ri";
+import { AiFillGolden } from "react-icons/ai";
 
 export default function SearchStat() {
   return (
@@ -61,9 +62,9 @@ export default function SearchStat() {
         </Flex>
         <Flex justify="center" borderRadius=".2rem" p="0.6rem" align="center" bg={randomColor()}>
           <Box m="0.4rem">
-            <Kbd borderColor="#f96705">b</Kbd> + <Kbd borderColor="#f96705">d</Kbd>
+            <Kbd borderColor="#f96705">j</Kbd> + <Kbd borderColor="#f96705">j</Kbd>
           </Box>
-          <Icon as={RiBaiduLine} fontSize="1.6rem" />
+          <Icon as={AiFillGolden} fontSize="1.6rem" />
         </Flex>
       </SimpleGrid>
     </Flex>

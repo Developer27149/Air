@@ -49,7 +49,7 @@ export default function MusicStat() {
         bgColor="rgba(255,255,255,.2)"
         color="gray.600"
       >
-        🎧&nbsp;:&nbsp;&nbsp;{song ? song.songName : ""}
+        🎧&nbsp;&nbsp;&nbsp;{song ? song.songName : ""}
       </Text>
       {isCanPlay && (
         <Box

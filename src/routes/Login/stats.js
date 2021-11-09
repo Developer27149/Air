@@ -13,10 +13,11 @@ export default function stats() {
       maxW="1200px"
       margin="0 auto"
       p="1rem"
-      templateRows="repeat(6, 1fr)"
+      templateRows="repeat(7, 1fr)"
       templateColumns="repeat(7, 1fr)"
       gap={4}
     >
+      <GridItem colSpan={7} />
       <GridItem borderRadius="0.4rem" rowSpan={3} colSpan={5} children={<WallpaperStat />} />
       <GridItem
         borderRadius="0.4rem"
@@ -29,17 +30,15 @@ export default function stats() {
         children={<BookmarkOrNoteStat url="/note" srcStr="./note.svg" />}
       />
       <GridItem
-        borderRadius="0.4rem"
         overflow="hidden"
-        bg="#5a86917d"
         colSpan={2}
-        rowSpan={3}
-        children={<RecentSiteNavbar />}
+        rowSpan={2}
+        children={<RecentSiteNavbar borderRadius="0.4rem" />}
       />
       <GridItem
         borderRadius="0.4rem"
         colSpan={2}
-        rowSpan={3}
+        rowSpan={2}
         bg="white"
         pos="relative"
         children={<MusicStat />}

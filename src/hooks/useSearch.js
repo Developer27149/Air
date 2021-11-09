@@ -42,20 +42,12 @@ export default function useSearch() {
       key: "bl",
       engine: "bilibili.com",
     },
-    {
-      key: "bd",
-      engine: "baidu.com",
-    },
   ];
 
   useEffect(() => {
     mapList.some((item) => {
       if (keyword.startsWith(item.key) && engine !== item.engine) {
-        if (item.key === "bl") {
-          setSearchParams("keyword");
-        } else {
-          setSearchParams("q");
-        }
+        setSearchParams(getFuckSiteKeyword(item.engine));
         // dispatch data to store and save to storage
         setEngine(item.engine);
         dispatch(
