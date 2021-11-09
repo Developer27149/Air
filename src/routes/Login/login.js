@@ -100,83 +100,86 @@ export default function LoginElem() {
       alignItems="center"
       justifyContent="center"
     >
-      {!isOnLogin ? (
-        <Flex
-          pos="absolute"
-          left="0"
-          right="0"
-          top="0"
-          bottom="0"
-          zIndex={isOnLogin ? -1 : 10}
-          w="100%"
-          h="100%"
-          borderRadius="1rem"
-          p="2rem"
-          flexDir="column"
-          justify="center"
-          align="center"
+      <Flex
+        pos="absolute"
+        left={!isOnLogin ? "0" : "1rem"}
+        zIndex={isOnLogin ? "-1" : "0"}
+        top="0"
+        bottom="0"
+        w="100%"
+        h="100%"
+        borderRadius="1rem"
+        p="2rem"
+        flexDir="column"
+        justify="center"
+        align="center"
+      >
+        <RegisterElem goToLogin={() => setIsOnLogin(true)} />
+      </Flex>
+      <Flex
+        flexDir="column"
+        justify="center"
+        align="center"
+        pos="relative"
+        left={isOnLogin ? 0 : "1rem"}
+        zIndex={isOnLogin ? 1 : -1}
+      >
+        <LoginAndTip tip="不是很麻烦，只需要登录一次即可🌵" />
+        <Flex align="center" justify="flex-end" flexDir="column" p="2rem">
+          <InputGroup m="1rem">
+            <InputLeftElement pointerEvents="none">
+              <Icon pos="relative" bottom="4px" as={FaUserAlt} color="gray.300" />
+            </InputLeftElement>
+            <Input
+              value={username}
+              onChange={handleChangeUsername}
+              size="sm"
+              variant="flushed"
+              placeholder="昵称或邮箱"
+              maxLength="24"
+              onKeyPress={(e) => handleEnter(e, handleLogin)}
+            />
+          </InputGroup>
+
+          <InputGroup m="1rem">
+            <InputLeftElement pointerEvents="none">
+              <Icon pos="relative" bottom="4px" as={MdSecurity} color="gray.300" />
+            </InputLeftElement>
+
+            <Input
+              value={password}
+              onChange={handleChangePassword}
+              size="sm"
+              type="password"
+              variant="flushed"
+              placeholder="密码"
+              maxLength="16"
+              onKeyPress={(e) => handleEnter(e, handleLogin)}
+            />
+            <InputRightElement>
+              <Icon
+                as={AiOutlineEnter}
+                pos="relative"
+                bottom="4px"
+                color={username.length > 0 && password.length > 0 ? "green.300" : "gray.300"}
+                cursor="pointer"
+                onClick={handleLogin}
+                fontWeight="bold"
+              />
+            </InputRightElement>
+          </InputGroup>
+        </Flex>
+        <OauthLogin />
+        <Button
+          colorScheme="blue"
+          variant="ghost"
+          onClick={() => setIsOnLogin(false)}
+          m="0.5rem auto"
+          size="sm"
         >
-          <RegisterElem goToLogin={() => setIsOnLogin(true)} />
-        </Flex>
-      ) : (
-        <Flex flexDir="column" justify="center" align="center">
-          <LoginAndTip tip="不是很麻烦，只需要登录一次即可🌵" />
-          <Flex align="center" justify="flex-end" flexDir="column" p="2rem">
-            <InputGroup m="1rem">
-              <InputLeftElement pointerEvents="none">
-                <Icon pos="relative" bottom="4px" as={FaUserAlt} color="gray.300" />
-              </InputLeftElement>
-              <Input
-                value={username}
-                onChange={handleChangeUsername}
-                size="sm"
-                variant="flushed"
-                placeholder="昵称或邮箱"
-                maxLength="24"
-                onKeyPress={(e) => handleEnter(e, handleLogin)}
-              />
-            </InputGroup>
-
-            <InputGroup m="1rem">
-              <InputLeftElement pointerEvents="none">
-                <Icon pos="relative" bottom="4px" as={MdSecurity} color="gray.300" />
-              </InputLeftElement>
-
-              <Input
-                value={password}
-                onChange={handleChangePassword}
-                size="sm"
-                type="password"
-                variant="flushed"
-                placeholder="密码"
-                maxLength="16"
-                onKeyPress={(e) => handleEnter(e, handleLogin)}
-              />
-              <InputRightElement>
-                <Icon
-                  as={AiOutlineEnter}
-                  pos="relative"
-                  bottom="4px"
-                  color={username.length > 0 && password.length > 0 ? "green.300" : "gray.300"}
-                  cursor="pointer"
-                  onClick={handleLogin}
-                  fontWeight="bold"
-                />
-              </InputRightElement>
-            </InputGroup>
-          </Flex>
-          <OauthLogin />
-          <Button
-            colorScheme="blue"
-            variant="ghost"
-            onClick={() => setIsOnLogin(false)}
-            m="0.5rem auto"
-            size="sm"
-          >
-            没有账号，前去注册🌈
-          </Button>
-        </Flex>
-      )}
+          没有账号，前去注册🌈
+        </Button>
+      </Flex>
     </Box>
   );
 }

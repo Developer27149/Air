@@ -6,6 +6,7 @@ import { GiGoldNuggets } from "react-icons/gi";
 import { VscGithubAlt } from "react-icons/vsc";
 import { FiYoutube } from "react-icons/fi";
 import md5 from "crypto-js/md5";
+import { RiBaiduLine, RiBilibiliLine } from "react-icons/ri";
 
 export const searchIcons = { FcGoogle, DiCode, DiBingSmall, FaZhihu, GiGoldNuggets, VscGithubAlt };
 
@@ -70,6 +71,8 @@ export const selectIcon = (engine) => {
   if (engine === "github.com") return VscGithubAlt;
   if (engine === "juejin.cn") return GiGoldNuggets;
   if (engine === "youtube.com") return FiYoutube;
+  if (engine === "bilibili.com") return RiBilibiliLine;
+  if (engine === "baidu.com") return RiBaiduLine;
   return FcGoogle;
 };
 
@@ -175,3 +178,9 @@ export function goTop(elem = document.body) {
 }
 
 export const createHash = (password, secret = "") => md5(password, secret).toString();
+
+const fuckyouSiteArr = {
+  "bilibili.com": "keyword",
+  "baidu.com": "wd",
+};
+export const getFuckSiteKeyword = (site) => fuckyouSiteArr[site];

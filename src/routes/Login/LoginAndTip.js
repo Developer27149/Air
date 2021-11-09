@@ -6,7 +6,7 @@ export default function LoginAndTip({ tip }) {
   return (
     <>
       <Image src="./icons/64.png" w="64px" h="64px" />
-      <Text m=".8rem" textAlign="center">
+      <Text m=".8rem" textAlign="center" fontSize="1rem">
         {tip}
       </Text>
     </>

@@ -1,34 +1,56 @@
 import { Grid, GridItem } from "@chakra-ui/layout";
+import RecentSiteNavbar from "Components/RecentSiteNavbar.js";
 import React from "react";
-import BookmarkStat from "./bookmarkStat.js";
+import BookmarkOrNoteStat from "./bookmarkOrNoteStat.js";
 import MusicStat from "./MusicStat.js";
-import NoteStat from "./NoteStat.js";
 import SearchStat from "./SearchStat.js";
 import WallpaperStat from "./wallpaperStat.js";
 
 export default function stats() {
   return (
     <Grid
-      h={["100%", "100%", "90%", "80%"]}
       w="100%"
       maxW="1200px"
       margin="0 auto"
-      pr="2rem"
-      templateRows="repeat(3, 1fr)"
-      templateColumns="repeat(5, 1fr)"
+      p="1rem"
+      templateRows="repeat(6, 1fr)"
+      templateColumns="repeat(7, 1fr)"
       gap={4}
     >
-      <GridItem borderRadius="0.4rem" rowSpan={2} colSpan={3} children={<WallpaperStat />} />
-      <GridItem borderRadius="0.4rem" colSpan={2} children={<BookmarkStat />} />
-      <GridItem borderRadius="0.4rem" colSpan={2} children={<NoteStat />} />
+      <GridItem borderRadius="0.4rem" rowSpan={3} colSpan={5} children={<WallpaperStat />} />
+      <GridItem
+        borderRadius="0.4rem"
+        colSpan={1}
+        children={<BookmarkOrNoteStat url="/bookmark" srcStr="./bookmark.svg" />}
+      />
+      <GridItem
+        borderRadius="0.4rem"
+        colSpan={1}
+        children={<BookmarkOrNoteStat url="/note" srcStr="./note.svg" />}
+      />
+      <GridItem
+        borderRadius="0.4rem"
+        overflow="hidden"
+        bg="#5a86917d"
+        colSpan={2}
+        rowSpan={3}
+        children={<RecentSiteNavbar />}
+      />
       <GridItem
         borderRadius="0.4rem"
         colSpan={2}
+        rowSpan={3}
         bg="white"
         pos="relative"
         children={<MusicStat />}
       />
-      <GridItem borderRadius="0.4rem" colSpan={3} bg="whiteAlpha.600" children={<SearchStat />} />
+      <GridItem
+        borderRadius="0.4rem"
+        colSpan={5}
+        rowSpan={2}
+        bg="#5a86917d"
+        children={<SearchStat />}
+      />
     </Grid>
   );
 }

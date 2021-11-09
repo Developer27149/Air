@@ -1,18 +1,21 @@
 import { Text, Box, Flex, Kbd, SimpleGrid } from "@chakra-ui/layout";
 import React from "react";
 import { Icon } from "@chakra-ui/icons";
-import { CgGoogle, CgYoutube } from "react-icons/cg";
+import { CgYoutube } from "react-icons/cg";
 import { SiBing } from "react-icons/si";
 import { FaDev, FaZhihu } from "react-icons/fa";
 import Search from "Components/Search.js";
 import { VscGithubAlt } from "react-icons/vsc";
 import { randomColor } from "Utils/index.js";
+import { FcGoogle } from "react-icons/fc";
+import { Image } from "@chakra-ui/image";
+import { RiBaiduLine, RiBilibiliLine } from "react-icons/ri";
 
 export default function SearchStat() {
   return (
-    <Flex flexDir="column" justify="center" align="center" h="100%" borderRadius=".4rem">
+    <Flex flexDir="column" justify="center" align="center" h="100%">
       <Search isStat={true} />
-      <SimpleGrid columns="3" gap="4">
+      <SimpleGrid columns={[2, 2, 4]} gap="4">
         <Flex justify="center" borderRadius=".2rem" p="0.6rem" align="center" bg={randomColor()}>
           <Box m="0.4rem">
             <Kbd borderColor="#f96705">g</Kbd> + <Kbd borderColor="#f96705">h</Kbd>
@@ -29,13 +32,13 @@ export default function SearchStat() {
           <Box m="0.4rem">
             <Kbd borderColor="#f96705">g</Kbd> + <Kbd borderColor="#f96705">g</Kbd>
           </Box>
-          <Icon as={CgGoogle} fontSize="1.6rem" />
+          <Icon as={FcGoogle} fontSize="1.6rem" />
         </Flex>
         <Flex justify="center" borderRadius=".2rem" p="0.6rem" align="center" bg={randomColor()}>
           <Box m="0.4rem">
             <Kbd borderColor="#f96705">b</Kbd> + <Kbd borderColor="#f96705">i</Kbd>
           </Box>
-          <Icon as={SiBing} fontSize="1.6rem" />
+          <Image src="./img/bing.svg" h="1.6rem" w="1.6rem" />
         </Flex>
         <Flex justify="center" borderRadius=".2rem" p="0.6rem" align="center" bg={randomColor()}>
           <Box m="0.4rem">
@@ -49,6 +52,18 @@ export default function SearchStat() {
             <Kbd borderColor="#f96705">v</Kbd>
           </Box>
           <Icon as={FaDev} fontSize="1.6rem" />
+        </Flex>
+        <Flex justify="center" borderRadius=".2rem" p="0.6rem" align="center" bg={randomColor()}>
+          <Box m="0.4rem">
+            <Kbd borderColor="#f96705">b</Kbd> + <Kbd borderColor="#f96705">l</Kbd>
+          </Box>
+          <Icon as={RiBilibiliLine} fontSize="1.6rem" />
+        </Flex>
+        <Flex justify="center" borderRadius=".2rem" p="0.6rem" align="center" bg={randomColor()}>
+          <Box m="0.4rem">
+            <Kbd borderColor="#f96705">b</Kbd> + <Kbd borderColor="#f96705">d</Kbd>
+          </Box>
+          <Icon as={RiBaiduLine} fontSize="1.6rem" />
         </Flex>
       </SimpleGrid>
     </Flex>

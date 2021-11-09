@@ -13,7 +13,7 @@ export default function Login() {
       h="100vh"
       w="100vw"
       overflow="hidden"
-      templateColumns={["1fr", "560px auto", "560px auto", "800px auto"]}
+      templateColumns={["1fr", "560px auto", "560px auto", "720px auto"]}
     >
       <FlexMotion
         align="center"
