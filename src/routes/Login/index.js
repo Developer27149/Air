@@ -7,23 +7,17 @@ import StatElem from "./stats.js";
 
 export default function Login() {
   return (
-    <Grid
-      // backdropFilter="blur(4px)"
-      // bgColor="rgb(255,255,255,.4)"
-      h="100vh"
-      w="100vw"
-      overflow="hidden"
-      templateColumns={["1fr", "560px auto", "560px auto", "720px auto"]}
-    >
+    <Flex align="center" justify="flex-start" h="100vh" w="100vw">
       <FlexMotion
         align="center"
-        justify="center"
+        // justify="center"
+        pl="2rem"
         opacity="0"
         pos="relative"
-        left="-50px"
+        minH="800px"
         animate={{
           opacity: 1,
-          left: 0.1,
+          left: "20px",
         }}
         transition={{
           duration: 0.6,
@@ -33,24 +27,34 @@ export default function Login() {
       >
         <LoginElem />
       </FlexMotion>
-      <FlexMotion
-        align="center"
-        justify="center"
-        opacity="0"
-        pos="relative"
-        left="50px"
-        animate={{
-          opacity: 1,
-          left: 0,
-        }}
-        transition={{
-          duration: 0.7,
-          ease: "easeInOut",
-          delay: 0,
-        }}
-      >
-        <StatElem />
-      </FlexMotion>
-    </Grid>
+    </Flex>
+    // <Grid
+    //   // backdropFilter="blur(4px)"
+    //   // bgColor="rgb(255,255,255,.4)"
+    //   h="100vh"
+    //   w="100vw"
+    //   overflow="hidden"
+    //   templateColumns={["1fr", "560px auto", "560px auto", "720px auto"]}
+    // >
+
+    //   {/* <FlexMotion
+    //     align="center"
+    //     justify="center"
+    //     opacity="0"
+    //     pos="relative"
+    //     left="50px"
+    //     animate={{
+    //       opacity: 1,
+    //       left: 0,
+    //     }}
+    //     transition={{
+    //       duration: 0.7,
+    //       ease: "easeInOut",
+    //       delay: 0,
+    //     }}
+    //   >
+    //     <StatElem />
+    //   </FlexMotion> */}
+    // </Grid>
   );
 }

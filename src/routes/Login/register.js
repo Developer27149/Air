@@ -15,7 +15,6 @@ import { FaUserAlt } from "react-icons/fa";
 import { MdSecurity, MdEmail } from "react-icons/md";
 import { AiOutlineEnter } from "react-icons/ai";
 import { handleEnter } from "Utils/index.js";
-import { Image } from "@chakra-ui/react";
 import { register } from "Utils/request.js";
 import { useDispatch } from "react-redux";
 import { setProfile } from "Store/profile.js";

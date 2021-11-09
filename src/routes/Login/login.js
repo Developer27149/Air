@@ -99,6 +99,7 @@ export default function LoginElem() {
       flexDir="column"
       alignItems="center"
       justifyContent="center"
+      overflowY="scroll"
     >
       <Flex
         pos="absolute"

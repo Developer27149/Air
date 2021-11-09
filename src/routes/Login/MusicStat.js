@@ -3,7 +3,8 @@ import { Image } from "@chakra-ui/image";
 import { Box, Text, Flex } from "@chakra-ui/layout";
 import React, { useEffect, useRef, useState } from "react";
 import { IoPauseOutline, IoPlayOutline } from "react-icons/io5";
-import { getRandomMusic } from "Utils/request.js";
+import { getNewestUrl, getRandomMusic } from "Utils/request.js";
+import { downloadUrl } from "../../utils/wallpaperBase64";
 
 export default function MusicStat() {
   const [isPlay, setIsPlay] = useState(false);
@@ -33,6 +34,16 @@ export default function MusicStat() {
   const handleCanPlay = () => setIsCanPlay(true);
   const handlePlay = handleControl(true);
   const handlePause = handleControl(false);
+  const handleForbident = async () => {
+    setIsPlay(false);
+    setIsCanPlay(false);
+    if (audioRef.current && song?.songId) {
+      audioRef.current.duration = 0;
+      const res = await getNewestUrl(song.songId);
+      console.log(res.data.data.url);
+      setSong({ downloadUrl: res.data.data.url });
+    }
+  };
 
   return (
     <Flex height="100%" borderRadius=".4rem" justify="center" align="center">
@@ -88,6 +99,7 @@ export default function MusicStat() {
           ref={audioRef}
           src={song?.downloadUrl}
           onCanPlay={handleCanPlay}
+          onError={handleForbident}
         />
       )}
     </Flex>

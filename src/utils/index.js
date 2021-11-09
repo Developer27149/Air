@@ -181,6 +181,7 @@ export const createHash = (password, secret = "") => md5(password, secret).toStr
 
 const fuckyouSiteArr = {
   "bilibili.com": "keyword",
+  "juejin.cn": "query",
 };
 
 export const getFuckSiteKeyword = (site) => fuckyouSiteArr[site] ?? "q";

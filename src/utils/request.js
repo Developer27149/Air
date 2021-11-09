@@ -29,6 +29,10 @@ export const getRandomMusic = async () => {
   return res;
 };
 
+export const getNewestUrl = async (id) => {
+  return axios.get(`/music/url/${id}`);
+};
+
 export const register = async (postData) => {
   try {
     const { data } = await axios.post("/user/register", postData);

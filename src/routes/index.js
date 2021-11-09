@@ -3,15 +3,15 @@ import { MemoryRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import Home from "Routes/Home";
 import { Bar, Loading } from "Components/index.js";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { getBase64FromUrl, isNewDay } from "Utils/index.js";
 import { setWallpaper, updateWallpaperItems } from "Store/homeSlice.js";
 import Wallpapers from "./Wallpapers/index.js";
-import Login from "./Login/index.js";
 import { setUpdateTimestamp } from "Store/basicSlice.js";
 import { getRandomWallpaper } from "Utils/request.js";
 import { useToast } from "@chakra-ui/toast";
+import AccountPage from "./Account/index.js";
+
 export default function App() {
   // 从 store 获取壁纸对象，里面保存着 storage 里存储的 blob 对象转化后的字符串
   const wallpaper = useSelector((state) => state.home.wallpaper);
@@ -111,7 +111,7 @@ export default function App() {
                   <Wallpapers />
                 </Route>
                 <Route path="/login">
-                  <Login />
+                  <AccountPage />
                 </Route>
               </Switch>
             </Box>

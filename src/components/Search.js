@@ -16,6 +16,7 @@ export default function Search({ isStat = false }) {
     console.log(searchParams);
     if (e.key === "Enter") {
       let url = `https://www.${engine}/search?${searchParams}=${keyword}`;
+      console.log(url);
       // clear keyword
       clearKeyword();
       globalThis.open(url);
