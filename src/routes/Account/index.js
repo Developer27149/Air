@@ -12,7 +12,7 @@ export default function AccountPage() {
     setPosState(is);
   };
   return (
-    <Flex bg="white" flexDir="column" align="stretch" h="100vh">
+    <Flex bg="#f6f6f6" flexDir="column" align="stretch" h="100vh">
       <Header
         isOnLogin={posState}
         setIsOnLogin={handleSwitchState}

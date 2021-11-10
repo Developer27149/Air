@@ -101,8 +101,9 @@ export default function RegisterElement({ redirectToHome, isOnLogin = false }) {
   return (
     <Flex
       // w="40%"
-      h="max(60vh, 600px)"
-      m="1rem auto"
+      // h="max(60vh, 600px)"
+
+      m="1rem"
       // bg="#3892b71a"
       bg="white"
       borderRadius="0.4rem"
@@ -147,7 +148,7 @@ export default function RegisterElement({ redirectToHome, isOnLogin = false }) {
         />
       </InputGroup>
       {isOnLogin ? (
-        <Box h="64px" w="1rem"></Box>
+        <Box h="128px" w="1rem"></Box>
       ) : (
         <>
           <InputGroup maxW="18rem" bg="purple.50" m="1rem auto">
