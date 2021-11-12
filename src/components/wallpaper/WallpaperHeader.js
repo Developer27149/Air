@@ -53,12 +53,9 @@ export default function WallpaperFilter() {
           m="0.8rem"
         ></Avatar>
         <Box>
-          <Heading as="p" size="md">
-            {profile.username}
-          </Heading>
-          {profile.photos.length > 0 ? (
+          {profile.uploadWallpaperId.length > 0 ? (
             <Text color="#859b97" fontSize=".9rem">
-              和其他人分享了{profile.photos.length}张壁纸
+              和其他人分享了{profile.uploadWallpaperId.length}张壁纸
             </Text>
           ) : null}
         </Box>

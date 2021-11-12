@@ -1,7 +1,7 @@
 import { Box, Flex } from "@chakra-ui/layout";
 import React from "react";
 import { motion } from "framer-motion";
-import { Image } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/image";
 
 const FlashDiv = motion(Box);
 

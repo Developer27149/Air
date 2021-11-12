@@ -44,6 +44,7 @@ export const config = {
     email: "",
     intro: "",
     token: "",
+    isAnonymous: false,
   },
 };
 

@@ -69,6 +69,7 @@ export default function useAccount() {
               intro,
               token,
               uploadWallpaperId,
+              isAnonymous: false,
             })
           );
           dispatch(
@@ -112,6 +113,7 @@ export default function useAccount() {
                 intro,
                 token,
                 uploadWallpaperId,
+                isAnonymous: false,
               })
             );
             setIsLoading(false);

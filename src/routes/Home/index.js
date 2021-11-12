@@ -6,8 +6,12 @@ import { useHistory } from "react-router";
 export default function Home() {
   const history = useHistory();
   useEffect(() => {
-    console.log("token check");
-    if (!hadToken()) {
+    try {
+      if (!globalThis.settings.profile.isAnonymous && !hadToken()) {
+        history.replace("/login");
+      }
+    } catch (error) {
+      console.log(error);
       history.replace("/login");
     }
   }, []);

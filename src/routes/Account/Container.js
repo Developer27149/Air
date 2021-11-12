@@ -191,7 +191,6 @@ export default function Container({ onRedirctToHome, isOnLogin }) {
           </Flex>
         </Flex>
       </Box>
-      {/* <RegisterElement redirectToHome={onRedirctToHome} isOnLogin={isOnLogin} /> */}
       {isOnLogin ? <AccountLogin /> : <AccountRegister />}
     </Flex>
   );

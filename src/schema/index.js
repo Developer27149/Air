@@ -38,5 +38,6 @@ export const configSchema = yup.object().shape({
     intro: string(),
     uploadWallpaperId: array(),
     email: string(),
+    isAnonymous: boolean().required(),
   }),
 });
