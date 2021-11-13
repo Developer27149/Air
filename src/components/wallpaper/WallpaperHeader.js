@@ -27,10 +27,11 @@ export default function WallpaperFilter() {
   return (
     <Box
       as="header"
-      w="min(100%, 1280px)"
+      // w="min(100vw, 1600px)"
+      w="100vw"
       m="0 auto"
       mt="1rem"
-      p={["1rem", "1rem", "1rem", "0"]}
+      p={["1rem", "1rem", "1rem", "1rem 24rem"]}
       pos="sticky"
       top="0"
       left="0"

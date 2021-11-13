@@ -10,6 +10,7 @@ export default function WallpaperContainer() {
     <Box
       display="flex"
       flexDir="column"
+      // background="linear-gradient(45deg, #190f2c, #200b30)"
       bg="#fff"
       w="100vw"
       h="100vh"
@@ -21,7 +22,7 @@ export default function WallpaperContainer() {
     >
       <WallpaperHeader />
       <WallpaperFlow />
-      <Pages />
+      {/* <Pages /> */}
     </Box>
   );
 }

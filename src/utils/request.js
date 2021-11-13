@@ -50,3 +50,27 @@ export const loginAndGetToken = async (postData) => {
     console.log(error);
   }
 };
+
+export const getWallpaperByFilter = async (
+  postData = { page: 1, limit: 10, sortType: "newest" }
+) => {
+  console.log(postData);
+  const { page, limit, sortType } = postData;
+  try {
+    const { data } = await axios.post(
+      "/wallpaper/page",
+      { page, limit, sortType },
+      {
+        headers: createHeaders(),
+      }
+    );
+    if (data.status.code === 0) {
+      return data.data;
+    } else {
+      return null;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};

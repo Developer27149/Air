@@ -105,7 +105,7 @@ export default function App() {
             <Box flexGrow="1">
               <Switch>
                 <Route exact path="/">
-                  <Home />
+                  <Wallpapers />
                 </Route>
                 <Route path="/wallpapers">
                   <Wallpapers />
