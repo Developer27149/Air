@@ -30,8 +30,7 @@ export default function WallpaperFilter() {
       // w="min(100vw, 1600px)"
       w="100vw"
       m="0 auto"
-      mt="1rem"
-      p={["1rem", "1rem", "1rem", "1rem 24rem"]}
+      p={["1rem", "1rem", "1rem", "1rem min(24rem, 12vw)"]}
       pos="sticky"
       top="0"
       left="0"

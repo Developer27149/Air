@@ -2,44 +2,55 @@ import { Avatar } from "@chakra-ui/avatar";
 import Icon from "@chakra-ui/icon";
 import { Image } from "@chakra-ui/image";
 import { Box } from "@chakra-ui/layout";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState, useCallback } from "react";
 import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { CgMaximizeAlt, CgUserlane } from "react-icons/cg";
 import { randomColor } from "Utils/index.js";
 
-export default function WallpaperItem({
+export default React.memo(function WallpaperItem({
   wallpaperData,
-  handleLike,
-  handleDislike,
+  handleEvaluateWallpaper,
   handleApplyImg,
-  unlikeArr = [],
+  handleShowMaxSize,
+  isLike,
+  isUnlike,
 }) {
   const {
     description,
-    height,
-    width,
     id,
     likes,
     upload_user_avatar,
     urls: { raw, full, small },
   } = wallpaperData;
-  const boxRef = useRef(null);
-  const [gridRowEnd, setGridRowEnd] = useState("");
-  const onSetGridRowEnd = () => {
-    setGridRowEnd(`${~~((height * (window.innerWidth / 5)) / width) + 2} span`);
-  };
+  const [randomNum] = useState({
+    row: Math.random() * 4 >= 2.5,
+    col: Math.random() * 4 >= 2.5,
+  });
+  const frozenRow = useCallback(() => randomNum.row, []);
+  const frozenCol = useCallback(() => randomNum.col, []);
+
   return (
     <Box
-      ref={boxRef}
-      maxW="400px"
-      h="100%"
-      gridRowEnd={gridRowEnd}
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      gridRow={frozenRow() ? "span 2" : ""}
+      gridColumn={frozenCol() ? "span 2" : ""}
       bg={randomColor()}
       pos="relative"
-      p="4px 0"
     >
-      <Image src={small} objectFit="cover" onLoad={onSetGridRowEnd} />
+      <Image
+        src={small}
+        objectFit="cover"
+        borderRadius="5px"
+        h="100%"
+        w="100%"
+        verticalAlign="center"
+        display="inline-block"
+      />
       <Box
+        h="100%"
+        w="100%"
         pos="absolute"
         left="0"
         right="0"
@@ -51,36 +62,37 @@ export default function WallpaperItem({
           opacity: 1,
         }}
       >
-        <Icon
-          fontSize="1.4rem"
-          m="0 .2rem"
-          as={CgMaximizeAlt}
-          cursor="pointer"
-          color="white"
-          pos="absolute"
-          top=".6rem"
-          right=".4rem"
-          cursor="pointer"
-          zIndex="9"
-        />
         <Box pos="absolute" top=".4rem" display="flex" p="0.5rem" w="100%">
           <Icon
             fontSize="1.3rem"
-            m="0 .4rem"
-            as={unlikeArr.includes(id) ? AiFillLike : AiOutlineLike}
+            mr=".4rem"
+            as={isLike ? AiFillLike : AiOutlineLike}
             cursor="pointer"
             color="white"
             data-id={id}
-            onClick={handleLike}
+            onClick={() => {
+              !isLike && handleEvaluateWallpaper(id, true);
+            }}
           />
           <Icon
             fontSize="1.3rem"
-            m="0 .4rem"
-            as={unlikeArr.includes(id) ? AiFillDislike : AiOutlineDislike}
+            as={isUnlike ? AiFillDislike : AiOutlineDislike}
             cursor="pointer"
             color="white"
             data-id={id}
-            onClick={handleDislike}
+            onClick={() => {
+              !isUnlike && handleEvaluateWallpaper(id, false);
+            }}
+          />
+          <Icon
+            cursor="pointer"
+            fontSize="1.3rem"
+            as={CgMaximizeAlt}
+            color="white"
+            onClick={() =>
+              handleShowMaxSize({ id, raw, full, isLike, description, upload_user_avatar })
+            }
+            ml="auto"
           />
         </Box>
 
@@ -90,22 +102,21 @@ export default function WallpaperItem({
           left="0.5rem"
           right="0.5rem"
           display="flex"
+          justifyContent="space-between"
+          alignItems="center"
           alignItems="center"
         >
-          <Avatar src={upload_user_avatar} w="48px" h="48px" />
-
-          <Box flexGrow="1" display="flex" justifyContent="flex-end">
-            <Icon
-              color="white"
-              as={CgUserlane}
-              fontSize="1.5rem"
-              cursor="pointer"
-              data-url={full}
-              onClick={handleApplyImg}
-            />
-          </Box>
+          <Avatar src={upload_user_avatar} w="32px" h="32px" />
+          <Icon
+            color="white"
+            as={CgUserlane}
+            fontSize="24px"
+            cursor="pointer"
+            data-url={full}
+            onClick={() => handleApplyImg(full)}
+          />
         </Box>
       </Box>
     </Box>
   );
-}
+});

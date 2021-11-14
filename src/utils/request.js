@@ -1,23 +1,18 @@
 const { default: axios } = require("axios");
 axios.defaults.baseURL = "http://localhost:3000";
-const createHeaders = () => {
-  return {
-    Authorization: `Bearer ${globalThis?.settings?.profile?.token}`,
-  };
-};
+axios.interceptors.request.use((config) => {
+  if (globalThis?.settings?.profile?.token) {
+    config.headers.Authorization = `Bearer ${globalThis?.settings?.profile?.token}`;
+  }
+  return config;
+});
 
 export const getRandomWallpaper = async (historyId = []) => {
   try {
     console.log(globalThis.settings);
-    const { data } = await axios.post(
-      `/wallpaper/random`,
-      {
-        historyId,
-      },
-      {
-        headers: createHeaders(),
-      }
-    );
+    const { data } = await axios.post(`/wallpaper/random`, {
+      historyId,
+    });
     return data;
   } catch (error) {
     console.log("网络问题，无法获取后端服务", error);
@@ -57,13 +52,7 @@ export const getWallpaperByFilter = async (
   console.log(postData);
   const { page, limit, sortType } = postData;
   try {
-    const { data } = await axios.post(
-      "/wallpaper/page",
-      { page, limit, sortType },
-      {
-        headers: createHeaders(),
-      }
-    );
+    const { data } = await axios.post("/wallpaper/page", { page, limit, sortType });
     if (data.status.code === 0) {
       return data.data;
     } else {
@@ -72,5 +61,20 @@ export const getWallpaperByFilter = async (
   } catch (error) {
     console.log(error);
     return null;
+  }
+};
+
+export const setWallpaperScore = async (id, like = true) => {
+  try {
+    const {
+      data: {
+        status: { code },
+      },
+    } = await axios.post("/wallpaper/score", { like, id });
+    console.log(code);
+    return code === 1;
+  } catch (error) {
+    console.log(error);
+    return false;
   }
 };

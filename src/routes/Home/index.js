@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import Search from "Components/Search.js";
 import { hadToken } from "Utils/index.js";
 import { useHistory } from "react-router";
+import PendantCenter from "Components/homepage/PendantCenter.js";
+import { Flex } from "@chakra-ui/layout";
 
 export default function Home() {
   const history = useHistory();
@@ -15,5 +17,10 @@ export default function Home() {
       history.replace("/login");
     }
   }, []);
-  return <Search />;
+  return (
+    <Flex flexDir="column" h="100vh">
+      <Search />
+      <PendantCenter />
+    </Flex>
+  );
 }

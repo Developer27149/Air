@@ -1,16 +1,32 @@
-import { Box, Heading, Image, Button, Avatar, Text, Divider } from "@chakra-ui/react";
-
-import React from "react";
+import { Box } from "@chakra-ui/react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import WallpaperFlow from "./WallpaperFlow.js";
-import Pages from "./Pages.js";
 import WallpaperHeader from "./WallpaperHeader.js";
+import LoadMoreBtn from "./LoadMoreBtn.js";
 
 export default function WallpaperContainer() {
+  const boxRef = useRef(null);
+  const [shouldGetData, setShouldGetData] = useState(false);
+  const [shouldStop, setShouldStop] = useState(false);
+  const hiddenLoaderIcon = useCallback(() => setShouldStop(true), []);
+  const handleShouldLoadData = useCallback(() => setShouldGetData(true), []);
+  const onResetShouldGetData = useCallback(() => setShouldGetData(false), []);
+  useEffect(() => {
+    const handleScrollToBottm = () => {
+      if (boxRef.current.scrollHeight - boxRef.current.scrollTop === boxRef.current.clientHeight) {
+        setShouldGetData(true);
+      }
+    };
+    boxRef.current.addEventListener("scroll", handleScrollToBottm);
+    return () => {
+      boxRef.current.removeEventListener("scroll", handleScrollToBottm);
+    };
+  }, []);
   return (
     <Box
+      ref={boxRef}
       display="flex"
       flexDir="column"
-      // background="linear-gradient(45deg, #190f2c, #200b30)"
       bg="#fff"
       w="100vw"
       h="100vh"
@@ -21,8 +37,12 @@ export default function WallpaperContainer() {
       id="wallpaper_flow"
     >
       <WallpaperHeader />
-      <WallpaperFlow />
-      {/* <Pages /> */}
+      <WallpaperFlow
+        hiddenLoaderIcon={hiddenLoaderIcon}
+        shouldGetData={shouldGetData}
+        onResetShouldGetData={onResetShouldGetData}
+      />
+      {shouldStop ? null : <LoadMoreBtn handleShouldLoadData={handleShouldLoadData} />}
     </Box>
   );
 }

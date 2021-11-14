@@ -18,6 +18,6 @@
   "typeAcquisition": {
     "include": ["chrome"]
   },
-  "include": ["src/**/*"],
+  "include": ["src/**/*", "src/components/homepage/.js"],
   "exclude": ["node_modules", "dist"]
 }

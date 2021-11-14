@@ -1,29 +1,28 @@
-import { Avatar } from "@chakra-ui/avatar";
-import { Image } from "@chakra-ui/image";
-import { Box, Grid, Link } from "@chakra-ui/layout";
-import React, { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { Icon } from "@chakra-ui/icons";
-import { generateFallbackImgWidth, getBase64FromUrl, randomColor } from "Utils/index.js";
+import { Grid } from "@chakra-ui/layout";
+import React, { lazy, Suspense, useCallback, useEffect, useState } from "react";
+import { getBase64FromUrl } from "Utils/index.js";
 import { useDispatch, useSelector } from "react-redux";
-import { AiFillDislike, AiFillLike, AiOutlineDislike, AiOutlineLike } from "react-icons/ai";
 import { setWallpaper } from "Store/homeSlice.js";
-import { CgMaximizeAlt, CgUserlane } from "react-icons/cg";
 import Loading from "Components/Loading.js";
 import { useToast } from "@chakra-ui/toast";
 import { getWallpaperByFilter } from "Utils/request.js";
 import WallpaperItem from "./WallpaperItem.js";
 
 const ImageView = lazy(() => import("../ImageView.js"));
+import { setWallpaperScore } from "../../utils/request";
+import { useHistory } from "react-router";
 
-export default function WallpaperFlow() {
+export default function WallpaperFlow({ shouldGetData, onResetShouldGetData, hiddenLoaderIcon }) {
   const dispatch = useDispatch();
+  const history = useHistory();
+  const toast = useToast();
   const applyToast = useToast();
   const wallpaper = useSelector((state) => state.home.wallpaper);
   const [curImg, setCurImg] = useState(null);
   const [wallpaperArr, setWallpaperArr] = useState([]);
-  const [pagePostData, setPagePostData] = useState({ limit: 20, page: 1, sortType: "newest" });
+  const [pagePostData, setPagePostData] = useState({ limit: 28, page: 1, sortType: "newest" });
   const [nextPage, setNextPage] = useState(null);
-  const bottomRef = useRef(null);
+
   // init wallpaperArr from origin store
   useEffect(() => {
     (async () => {
@@ -32,89 +31,113 @@ export default function WallpaperFlow() {
         const { wallpapers, nextPage } = data;
         setNextPage(nextPage);
         setWallpaperArr([...wallpaperArr, ...wallpapers]);
+        onResetShouldGetData();
+      } else if (data === null) {
+        history.replace("/login");
       }
     })();
   }, [pagePostData]);
 
   useEffect(() => {
-    const demo = () => {
-      console.log("scroll");
-    };
-    bottomRef.current.addEventListener("scroll", demo);
-    return () => {
-      bottomRef.current.removeEventListener("scroll", demo);
-    };
-  }, []);
+    // 当触底之后，立刻修改获取数据的接口上传的 data，
+    if (shouldGetData && nextPage !== null) {
+      setPagePostData({
+        ...pagePostData,
+        page: nextPage,
+      });
+    } else if (shouldGetData && nextPage === null) {
+      hiddenLoaderIcon();
+      toast({
+        title: "😭",
+        description: "一张也没有了，别下拉了",
+        isClosable: true,
+      });
+    }
+  }, [shouldGetData]);
 
   // 设置为喜欢或不喜欢
-  const handleLike = (e) => {
-    console.log(e.target);
-  };
-  const handleDislike = (e) => {
-    console.log(e);
-  };
+  const handleEvaluateWallpaper = useCallback(async (id, like) => {
+    const isSuccess = await setWallpaperScore(id, like);
+    console.log(isSuccess);
+    if (isSuccess) {
+      // 更新本地数据，更新图标，通知用户
+      dispatch(
+        setWallpaper({
+          ...wallpaper,
+          [like ? "like" : "unlike"]: [...wallpaper[like ? "like" : "unlike"], id],
+          [!like ? "like" : "unlike"]: [
+            ...wallpaper[!like ? "like" : "unlike"].filter((i) => i !== id),
+          ],
+        })
+      );
+      // wallpaper 数据更新后图标会自动更新
+      toast({
+        title: "👏👏👏",
+        description: "🦔 谢谢你的评价",
+        status: "success",
+        duration: "1500",
+      });
+    }
+  }, []);
+
+  const handleShowMaxSize = useCallback((img) => {
+    setCurImg(img);
+  }, []);
   // 应用到首页
-  const handleApplyImg = async (e) => {
-    console.log(e);
-    // try {
-    //   const data = await getBase64FromUrl(full);
-    //   dispatch(
-    //     setWallpaper({
-    //       ...wallpaper,
-    //       imgBase64: data,
-    //     })
-    //   );
-    // } catch (error) {
-    //   console.log(error);
-    // } finally {
-    //   applyToast({
-    //     title: "Tip",
-    //     description: "壁纸设置到初始页面🍁",
-    //     status: "success",
-    //     duration: 4500,
-    //     isClosable: true,
-    //     position: "top",
-    //   });
-    // }
-  };
+  const handleApplyImg = useCallback(async (full) => {
+    try {
+      const data = await getBase64FromUrl(full);
+      dispatch(
+        setWallpaper({
+          ...wallpaper,
+          imgBase64: data,
+        })
+      );
+    } catch (error) {
+      console.log(error);
+    } finally {
+      applyToast({
+        title: "Tip",
+        description: "壁纸设置到初始页面🍁",
+        status: "success",
+        duration: 4500,
+        isClosable: true,
+        position: "top",
+      });
+    }
+  }, []);
 
   return (
-    <>
-      <Grid
-        ref={bottomRef}
-        // w="min(100vw, 1600px)"
-        // h="100%"
-        m="0 auto"
-        mt="1rem"
-        // p={["1rem", "1rem", "1rem", "0"]}
-        // templateColumns="repeat(auto-fill, minmax(18vw, 400px))"
-        templateColumns="repeat(4, 1fr)"
-        gridAutoRows="1px"
-        columnGap="2"
-      >
-        {wallpaperArr.map((wallpaperData) => {
-          return (
-            <WallpaperItem
-              key={wallpaperData.id}
-              wallpaperData={wallpaperData}
-              handleLike={handleLike}
-              handleDislike={handleDislike}
-              handleApplyImg={handleApplyImg}
-            />
-          );
-        })}
-        {curImg === null ? null : (
-          <Suspense fallback={<Loading />}>
-            <ImageView
-              id={curImg.id}
-              full={curImg.full}
-              raw={curImg.raw}
-              handleHidden={() => setCurImg(null)}
-            />
-          </Suspense>
-        )}
-      </Grid>
-      {/* <Box>aaaaaa</Box> */}
-    </>
+    <Grid
+      m="1rem"
+      gap="10px"
+      gridTemplateColumns="repeat(auto-fit, minmax(250px, 1fr))"
+      gridAutoRows="200px"
+      gridAutoFlow="dense"
+    >
+      {wallpaperArr.map((wallpaperData) => {
+        return (
+          <WallpaperItem
+            key={wallpaperData.id}
+            isLike={wallpaper.like.includes(wallpaperData.id)}
+            isUnlike={wallpaper.unlike.includes(wallpaperData.id)}
+            wallpaperData={wallpaperData}
+            handleEvaluateWallpaper={handleEvaluateWallpaper}
+            handleApplyImg={handleApplyImg}
+            handleShowMaxSize={handleShowMaxSize}
+          />
+        );
+      })}
+      {curImg === null ? null : (
+        <Suspense fallback={<Loading />}>
+          <ImageView
+            img={curImg}
+            handleHidden={() => setCurImg(null)}
+            handleEvaluateWallpaper={handleEvaluateWallpaper}
+            handleApplyImg={handleApplyImg}
+          />
+        </Suspense>
+      )}
+    </Grid>
   );
 }

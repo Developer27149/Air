@@ -1,70 +1,24 @@
 import Icon from "@chakra-ui/icon";
 import { DownloadIcon } from "@chakra-ui/icons";
 import { Image } from "@chakra-ui/image";
-import { Box } from "@chakra-ui/layout";
+import { Box, Text } from "@chakra-ui/layout";
 import { Tooltip } from "@chakra-ui/tooltip";
 import React, { useEffect, useState } from "react";
 import { CgMinimize, CgUserlane } from "react-icons/cg";
-import { FcLike } from "react-icons/fc";
-import { handleDownloadWallpaper, getBase64FromUrl } from "Utils/index.js";
-import { useToast } from "@chakra-ui/react";
-import { useDispatch, useSelector } from "react-redux";
-import { setWallpaper } from "Store/homeSlice.js";
+import { FcLike, FcLikePlaceholder } from "react-icons/fc";
+import { handleDownloadWallpaper } from "Utils/index.js";
 import axios from "axios";
 import Loading from "./Loading.js";
 
-export default function ImageView({ id, full, raw, handleHidden }) {
+export default function ImageView({
+  img: { id, full, raw, isLike, description },
+  handleHidden,
+  handleEvaluateWallpaper,
+  handleApplyImg,
+}) {
   const [imgData, setImgData] = useState(null);
   const [completed, setCompleted] = useState(false);
-  const applyToast = useToast();
-  const likeToast = useToast();
-  const dispatch = useDispatch();
-  const wallpaper = useSelector((state) => state.home.wallpaper);
-
-  const handleApplyImg = () => {
-    applyToast({
-      title: "Tip",
-      description: "马上将这张壁纸设置到初始页面❤️",
-      status: "info",
-      duration: 4500,
-      isClosable: true,
-      position: "top",
-    });
-    const applyToHome = async () => {
-      try {
-        const data = await getBase64FromUrl(full);
-        dispatch(
-          setWallpaper({
-            ...wallpaper,
-            imgBase64: data,
-          })
-        );
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    applyToHome();
-  };
-
-  const handleLikeImg = () => {
-    likeToast({
-      title: "Tip",
-      description: "很高兴收到你的喜欢，我们将会在某个时机将受欢迎的壁纸推荐给其他小伙伴",
-      status: "success",
-      duration: 4500,
-      isClosable: true,
-      position: "top",
-    });
-    // 同步到本地存储和服务器
-    const newLikeArr = wallpaper.like.includes(id) ? wallpaper.like : [...wallpaper.like, id];
-    console.log(newLikeArr);
-    dispatch(
-      setWallpaper({
-        ...wallpaper,
-        like: newLikeArr,
-      })
-    );
-  };
+  console.log(description);
 
   useEffect(() => {
     // handle esc key
@@ -99,6 +53,22 @@ export default function ImageView({ id, full, raw, handleHidden }) {
     <Box w="100vw" h="100vh" pos="fixed" left="0" right="0" top="0" bottom="0" zIndex="999">
       {completed ? null : <Loading />}
       <Image src={imgData} w="100%" h="100%" onLoad={() => setCompleted(true)} />
+      {description?.length > 1 && (
+        <Box
+          pos="absolute"
+          right="2rem"
+          top="2rem"
+          p="1rem 1.5rem"
+          borderRadius="1rem"
+          backdropFilter="blur(4px)"
+          bg="#dda1a136"
+          maxW="30vw"
+        >
+          <Text fontSize="1.2rem" color="#b1f11a" lineHeight="1.2rem">
+            {description}
+          </Text>
+        </Box>
+      )}
       <Box
         pos="absolute"
         right="2rem"
@@ -115,14 +85,16 @@ export default function ImageView({ id, full, raw, handleHidden }) {
           as={CgUserlane}
           fontSize="1.5rem"
           cursor="pointer"
-          onClick={handleApplyImg}
+          onClick={() => handleApplyImg(full)}
         />
         <Icon
           color="white"
-          as={FcLike}
+          as={isLike ? FcLike : FcLikePlaceholder}
           fontSize="1.5rem"
           cursor="pointer"
-          onClick={handleLikeImg}
+          onClick={() => {
+            !isLike && handleEvaluateWallpaper(id, true);
+          }}
         />
         <Tooltip label="下载到本地" placement="top">
           <DownloadIcon
