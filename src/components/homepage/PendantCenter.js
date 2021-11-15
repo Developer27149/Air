@@ -6,14 +6,14 @@ export default function PendantCenter() {
   return (
     <Grid
       m="4rem auto"
-      w="min(90vw, 960px)"
-      bg="#e6fffa73"
+      w="min(90vw, 1260px)"
+      bg="#e6fffa00"
       flexGrow="1"
       borderRadius="8px"
       p="0.5rem"
       gridTemplateColumns="repeat(8, 1fr)"
       gridTemplateRows="repeat(8, 1fr)"
-      backdropFilter="blur(3px)"
+      // backdropFilter="blur(3px)"
     >
       <DatePendant />
     </Grid>

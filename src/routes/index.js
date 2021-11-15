@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { MemoryRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Box } from "@chakra-ui/react";
 import Home from "Routes/Home";
+import Works from "Routes/Works";
 import { Bar, Loading } from "Components/index.js";
 import { useDispatch, useSelector } from "react-redux";
 import { getBase64FromUrl, isNewDay } from "Utils/index.js";
@@ -105,7 +106,7 @@ export default function App() {
             <Box flexGrow="1">
               <Switch>
                 <Route exact path="/">
-                  <Home />
+                  <Works />
                 </Route>
                 <Route path="/wallpapers">
                   <Wallpapers />

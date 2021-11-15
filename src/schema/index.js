@@ -40,4 +40,17 @@ export const configSchema = yup.object().shape({
     email: string(),
     isAnonymous: boolean().required(),
   }),
+  todo: object({
+    tasks: array()
+      .of(
+        object().shape({
+          isFinish: boolean().required(),
+          text: string().required(),
+          create_at: string().required(),
+          deadline: string().required(),
+          needNotice: boolean().required(),
+        })
+      )
+      .default([]),
+  }),
 });

@@ -185,3 +185,26 @@ const fuckyouSiteArr = {
 };
 
 export const getFuckSiteKeyword = (site) => fuckyouSiteArr[site] ?? "q";
+
+export const getCurWeekStr = () => {
+  const _ = ["周日", "周一", "周二", "周三", "周四", "周五", "周六"];
+  return _[new Date().getDay()];
+};
+
+export const getCurMonth = () => {
+  const _ = {
+    1: "孟春",
+    2: "如月",
+    3: "桃月",
+    4: "孟夏",
+    5: "仲夏",
+    6: "荷月",
+    7: "孟秋",
+    8: "桂月",
+    9: "菊月",
+    10: "阳春",
+    11: "葭月",
+    12: "暮岁",
+  };
+  return _[new Date().getMonth()];
+};

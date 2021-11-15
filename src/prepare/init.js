@@ -46,6 +46,9 @@ export const config = {
     token: "",
     isAnonymous: false,
   },
+  todo: {
+    tasks: [],
+  },
 };
 
 export const init = async () => {
