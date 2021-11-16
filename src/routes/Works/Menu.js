@@ -9,6 +9,7 @@ import { setActiveMenu } from "Store/worksSlice.js";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { getCurMonth, getCurWeekStr } from "Utils/index.js";
+import CircleMusic from "Components/CircleMusic.js";
 const MotionBtn = motion(Button);
 
 export default function Menu() {
@@ -38,7 +39,7 @@ export default function Menu() {
       w={workState.activeMenu ? "8rem" : "6rem"}
       transition="all 0.4s ease-in-out"
     >
-      <Image src="./icons/64.png" w="64px" h="64px" m="2rem auto" />
+      <Image src="./icons/64.png" w="64px" h="64px" m="2rem auto" cursor="pointer" />
       <Box flexGrow="1" overflow="hidden" ml="1.5rem">
         {itemsRef.current?.map(({ id, text, icon }) => {
           return (
@@ -74,12 +75,26 @@ export default function Menu() {
           );
         })}
       </Box>
+      <CircleMusic
+        customStyle={{
+          width: "1.8rem",
+          height: "1.8rem",
+          margin: "0 auto 1rem auto",
+          background: "#333",
+          position: "relative",
+          iconBoxSize: "1.2rem",
+        }}
+      />
       <Text
-        fontSize="1.5rem"
+        fontSize="1.8rem"
         cursor="pointer"
         textAlign="center"
         pb="3rem"
         onClick={onSwitchMenuStatu}
+        transition="transform 0.4s ease-in-out"
+        _hover={{
+          transform: "scale(1.2)",
+        }}
       >
         {workState.activeMenu ? "😚" : "😶‍🌫️"}
       </Text>
