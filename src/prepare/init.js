@@ -47,7 +47,23 @@ export const config = {
     isAnonymous: false,
   },
   todo: {
-    tasks: [],
+    tasks: [
+      {
+        create_at: new Date().getDate(),
+        status: "init",
+        content: {
+          title: "喵喵",
+          text: "喂猫！记得喂猫，不要放太多猫粮",
+        },
+        deadline: "2022-12-22",
+        needNotice: false,
+        importantLevel: 5,
+        comments: [],
+      },
+    ],
+    activeMenu: true,
+    activeMenuItemId: 1,
+    showTip: true,
   },
 };
 

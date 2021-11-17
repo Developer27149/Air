@@ -4,12 +4,15 @@ import { Flex, Text, Grid } from "@chakra-ui/layout";
 import { Icon } from "@chakra-ui/icons";
 import { CgTimelapse } from "react-icons/cg";
 import { FcCalendar } from "react-icons/fc";
+import { GiFinishLine } from "react-icons/gi";
 import { useSelector } from "react-redux";
-import { setActiveMenu } from "Store/worksSlice.js";
+import { setActiveMenu, setActiveMenuItemId } from "Store/worksSlice.js";
 import { useDispatch } from "react-redux";
 import { motion } from "framer-motion";
 import { getCurMonth, getCurWeekStr } from "Utils/index.js";
 import CircleMusic from "Components/CircleMusic.js";
+import { BsListTask } from "react-icons/bs";
+import { IoSad } from "react-icons/io5";
 const MotionBtn = motion(Button);
 
 export default function Menu() {
@@ -17,8 +20,11 @@ export default function Menu() {
   const getWeekly = useCallback(getCurWeekStr, []);
   const getMonth = useCallback(getCurMonth, []);
   const workState = useSelector((state) => state.works);
+  const onSwitchMenuItem = (id) => {
+    dispatch(setActiveMenuItemId(id));
+  };
   const onSwitchMenuStatu = () => {
-    dispatch(setActiveMenu());
+    dispatch(setActiveMenu(!workState.activeMenu));
   };
   const itemsRef = useRef([
     {
@@ -30,6 +36,21 @@ export default function Menu() {
       text: getMonth(),
       icon: FcCalendar,
       id: 2,
+    },
+    {
+      text: "Yeap!",
+      icon: GiFinishLine,
+      id: 3,
+    },
+    {
+      text: "遗漏",
+      icon: IoSad,
+      id: 4,
+    },
+    {
+      text: "汇总",
+      icon: BsListTask,
+      id: 5,
     },
   ]);
   return (
@@ -47,9 +68,9 @@ export default function Menu() {
               align="center"
               color={workState.activeMenuItemId === id ? "#9e41cd" : "gray.400"}
               key={id}
-              // pos="relative"
+              onClick={() => onSwitchMenuItem(id)}
             >
-              <Icon as={icon} fontSize="2rem" m="0.5rem" />
+              <Icon as={icon} fontSize="1.6rem" m="0.5rem" />
               {workState.activeMenu ? (
                 <MotionBtn
                   mr="1rem"
@@ -59,7 +80,7 @@ export default function Menu() {
                   opacity="0"
                   pos="relative"
                   left="1rem"
-                  fontSize={workState.activeMenuItemId === id ? "1.1rem" : "1rem"}
+                  fontSize={workState.activeMenuItemId === id ? "14px" : "12px"}
                   animate={{
                     opacity: 1,
                     left: "0",

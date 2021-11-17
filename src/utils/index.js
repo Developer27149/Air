@@ -191,6 +191,11 @@ export const getCurWeekStr = () => {
   return _[new Date().getDay()];
 };
 
+export const getRandomEmojiFromWeekDay = () => {
+  const _ = ["😱", "😭", "✊", "✊", "😝", "😜", "🤪"];
+  return _[new Date().getDay()];
+};
+
 export const getCurMonth = () => {
   const _ = {
     1: "孟春",

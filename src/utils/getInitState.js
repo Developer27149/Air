@@ -7,7 +7,7 @@ const getInitConfig = async () => {
   try {
     await configSchema.validate(config);
   } catch (error) {
-    console.log("获取初始化数据错误, 使用默认配置作为 store 的初始数据");
+    console.log("获取初始化数据错误, 使用默认配置作为 store 的初始数据, error is:", error);
     // 重新获取默认初始化的数据并且返回
     const initConfig = await import("../prepare/init.js");
     config = initConfig.config;

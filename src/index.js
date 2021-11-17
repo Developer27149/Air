@@ -6,11 +6,17 @@ import { Provider } from "react-redux";
 import store from "Store/index.js";
 import prepareFn from "Prepare/index.js";
 import "Styles/global.scss";
+import { extendTheme } from "@chakra-ui/react";
+const theme = extendTheme({
+  fonts: {
+    size: "12px",
+  },
+});
 
 prepareFn().finally(async () => {
   ReactDOM.render(
     <Provider store={store}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
     </Provider>,

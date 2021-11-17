@@ -1,5 +1,5 @@
 import * as yup from "yup";
-const { string, array, number, boolean, object } = yup;
+const { string, array, number, boolean, object, mixed } = yup;
 
 export const configSchema = yup.object().shape({
   wallpaper: object({
@@ -44,13 +44,21 @@ export const configSchema = yup.object().shape({
     tasks: array()
       .of(
         object().shape({
-          isFinish: boolean().required(),
-          text: string().required(),
+          status: mixed().oneOf(["finish", "doing", "init"]).required(),
+          content: object().shape({
+            title: string().required(),
+            text: string().required(),
+          }),
           create_at: string().required(),
           deadline: string().required(),
           needNotice: boolean().required(),
+          importantLevel: number().required(),
+          comments: array().default([]),
         })
       )
       .default([]),
+    activeMenu: boolean().default(true),
+    activeMenuItemId: number().default(1),
+    showTip: boolean().default(true).required(),
   }),
 });
