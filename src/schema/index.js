@@ -54,6 +54,8 @@ export const configSchema = yup.object().shape({
           needNotice: boolean().required(),
           importantLevel: number().required(),
           comments: array().default([]),
+          isFixed: boolean().default(false),
+          id: string().required(),
         })
       )
       .default([]),

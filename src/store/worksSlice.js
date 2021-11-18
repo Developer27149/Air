@@ -13,26 +13,31 @@ export const worksSlice = createSlice({
     activeMenuItemId: todo.activeMenuItemId,
     tasks: todo.tasks,
     showTip: todo.showTip,
+    circlePosArr: [],
   },
   reducers: {
     setActiveMenu(state, action) {
-      console.log("revert statu");
       state.activeMenu = action.payload;
-      globalThis.settings.todo.activeMenu = action.payload;
+      globalThis.settings.todo = { ...state };
     },
     setActiveMenuItemId(state, action) {
       state.activeMenuItemId = action.payload;
+      globalThis.settings.todo = { ...state };
     },
     setTasks(state, action) {
       state.tasks = action.payload;
-      globalThis.settings.todo.tasks = action.payload;
+      globalThis.settings.todo = { ...state };
     },
     hiddenTip(state) {
       state.showTip = false;
-      globalThis.settings.todo.showTip = false;
+      globalThis.settings.todo = { ...state };
+    },
+    setCirclePosArr(state, action) {
+      state.circlePosArr = action.payload;
     },
   },
 });
 
-export const { setActiveMenu, setActiveMenuItemId } = worksSlice.actions;
+export const { setActiveMenu, setActiveMenuItemId, setTasks, hiddenTip, setCirclePosArr } =
+  worksSlice.actions;
 export default worksSlice.reducer;
