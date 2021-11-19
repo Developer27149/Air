@@ -13,7 +13,6 @@ export const worksSlice = createSlice({
     activeMenuItemId: todo.activeMenuItemId,
     tasks: todo.tasks,
     showTip: todo.showTip,
-    circlePosArr: [],
   },
   reducers: {
     setActiveMenu(state, action) {
@@ -32,12 +31,8 @@ export const worksSlice = createSlice({
       state.showTip = false;
       globalThis.settings.todo = { ...state };
     },
-    setCirclePosArr(state, action) {
-      state.circlePosArr = action.payload;
-    },
   },
 });
 
-export const { setActiveMenu, setActiveMenuItemId, setTasks, hiddenTip, setCirclePosArr } =
-  worksSlice.actions;
+export const { setActiveMenu, setActiveMenuItemId, setTasks, hiddenTip } = worksSlice.actions;
 export default worksSlice.reducer;

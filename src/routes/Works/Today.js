@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Flex, Grid, Heading, Text } from "@chakra-ui/layout";
+import { Grid } from "@chakra-ui/layout";
 import TaskContainer from "./TaskContainer.js";
 import useTask from "Hooks/useTask.js";
-import { setCirclePosArr } from "Store/worksSlice.js";
+import { setDragPosArr } from "Store/dragSlice.js";
 
 export default function Today() {
   const tasks = useSelector((state) => state.works.tasks);
@@ -15,22 +15,25 @@ export default function Today() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
+    const initCirclePosArr = () => {
       // 得到中心点之后，计算拖动元素的中心点，比较出最靠近的外层容器
       dispatch(
-        setCirclePosArr(
+        setDragPosArr(
           [initTaskContainerRef, inProgressTaskContainerRef, finishTaskContainerRef].map(
             (i, idx) => {
               const container = i.current;
               const rectDataObj = container.getBoundingClientRect();
               const posX = rectDataObj.left + rectDataObj.width / 2;
               const posY = rectDataObj.top + rectDataObj.height / 2;
-              return { posX, posY, idx };
+              const status = ["init", "doing", "finish"][idx];
+              return { posX, posY, idx, status };
             }
           )
         )
       );
-    });
+    };
+    window.addEventListener("resize", initCirclePosArr);
+    initCirclePosArr();
   }, []);
 
   return (
@@ -46,10 +49,20 @@ export default function Today() {
         duration: 0.4,
       }}
     >
-      <Grid gridTemplateColumns="repeat(3, 1fr)" gap="4" maxW="100%">
-        <TaskContainer title="新任务" tasks={initTask} ref={initTaskContainerRef} />
-        <TaskContainer title="进行中..." tasks={inProgressTask} ref={inProgressTaskContainerRef} />
-        <TaskContainer title="完成！" tasks={finishTask} ref={finishTaskContainerRef} />
+      <Grid gridTemplateColumns="repeat(3, 1fr)" gap="4" maxW="100%" minH="100%">
+        <TaskContainer bg="#e6fffa5e" title="新任务" tasks={initTask} ref={initTaskContainerRef} />
+        <TaskContainer
+          bg="#e6fffaa3"
+          title="进行中..."
+          tasks={inProgressTask}
+          ref={inProgressTaskContainerRef}
+        />
+        <TaskContainer
+          bg="#e6fffaff"
+          title="完成！"
+          tasks={finishTask}
+          ref={finishTaskContainerRef}
+        />
       </Grid>
     </motion.div>
   );

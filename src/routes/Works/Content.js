@@ -13,7 +13,17 @@ const menuItemArr = [<Today />, <Month />, <Finish />, <Forget />, <AllTasks />]
 export default function Content() {
   const workState = useSelector((state) => state.works);
   return (
-    <Box flexGrow="1" bg="white" borderLeft="solid 1px #80808014" p="12px" borderRightRadius="16px">
+    <Box
+      flexGrow="1"
+      bg="white"
+      borderLeft="solid 1px #80808014"
+      p="12px"
+      borderRightRadius="16px"
+      overflow="auto"
+      overflowX="hidden"
+      display="flex"
+      flexDir="column"
+    >
       <Flex justify="space-between">
         <SearchTask />
         <Text fontSize="1.4rem" fontWeight="500" textAlign="right" m="0.5rem">
@@ -21,7 +31,9 @@ export default function Content() {
           {getRandomEmojiFromWeekDay()}
         </Text>
       </Flex>
-      {menuItemArr[workState.activeMenuItemId - 1]}
+      <Flex flexGrow="1" align="stretch">
+        {menuItemArr[workState.activeMenuItemId - 1]}
+      </Flex>
     </Box>
   );
 }

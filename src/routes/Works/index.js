@@ -13,7 +13,7 @@ export default function index() {
       align="center"
       justify="center"
     >
-      <Flex w="90vw" h="80vh" m="0 auto" bg="white" borderRadius="0.6rem">
+      <Flex w="90vw" h="90vh" m="0 auto" bg="white" borderRadius="0.6rem">
         <Menu />
         <Content />
       </Flex>

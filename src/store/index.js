@@ -4,6 +4,7 @@ import homeReducer from "./homeSlice";
 import profileReducer from "./profile.js";
 import wallpaperReducer from "./wallpaperSlice.js";
 import worksReducer from "./worksSlice.js";
+import dragEventReducer from "./dragSlice.js";
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     profile: profileReducer,
     wallpaper: wallpaperReducer,
     works: worksReducer,
+    dragEvent: dragEventReducer,
   },
 });
