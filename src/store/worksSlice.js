@@ -25,6 +25,7 @@ export const worksSlice = createSlice({
     },
     setTasks(state, action) {
       state.tasks = action.payload;
+      console.log(action.payload);
       globalThis.settings.todo = { ...state };
     },
     hiddenTip(state) {

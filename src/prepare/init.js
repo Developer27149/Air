@@ -71,7 +71,7 @@ export const config = {
         },
         deadline: "2022-12-22",
         needNotice: false,
-        importantLevel: 5,
+        importantLevel: "important",
         comments: [],
         isFixed: true,
         id: "apxdd2123",
@@ -85,7 +85,7 @@ export const config = {
         },
         deadline: "2022-12-22",
         needNotice: false,
-        importantLevel: 5,
+        importantLevel: "normal",
         comments: [],
         isFixed: false,
         id: "apxdd21jj",
@@ -128,6 +128,7 @@ export const init = async () => {
         try {
           // 更新的同时，修改本地存储
           target[prop] = receiver;
+
           const isValid = await configSchema.isValid(target);
           // console.log(target, isValid);
           if (isValid) {
@@ -135,7 +136,7 @@ export const init = async () => {
               config: target,
             });
           } else {
-            console.log("config is unvalid，无法更新配置");
+            console.log("config is unvalid，无法更新配置", target);
           }
         } catch (error) {
           console.log(error);

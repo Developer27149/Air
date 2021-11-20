@@ -50,18 +50,26 @@ export default function Today() {
       }}
     >
       <Grid gridTemplateColumns="repeat(3, 1fr)" gap="4" maxW="100%" minH="100%">
-        <TaskContainer bg="#e6fffa5e" title="新任务" tasks={initTask} ref={initTaskContainerRef} />
+        <TaskContainer
+          bg="#e6fffa5e"
+          title="新任务"
+          tasks={initTask}
+          ref={initTaskContainerRef}
+          status="init"
+        />
         <TaskContainer
           bg="#e6fffaa3"
           title="进行中..."
           tasks={inProgressTask}
           ref={inProgressTaskContainerRef}
+          status="doing"
         />
         <TaskContainer
           bg="#e6fffaff"
           title="完成！"
           tasks={finishTask}
           ref={finishTaskContainerRef}
+          status="finish"
         />
       </Grid>
     </motion.div>

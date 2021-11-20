@@ -52,7 +52,7 @@ export const configSchema = yup.object().shape({
           create_at: string().required(),
           deadline: string().required(),
           needNotice: boolean().required(),
-          importantLevel: number().required(),
+          importantLevel: string().required(),
           comments: array().default([]),
           isFixed: boolean().default(false),
           id: string().required(),

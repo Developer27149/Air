@@ -35,6 +35,10 @@ const config = {
       Styles: path.resolve(__dirname, "src/styles"),
       Hooks: path.resolve(__dirname, "src/hooks"),
     },
+    // fallback: {
+    //   crypto: require.resolve("crypto-browserify"),
+    //   buffer: require.resolve("buffer"),
+    // },
   },
   devtool: "inline-source-map",
   plugins: [
