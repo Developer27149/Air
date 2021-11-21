@@ -45,14 +45,11 @@ export default function TaskItem({ data }) {
               return {
                 ...task,
                 status: ["init", "doing", "finish"][sortedArr[0].idx],
-                isFixed: false,
               };
             return task;
           })
         )
       );
-    } else {
-      console.log("here");
     }
     setIsDraging(false);
   };
@@ -70,7 +67,7 @@ export default function TaskItem({ data }) {
         boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
         margin: "1rem 0",
       }}
-      drag={data.isFixed ? undefined : "x"}
+      drag="x"
       whileDrag={{ scale: 1.1, zIndex: 10 }}
       onDragEnd={onDragEnd}
       onDragStart={onDragBegin}

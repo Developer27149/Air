@@ -1,16 +1,18 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
-import { Box, Flex, Text } from "@chakra-ui/layout";
+import { Badge, Box, Flex, Text } from "@chakra-ui/layout";
 import TaskItem from "./TaskItem.js";
 import Icon from "@chakra-ui/icon";
 import { IoAdd } from "react-icons/io5";
 import AddTask from "./AddTask.js";
 import { useDisclosure } from "@chakra-ui/hooks";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setTasks } from "Store/worksSlice.js";
 
 export default React.forwardRef(function TaskContainer({ title, status, bg, tasks = [] }, ref) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const keyword = useSelector((state) => state.searchTask.keyword);
+  const allTasks = useSelector((state) => state.works.tasks);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const handleReverseDatePickerStatus = () => {
     setShowDatePicker(!showDatePicker);
@@ -34,7 +36,7 @@ export default React.forwardRef(function TaskContainer({ title, status, bg, task
               marginLeft: "6px",
             }}
           >
-            {title}
+            {keyword.length > 0 ? title.replaceAll(keyword, <Badge>{keyword}</Badge>) : title}
           </Text>
           <Flex>
             <Icon
@@ -52,14 +54,13 @@ export default React.forwardRef(function TaskContainer({ title, status, bg, task
               isOpen={isOpen}
               status={status}
               addTask={(v) => {
-                dispatch(setTasks([...tasks, v]));
+                dispatch(setTasks([...allTasks, v]));
               }}
             />
           </Flex>
         </Flex>
-        {tasks.map((task) => (
-          <TaskItem data={task} key={task.id} />
-        ))}
+        {tasks.sort((i) => (i.isFixed ? -1 : 1)) &&
+          tasks.map((task) => <TaskItem data={task} key={task.id} />)}
       </Box>
     </motion.div>
   );

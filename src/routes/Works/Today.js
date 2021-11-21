@@ -41,6 +41,7 @@ export default function Today() {
       style={{
         position: "relative",
         top: "1rem",
+        width: "100%",
       }}
       animate={{
         top: 0,

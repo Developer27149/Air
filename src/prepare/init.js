@@ -57,7 +57,7 @@ export const config = {
         },
         deadline: "2022-12-22",
         needNotice: false,
-        importantLevel: 5,
+        importantLevel: ["important"],
         comments: [],
         isFixed: false,
         id: "apxdd212c",
@@ -71,7 +71,7 @@ export const config = {
         },
         deadline: "2022-12-22",
         needNotice: false,
-        importantLevel: "important",
+        importantLevel: ["important"],
         comments: [],
         isFixed: true,
         id: "apxdd2123",
@@ -85,7 +85,7 @@ export const config = {
         },
         deadline: "2022-12-22",
         needNotice: false,
-        importantLevel: "normal",
+        importantLevel: [],
         comments: [],
         isFixed: false,
         id: "apxdd21jj",
@@ -137,6 +137,15 @@ export const init = async () => {
             });
           } else {
             console.log("config is unvalid，无法更新配置", target);
+            // 打印详细错误
+            configSchema
+              .validate(target)
+              .then((r) => {
+                console.log(r);
+              })
+              .catch((e) => {
+                console.log(e);
+              });
           }
         } catch (error) {
           console.log(error);

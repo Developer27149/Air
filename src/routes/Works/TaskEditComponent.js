@@ -52,6 +52,10 @@ export default function TaskEditComponent({ data }) {
     }
   };
 
+  const handleDelTask = () => {
+    dispatch(setTasks(tasks.filter((t) => t.id !== data.id)));
+  };
+
   useEffect(() => {
     setTextareaText(data.content.text);
   }, [data.content.text]);
@@ -69,7 +73,7 @@ export default function TaskEditComponent({ data }) {
             mb="0.5rem"
           />
         ) : (
-          <Box pb="0.5rem" minH="3rem">
+          <Box pb="0.5rem" minH="2rem">
             {textareaText}
           </Box>
         )}
@@ -89,7 +93,7 @@ export default function TaskEditComponent({ data }) {
         <Icon as={GiPaperClip} onClick={handleReverseFixed} />
         <Icon as={VscComment} onClick={onOpen} />
         <Icon as={FcCalendar} />
-        <Icon as={RiDeleteBinLine} />
+        <Icon as={RiDeleteBinLine} onClick={handleDelTask} />
         {isEditing ? (
           <>
             <Icon

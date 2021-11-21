@@ -57,6 +57,7 @@ export default function Menu() {
     <Flex
       flexDir="column"
       justify="center"
+      maxW="121px"
       w={workState.activeMenu ? "8rem" : "6rem"}
       transition="all 0.4s ease-in-out"
     >

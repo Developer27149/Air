@@ -23,7 +23,7 @@ const initTask = (status) => {
     comments: [],
     deadline: "",
     needNotice: false,
-    importantLevel: "normal",
+    importantLevel: [],
     id: uuid(),
     create_at: new Date().getTime(),
     status,
@@ -52,6 +52,8 @@ export default function AddTask({ addTask, status, onClose, isOpen }) {
     });
     // reset task
     setTask(initTask(status));
+    setTitle("");
+    setText("");
     onClose();
   };
 
@@ -66,9 +68,15 @@ export default function AddTask({ addTask, status, onClose, isOpen }) {
   const handleChangeImportantLevel = (e, info) => {
     const isChecked = e.target.checked;
     setTask((t) => {
+      let oldLevelArr = t.importantLevel;
+      if (isChecked && !t.importantLevel.includes(info)) {
+        oldLevelArr.push(info);
+      } else if (!isChecked && t.importantLevel.includes(info)) {
+        oldLevelArr = oldLevelArr.filter((i) => i !== info);
+      }
       return {
         ...t,
-        importantLevel: isChecked ? info : "normal",
+        importantLevel: oldLevelArr,
       };
     });
   };
@@ -118,12 +126,13 @@ export default function AddTask({ addTask, status, onClose, isOpen }) {
               >
                 到期时间
               </Checkbox>
-              <Checkbox size="md" color="blue.500" onChange={handleNotice}>
+              <Checkbox size="md" color="blue.500" mr="1rem" onChange={handleNotice}>
                 提醒我
               </Checkbox>
               <Checkbox
                 size="md"
                 color="blue.500"
+                mr="1rem"
                 onChange={(e) => handleChangeImportantLevel(e, "urgent")}
               >
                 紧急
@@ -131,6 +140,7 @@ export default function AddTask({ addTask, status, onClose, isOpen }) {
               <Checkbox
                 size="md"
                 color="blue.500"
+                mr="1rem"
                 onChange={(e) => handleChangeImportantLevel(e, "important")}
               >
                 重要

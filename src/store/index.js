@@ -5,6 +5,7 @@ import profileReducer from "./profile.js";
 import wallpaperReducer from "./wallpaperSlice.js";
 import worksReducer from "./worksSlice.js";
 import dragEventReducer from "./dragSlice.js";
+import searchTaskReducer from "./searchTaskSlice.js";
 
 export default configureStore({
   reducer: {
@@ -14,5 +15,6 @@ export default configureStore({
     wallpaper: wallpaperReducer,
     works: worksReducer,
     dragEvent: dragEventReducer,
+    searchTask: searchTaskReducer,
   },
 });
