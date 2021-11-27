@@ -5,6 +5,7 @@ import { Grid } from "@chakra-ui/layout";
 import TaskContainer from "./TaskContainer.js";
 import useTask from "Hooks/useTask.js";
 import { setDragPosArr } from "Store/dragSlice.js";
+import { notification } from "Utils/notification.js";
 
 export default function Today() {
   const tasks = useSelector((state) => state.works.tasks);
@@ -34,6 +35,24 @@ export default function Today() {
     };
     window.addEventListener("resize", initCirclePosArr);
     initCirclePosArr();
+    // notification();
+    // notice test
+    // chrome.notifications.create(
+    //   "noticeId",
+    //   {
+    //     // appIconMaskUrl: "./icons/64.png",
+    //     // contextMessage: "just a notice msg",
+    //     // eventTime: new Date().now(),
+    //     iconUrl: "./icons/64.png",
+    //     message: "is a message",
+    //     type: "basic",
+    //     title: "title A",
+    //   },
+    //   (noticeId) => {
+    //     console.log(noticeId);
+    //     console.log("it is a callback");
+    //   }
+    // );
   }, []);
 
   return (

@@ -1,34 +1,68 @@
-// const config = {
-//   wallpaper: {
-//     raw: false,
-//     fixed: false,
-//     history: [],
-//     unlike: [],
-//     items: [
-//       "https://images.unsplash.com/photo-1471922694854-ff1b63b20054?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=3904&q=80",
-//     ],
-//   },
-//   time: {
-//     showTime: true,
-//     showWeather: true,
-//     location: "",
-//   },
-//   msg: {
-//     show: true,
-//     fontSize: 32,
-//     text: "潜龙勿用",
-//   },
-//   search: {
-//     engine: "google.com",
-//   },
-//   updateTimestamp: new Date().getTime(),
-//   backendBaseUrl: "http://localhost:3000",
-//   token: "",
-// };
-// console.log("ok, bg js");
-// const data = chrome.storage.local.get("config");
-// console.log(data);
-// // const initFn = async () => {
-// //   const data = chrome.storage.local.get('config')
+// chrome.alarms.create("sucks", {
+//   when: Date.now(),
+// });
 
-// // }
+// chrome.alarms.onAlarm.addEventListener((alarm) => {
+//   if (alarm.name === "sucks") {
+//     chrome.notifications.create("NOTFICATION_ID", {
+//       type: "basic",
+//       iconUrl: "./icons/64.png",
+//       title: "notification title",
+//       message: "notification message",
+//       priority: 2,
+//     });
+//   }
+// });
+
+// console.log("bg code");
+
+// function installReason(detail) {
+//   console.log(detail);
+//   if (detail?.reason === "update") {
+//     notification();
+//   }
+// }
+
+function notification() {
+  console.log("init a notification!");
+  chrome.notifications.create({
+    title: "sucks少时诵诗书所所所",
+    message: "balabala...",
+    iconUrl: "icons/32.png",
+    type: "basic",
+    eventTime: Date.now(),
+  });
+}
+
+// chrome.runtime.onInstalled.addListener((details) => {
+//   installReason(details);
+// });
+
+console.log("in bg script!!");
+
+chrome.alarms.onAlarm.addListener((alarm) => {
+  if (alarm.name === "air") {
+    chrome.notifications.create(
+      "my notice id",
+      {
+        title: "title",
+        message: "is a msg",
+        type: "basic",
+        iconUrl: "icons/32.png",
+      },
+      (id) => {
+        console.log(id);
+        console.log("notification callback function");
+      }
+    );
+  }
+});
+
+function createAlarm() {
+  chrome.alarms.create("air", {
+    when: Date.now(),
+  });
+}
+
+// createAlarm();
+// setInterval(notification, 1000);
